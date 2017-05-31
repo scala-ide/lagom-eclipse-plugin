@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <prerequisites>
+    <maven>3.0</maven>
+  </prerequisites>
+
+  <parent>
+    <groupId>org.scala-ide</groupId>
+    <artifactId>plugin-profiles</artifactId>
+    <version>1.0.13</version>
+  </parent>
+
+  <groupId>org.scala-ide</groupId>
+  <artifactId>org.scala-ide.lagom.build</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Build project for the lagom support in Scala IDE</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>org.scala-ide.sdt.lagom</module>
+    <module>org.scala-ide.sdt.lagom.tests</module>
+    <module>org.scala-ide.sdt.lagom.feature</module>
+    <module>org.scala-ide.sdt.lagom.source.feature</module>
+    <module>org.scala-ide.sdt.lagom.update-site</module>
+  </modules>
+
+  <!-- scm configuration is require to extract the github hash-->
+  <scm>
+    <connection>scm:git://github.com/scala-ide/lagom-eclipse-plugin.git</connection>
+    <url>https://github.com/scala-ide/lagom-eclipse-plugin</url>
+  </scm>
+</project>

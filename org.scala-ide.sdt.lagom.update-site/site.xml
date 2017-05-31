@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.scala-ide.sdt.lagom.feature_0.0.0.jar" id="org.scala-ide.sdt.lagom.feature" version="0.0.0">
+      <category name="sdt.lagom"/>
+   </feature>
+   <feature url="features/org.scala-ide.sdt.lagom.source.feature_0.0.0.jar" id="org.scala-ide.sdt.lagom.source.feature" version="0.0.0">
+      <category name="sdt.lagom-source"/>
+   </feature>
+   <category-def name="sdt.lagom" label="Lagom for Scala IDE"/>
+   <category-def name="sdt.lagom-source" label="Lagom for Scala IDE Source"/>
+</site>
