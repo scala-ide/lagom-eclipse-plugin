@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ScalaTest Plugin
-Bundle-SymbolicName: org.scala-ide.sdt.scalatest;singleton:=true
-Bundle-Version: 2.10.0.qualifier
+Bundle-SymbolicName: org.scala-ide.sdt.lagom;singleton:=true
+Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: scala-ide.org
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
@@ -31,9 +31,8 @@ Import-Package:
  org.scalaide.core;apply-aspects:=false,
  scala.tools.eclipse.contribution.weaving.jdt.ui.javaeditor.formatter;apply-aspects:=false
 Export-Package: 
- scala.tools.eclipse.scalatest,
- scala.tools.eclipse.scalatest.launching, 
- scala.tools.eclipse.scalatest.ui
+ org.scalaide.lagom,
+ org.scalaide.lagom.launching,
+ org.scalaide.lagom.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: .,
- target/lib/scalatest-finders-0.9.6.jar
+Bundle-ClassPath: .
