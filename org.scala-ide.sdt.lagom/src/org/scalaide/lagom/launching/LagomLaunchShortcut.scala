@@ -25,16 +25,32 @@ import org.scalaide.core.internal.jdt.model.ScalaCompilationUnit
 import org.scalaide.core.internal.jdt.model.ScalaElement
 import org.scalaide.core.internal.jdt.model.ScalaSourceFile
 
-import LagomLaunchShortcut.launchLagom
-
 class LagomLaunchShortcut extends ILaunchShortcut {
+  import LagomLaunchShortcut._
 
-  def launch(selection: ISelection, mode: String) {
+  def launch(selection: ISelection, mode: String): Unit = {
     selection match {
       case treeSelection: ITreeSelection =>
         treeSelection.getFirstElement match {
+          case scSrcFile: ScalaSourceFile =>
+            scSrcFile.getChildren.collect {
+              case child => getLagomLoaderClass(child)
+            }.collectFirst {
+              case Some(classElement) =>
+                classElement
+            }.map {
+              launchLagom(_, mode)
+            }.orElse {
+              MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
+              None
+            }
           case classElement: ScalaClassElement =>
-            launchLagom(classElement, mode)
+            getLagomLoaderClass(classElement).map {
+              launchLagom(_, mode)
+            }.orElse {
+              MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
+              None
+            }
           case _ =>
             MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
         }

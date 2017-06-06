@@ -12,6 +12,7 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration
 import org.scalaide.core.internal.launching.ClasspathGetterForLaunchDelegate
 import org.scalaide.core.internal.launching.ProblemHandlersForLaunchDelegate
 import org.scalaide.debug.internal.launching.StandardVMScalaDebugger
+import org.scalaide.logging.HasLogger
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -20,9 +21,9 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
   }
 }
 
-class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) {
+class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
-    println(config.getClassToLaunch)
+    logger.error("############## " + config.getClassToLaunch)
   }
 }
 
