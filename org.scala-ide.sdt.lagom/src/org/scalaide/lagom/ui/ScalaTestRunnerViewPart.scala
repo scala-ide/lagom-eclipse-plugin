@@ -65,7 +65,7 @@ import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.debug.ui.DebugUITools
 import org.eclipse.debug.core.ILaunch
-import org.scalaide.lagom.launching.ScalaTestLaunchDelegate
+import org.scalaide.lagom.launching.LagomLaunchDelegate
 import org.eclipse.debug.internal.ui.DebugUIPlugin
 import org.eclipse.debug.ui.IDebugUIConstants
 import org.eclipse.ui.actions.ActionFactory
@@ -915,13 +915,13 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
     var session: ScalaTestRunSession = null
 
     override def run() {
-      val launch = session.fLaunch
-      val delegate = new ScalaTestLaunchDelegate()
-      val stArgs = delegate.getScalaTestArgsForFailedTests(session.rootNode)
-      val buildBeforeLaunch = DebugUIPlugin.getDefault().getPreferenceStore().getBoolean(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH)
-      if (buildBeforeLaunch)
-        ScalaTestPlugin.doBuild()
-      delegate.launchScalaTest(launch.getLaunchConfiguration, launch.getLaunchMode, launch, null, stArgs)
+//      val launch = session.fLaunch
+//      val delegate = new LagomLaunchDelegate()
+//      val stArgs = delegate.getScalaTestArgsForFailedTests(session.rootNode)
+//      val buildBeforeLaunch = DebugUIPlugin.getDefault().getPreferenceStore().getBoolean(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH)
+//      if (buildBeforeLaunch)
+//        ScalaTestPlugin.doBuild()
+//      delegate.launchScalaTest(launch.getLaunchConfiguration, launch.getLaunchMode, launch, null, stArgs)
     }
   }
 

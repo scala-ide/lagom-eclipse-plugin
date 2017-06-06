@@ -72,7 +72,7 @@ import org.eclipse.jface.action.IMenuManager
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.action.IMenuListener
 import org.eclipse.debug.ui.DebugUITools
-import org.scalaide.lagom.launching.ScalaTestLaunchDelegate
+import org.scalaide.lagom.launching.LagomLaunchDelegate
 import RerunHelper._
 import org.eclipse.debug.internal.ui.DebugUIPlugin
 import org.eclipse.debug.ui.IDebugUIConstants
@@ -711,7 +711,7 @@ private class GoToSourceAction(node: Node, fTestRunnerPart: ScalaTestRunnerViewP
 
 object RerunHelper {
 
-  def rerun(fTestRunnerPart: ScalaTestRunnerViewPart, delegate: ScalaTestLaunchDelegate, stArgs: String) {
+  def rerun(fTestRunnerPart: ScalaTestRunnerViewPart, delegate: LagomLaunchDelegate, stArgs: String) {
     val launch = fTestRunnerPart.getSession.fLaunch
     if (launch != null) {
       val launchConfig = launch.getLaunchConfiguration
@@ -735,18 +735,18 @@ object RerunHelper {
 private class RerunSuiteAction(actionName: String, fTestRunnerPart: ScalaTestRunnerViewPart, suiteClassName: String,
                                suiteId: String) extends Action(actionName) {
   override def run() {
-    val delegate = new ScalaTestLaunchDelegate()
-    val stArgs = delegate.getScalaTestArgsForSuite(suiteClassName, suiteId)
-    rerun(fTestRunnerPart, delegate, stArgs)
+//    val delegate = new LagomLaunchDelegate()
+//    val stArgs = delegate.getScalaTestArgsForSuite(suiteClassName, suiteId)
+//    rerun(fTestRunnerPart, delegate, stArgs)
   }
 }
 
 private class RerunTestAction(actionName: String, fTestRunnerPart: ScalaTestRunnerViewPart, suiteClassName: String,
                                suiteId: String, testName: String) extends Action(actionName) {
   override def run() {
-    val delegate = new ScalaTestLaunchDelegate()
-    val stArgs = delegate.getScalaTestArgsForTest(suiteClassName, suiteId, testName)
-    rerun(fTestRunnerPart, delegate, stArgs)
+//    val delegate = new LagomLaunchDelegate()
+//    val stArgs = delegate.getScalaTestArgsForTest(suiteClassName, suiteId, testName)
+//    rerun(fTestRunnerPart, delegate, stArgs)
   }
 }
 

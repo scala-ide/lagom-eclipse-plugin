@@ -1,39 +1,3 @@
-/*
- * SCALA LICENSE
- *
- * Copyright (C) 2011-2012 Artima, Inc. All rights reserved.
- *
- * This software was developed by Artima, Inc.
- *
- * Permission to use, copy, modify, and distribute this software in source
- * or binary form for any purpose with or without fee is hereby granted,
- * provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * 3. Neither the name of the EPFL nor the names of its contributors
- *    may be used to endorse or promote products derived from this
- *    software without specific prior written permission.
- *
- *
- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
 package org.scalaide.lagom.launching
 
 import org.eclipse.jdt.debug.ui.launchConfigurations.JavaMainTab
@@ -87,7 +51,6 @@ import org.eclipse.jdt.core.IPackageFragment
 import org.eclipse.ui.dialogs.ElementListSelectionDialog
 import org.eclipse.jface.viewers.LabelProvider
 import org.eclipse.core.resources.IProject
-import ScalaTestLaunchConstants._
 import org.eclipse.jface.viewers.TableViewer
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.TableColumn
@@ -287,7 +250,7 @@ class ScalaTestMainTab extends SharedJavaMainTab {
             val ssf = ScalaSourceFile.createFromPath(file.getFullPath.toString); 
             if ssf.isDefined;
             iType <- ssf.get.getAllTypes;
-            if ScalaTestLaunchShortcut.isScalaTestSuite(iType)) yield iType
+            if LagomLaunchShortcut.isLagomApplicationLoader(iType)) yield iType
         }
     
       val mmsd = new DebugTypeSelectionDialog(getShell(), types, LauncherMessages.JavaMainTab_Choose_Main_Type_11) 
@@ -307,7 +270,7 @@ class ScalaTestMainTab extends SharedJavaMainTab {
         projects.flatMap { proj =>
           for (file <- IScalaPlugin().getScalaProject(proj.getProject).allSourceFiles;
             val ssf = ScalaSourceFile.createFromPath(file.getFullPath.toString); 
-            if ssf.isDefined && ScalaTestLaunchShortcut.containsScalaTestSuite(ssf.get)) yield file.asInstanceOf[IResource]
+            if ssf.isDefined && LagomLaunchShortcut.containsLagomLoaderClass(ssf.get)) yield file.asInstanceOf[IResource]
         }
       
       val fileSelectionDialog = new ResourceListSelectionDialog(getShell, files)
@@ -330,7 +293,7 @@ class ScalaTestMainTab extends SharedJavaMainTab {
             val ssf = ScalaSourceFile.createFromPath(file.getFullPath.toString); 
             if ssf.isDefined;
             iType <- ssf.get.getAllTypes;
-            if ScalaTestLaunchShortcut.isScalaTestSuite(iType)) yield PackageOption(iType.getPackageFragment.getElementName, iType.getJavaProject)
+            if LagomLaunchShortcut.isLagomApplicationLoader(iType)) yield PackageOption(iType.getPackageFragment.getElementName, iType.getJavaProject)
         }.toSet    
       
       val packageSelectionDialog = new ElementListSelectionDialog(getShell, new LabelProvider() { override def getText(element: Any) = element.asInstanceOf[PackageOption].name })
@@ -356,35 +319,12 @@ class ScalaTestMainTab extends SharedJavaMainTab {
   
   override protected def updateMainTypeFromConfig(config: ILaunchConfiguration) {
     super.updateMainTypeFromConfig(config)
-    val launchType = config.getAttribute(SCALATEST_LAUNCH_TYPE_NAME, TYPE_SUITE)
-    launchType match {
-      case TYPE_SUITE => 
-        fSuiteRadioButton.setSelection(true)
-        fFileRadioButton.setSelection(false)
-        fPackageRadioButton.setSelection(false)
-      case TYPE_FILE => 
-        fSuiteRadioButton.setSelection(false)
-        fFileRadioButton.setSelection(true)
-        fPackageRadioButton.setSelection(false)
-      case TYPE_PACKAGE => 
-        fSuiteRadioButton.setSelection(false)
-        fFileRadioButton.setSelection(false)
-        fPackageRadioButton.setSelection(true)
-    }
-    val includeNestedStr = config.getAttribute(SCALATEST_LAUNCH_INCLUDE_NESTED_NAME, INCLUDE_NESTED_FALSE)
-    if (includeNestedStr == INCLUDE_NESTED_TRUE)
-      fIncludeNestedCheckBox.setSelection(true)
-    else
-      fIncludeNestedCheckBox.setSelection(false)
+    fSuiteRadioButton.setSelection(true)
+    fFileRadioButton.setSelection(false)
+    fPackageRadioButton.setSelection(false)
+    fIncludeNestedCheckBox.setSelection(false)
     
     fTestNamesTable.removeAll()
-    val rawTestSet = config.getAttributes.get(SCALATEST_LAUNCH_TESTS_NAME)
-    val testSet: java.util.HashSet[String] = if (rawTestSet != null) rawTestSet.asInstanceOf[java.util.HashSet[String]] else new java.util.HashSet[String]()
-    val testItr = testSet.iterator
-    while (testItr.hasNext) {
-      val item = new TableItem(fTestNamesTable, SWT.NONE)
-      item.setText(Array[String](testItr.next))
-    }
     
     updateUI()
   }
@@ -426,25 +366,9 @@ class ScalaTestMainTab extends SharedJavaMainTab {
   }
   
   def performApply(config: ILaunchConfigurationWorkingCopy) {
-    val launchType = 
-      if (fSuiteRadioButton.getSelection)
-        TYPE_SUITE
-      else if (fFileRadioButton.getSelection)
-        TYPE_FILE
-      else
-        TYPE_PACKAGE 
-    val includeNested = if (fIncludeNestedCheckBox.getSelection) INCLUDE_NESTED_TRUE else INCLUDE_NESTED_FALSE
-    
-    val testNameSet = new java.util.HashSet[String]()
-    val items = fTestNamesTable.getItems
-    items.foreach(i => testNameSet.add(i.getText(0)))
-    
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, fMainText.getText.trim) 
-    configMap.put(SCALATEST_LAUNCH_TYPE_NAME, launchType) 
-    configMap.put(SCALATEST_LAUNCH_INCLUDE_NESTED_NAME, includeNested) 
-    configMap.put(SCALATEST_LAUNCH_TESTS_NAME, testNameSet)
     
     config.setAttributes(configMap)
     mapResources(config)
@@ -457,8 +381,5 @@ class ScalaTestMainTab extends SharedJavaMainTab {
     else 
       config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     initializeMainTypeAndName(javaElement, config)
-    config.setAttribute(SCALATEST_LAUNCH_TYPE_NAME, TYPE_SUITE)
-    config.setAttribute(SCALATEST_LAUNCH_INCLUDE_NESTED_NAME, INCLUDE_NESTED_FALSE)
-    config.setAttribute(SCALATEST_LAUNCH_TESTS_NAME, new java.util.HashSet[String]())
   }
 }
