@@ -4,7 +4,7 @@ import scala.io.Source
 import java.net.{URL, URLClassLoader}
 import java.io.File
 
-object ScalaTestLauncher {
+object LagomLauncher {
 
   def main(args: Array[String]) {
     try {

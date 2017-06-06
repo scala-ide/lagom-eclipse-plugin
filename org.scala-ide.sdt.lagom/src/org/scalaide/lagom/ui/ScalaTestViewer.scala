@@ -719,7 +719,7 @@ object RerunHelper {
         val buildBeforeLaunch = DebugUIPlugin.getDefault().getPreferenceStore().getBoolean(IDebugUIConstants.PREF_BUILD_BEFORE_LAUNCH)
         if (buildBeforeLaunch)
           ScalaTestPlugin.doBuild()
-        delegate.launchScalaTest(launchConfig, launch.getLaunchMode, launch, null, stArgs)
+        delegate.launch(launchConfig, launch.getLaunchMode, launch, null)
       }
       else
         MessageDialog.openError(fTestRunnerPart.getSite.getShell, "Error",
