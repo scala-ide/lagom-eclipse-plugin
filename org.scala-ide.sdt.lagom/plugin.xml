@@ -53,7 +53,7 @@
     
     <shortcut
         class="org.scalaide.lagom.launching.LagomLaunchShortcut"
-        icon="icons/full/obj16/scu_obj.gif"
+        icon="icons/full/obj16/littlelagom.png"
         id="org.eclipse.shortcut.scalaide.lagom"
         label="%LagomLaunchShortcut.label"
         modes="run,debug">
