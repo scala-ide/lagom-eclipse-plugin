@@ -41,7 +41,7 @@ object LagomLauncher {
         classSymbol.typeSignature.members.collectFirst {
           case c if isDefaultConstructor(c) =>
             c.asMethod
-        }.map { constructor =>          
+        }.map { constructor =>
           val classToInstantiate = mirror.reflectClass(classSymbol)
           val toInvoke = classToInstantiate.reflectConstructor(constructor)
           val a = classSymbol.toType
@@ -66,6 +66,10 @@ object LagomLauncher {
               Try(CassandraLauncher.stop())
             }
           }
+          (1 to 100).foreach { _ => Thread.sleep(100) }
+              Try(Play.stop(lagomApplication.application))
+              Try(playServer.stop())
+              Try(CassandraLauncher.stop())
         }
       }
     } catch {

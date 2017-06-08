@@ -720,6 +720,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.softwaremill.macwire/macros_2.11/jars/macros_2.11-2.2.5.jar"/>
-	<classpathentry kind="lib" path="target/lib/lagomlauncher.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

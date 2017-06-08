@@ -39,5 +39,4 @@ Export-Package:
  org.scalaide.lagom.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: target/lib/play_2.11-2.5.10.jar,
- target/lib/lagomlauncher.jar,
  .

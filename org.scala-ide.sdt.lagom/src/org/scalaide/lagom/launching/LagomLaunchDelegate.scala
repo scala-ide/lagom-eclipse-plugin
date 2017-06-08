@@ -26,7 +26,7 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
   private def addLagomClass(lagomClass: String, programArgs: Array[String]): Array[String] =
-    programArgs ++ Array(s"${LagomLauncher.LagomClassSwitch}$lagomClass")
+    programArgs ++ Array(s"lagomclass$lagomClass")
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     val lagomLibPath = new Path("target/lib/lagomlauncher.jar")
