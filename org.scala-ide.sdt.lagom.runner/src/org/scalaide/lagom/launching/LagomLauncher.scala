@@ -15,6 +15,11 @@ import play.api.Play
 import play.core.DefaultWebCommands
 import play.core.server.ServerConfig
 import play.core.server.ServerProvider
+import java.time.format.DateTimeFormatter
+import java.nio.file.Files
+import org.apache.cassandra.io.util.FileUtils
+import com.lightbend.lagom.scaladsl.persistence.cassandra.testkit.TestUtil
+import java.time.LocalDateTime
 
 object LagomLauncher {
   val LagomLauncherClass = "org.scalaide.lagom.launching.LagomLauncher$"
@@ -47,12 +52,26 @@ object LagomLauncher {
           val a = classSymbol.toType
           toInvoke().asInstanceOf[LagomApplicationLoader]
         }.map { appLoader =>
-          val config = Configuration.empty
-          val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config))
-          appLoader.loadDevMode(context)
-        }.map { lagomApplication =>
+          val config = Configuration.from(Map("lagom.service-locator" -> Map("url" -> "http://127.0.0.1:3467")))
+          
+          val cassConfig = {
+            val now = DateTimeFormatter.ofPattern("yyMMddHHmmssSSS").format(LocalDateTime.now())
+            val testName = s"ServiceTest_$now"
+            val cassandraPort = CassandraLauncher.randomPort
+            val cassandraDirectory = Files.createTempDirectory(testName).toFile
+            FileUtils.deleteRecursiveOnExit(cassandraDirectory)
+            CassandraLauncher.start(cassandraDirectory, "lagom-test-embedded-cassandra.yaml", clean = false, port = 0)
+            Configuration(TestUtil.persistenceConfig(testName, cassandraPort, useServiceLocator = false)) ++
+              Configuration("lagom.cluster.join-self" -> "on")
+          }
+
+          val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config ++ cassConfig))
+          appLoader.logger.error("################ starting... ###############")
+          try {
+          val lagomApplication = appLoader.loadDevMode(context)
+          appLoader.logger.error("!!!!!!!!" + lagomApplication.serviceInfo.serviceName)
           Play.start(lagomApplication.application)
-          val serverConfig = ServerConfig(port = Some(0), mode = lagomApplication.environment.mode)
+          val serverConfig = ServerConfig(port = Some(9099), mode = lagomApplication.environment.mode)
           val playServer = ServerProvider.defaultServerProvider.createServer(serverConfig, lagomApplication.application)
           lagomApplication match {
             case requiresPort: RequiresLagomServicePort =>
@@ -66,10 +85,9 @@ object LagomLauncher {
               Try(CassandraLauncher.stop())
             }
           }
-          (1 to 100).foreach { _ => Thread.sleep(100) }
-              Try(Play.stop(lagomApplication.application))
-              Try(playServer.stop())
-              Try(CassandraLauncher.stop())
+          } catch {
+            case e: Error => appLoader.logger.error("!!!!!!!!!!!" + e)
+          }
         }
       }
     } catch {
