@@ -20,6 +20,7 @@ import java.nio.file.Files
 import org.apache.cassandra.io.util.FileUtils
 import com.lightbend.lagom.scaladsl.persistence.cassandra.testkit.TestUtil
 import java.time.LocalDateTime
+import com.lightbend.lagom.discovery.ServiceLocatorServer
 
 object LagomLauncher {
   val LagomLauncherClass = "org.scalaide.lagom.launching.LagomLauncher$"
@@ -53,7 +54,7 @@ object LagomLauncher {
           toInvoke().asInstanceOf[LagomApplicationLoader]
         }.map { appLoader =>
           val config = Configuration.from(Map("lagom.service-locator" -> Map("url" -> "http://127.0.0.1:3467")))
-          
+
           val cassConfig = {
             val now = DateTimeFormatter.ofPattern("yyMMddHHmmssSSS").format(LocalDateTime.now())
             val testName = s"ServiceTest_$now"
@@ -64,6 +65,10 @@ object LagomLauncher {
             Configuration(TestUtil.persistenceConfig(testName, cassandraPort, useServiceLocator = false)) ++
               Configuration("lagom.cluster.join-self" -> "on")
           }
+
+          import scala.collection.JavaConverters._
+          val serLoc = new ServiceLocatorServer()
+          serLoc.start(3467, 0, Map.empty.asJava)
 
           val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config ++ cassConfig))
           appLoader.logger.error("################ starting... ###############")
@@ -83,8 +88,10 @@ object LagomLauncher {
               Try(Play.stop(lagomApplication.application))
               Try(playServer.stop())
               Try(CassandraLauncher.stop())
+              Try(serLoc.close())
             }
           }
+          (1 to 10).foreach { _ => Thread.sleep(1000) }
           } catch {
             case e: Error => appLoader.logger.error("!!!!!!!!!!!" + e)
           }
