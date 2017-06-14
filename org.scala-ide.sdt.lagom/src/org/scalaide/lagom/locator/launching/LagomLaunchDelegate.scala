@@ -1,4 +1,4 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom.locator.launching
 
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch
@@ -16,6 +16,7 @@ import org.scalaide.logging.HasLogger
 import org.eclipse.core.runtime.Platform
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.FileLocator
+import scala.collection.Seq
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -35,12 +36,16 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       val libFile = FileLocator.toFileURL(libBundleLocation)
       libFile.getPath
     }
-    val paths = Seq("lagomlauncher.jar").map(findPath)
+    val paths = Seq("lagomlauncher.jar", "lagom-service-locator.jar", "lagom-javadsl-server.jar",
+        "lagom-javadsl-client.jar", "lagom-javadsl-api_2.11.jar",
+        "lagom-service-registry-client.jar", "pcollections.jar",
+        "lagom-javadsl-jackson.jar", "jackson-module-parameter-names.jar",
+        "jackson-datatype-pcollections.jar", "jackson-datatype-guava.jar").map(findPath)
     classpath ++ paths
   }
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val className = config.getClassToLaunch
-    val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.launching.LagomLauncher", addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)
+    val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.locator.LagomLauncher", addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
     lagomConfig.setProgramArguments(addLagomClass(config.getClassToLaunch, config.getProgramArguments))

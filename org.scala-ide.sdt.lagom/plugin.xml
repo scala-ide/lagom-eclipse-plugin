@@ -2,6 +2,7 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+  <!-- Lagom Microservice -->
   <extension point = "org.eclipse.debug.core.launchConfigurationTypes">
   
     <launchConfigurationType
@@ -63,6 +64,76 @@
             <count value="1" />
             <iterate>
               <test property="org.scalaide.lagom.microservice.launching.hasLagomLoader"/>
+            </iterate>
+          </with>
+        </enablement>
+      </contextualLaunch>
+    </shortcut>
+    
+  </extension>
+  
+  <!-- Lagom Service Locator -->
+  <extension point = "org.eclipse.debug.core.launchConfigurationTypes">
+  
+    <launchConfigurationType
+           id="scalaide.lagom.locator"
+           delegate="org.scalaide.lagom.locator.launching.LagomLaunchDelegate"
+           delegateDescription="The Lagom Launcher supports running and debugging Lagom Service Locator."
+           delegateName="Lagom Service Locator Launcher"
+           modes="run, debug"
+           name="Lagom Service Locator Launcher"
+           public="true"
+           sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+           sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
+    </launchConfigurationType>
+  
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+  
+    <launchConfigurationTypeImage
+           configTypeID="scalaide.lagom.locator"
+           icon="icons/full/etool16/littlelagom.png"
+           id="scalaide.lagom.locator.image">
+    </launchConfigurationTypeImage>
+  
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    
+    <launchConfigurationTabGroup
+        type="scala.scalatest"
+        class="scala.tools.eclipse.scalatest.launching.ScalaTestTabGroup"
+        id="scala.scalatest.tabGroup">
+    </launchConfigurationTabGroup>
+    
+  </extension>
+  
+  <extension point="org.eclipse.core.expressions.propertyTesters">
+    
+      <propertyTester
+           class="org.scalaide.lagom.locator.launching.LagomLaunchableTester"
+           id="org.scalaide.lagom.locator.launching.LagomLaunchableTester"
+           namespace="org.scalaide.lagom.locator.launching"
+           properties="hasLagomLoader"
+           type="org.eclipse.core.runtime.IAdaptable"/>  
+    
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchShortcuts">
+    
+    <shortcut
+        class="org.scalaide.lagom.locator.launching.LagomLaunchShortcut"
+        icon="icons/full/obj16/littlelagom.png"
+        id="org.eclipse.shortcut.scalaide.lagom.locator"
+        label="%LagomLocatorShortcut.label"
+        modes="run,debug">
+      <contextualLaunch>
+        <enablement>
+          <with variable="selection">
+            <count value="1" />
+            <iterate>
+              <test property="org.scalaide.lagom.locator.launching.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>

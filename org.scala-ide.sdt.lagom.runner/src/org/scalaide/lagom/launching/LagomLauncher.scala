@@ -24,7 +24,6 @@ import com.lightbend.lagom.discovery.ServiceLocatorServer
 import scala.concurrent.Future
 
 object LagomLauncher {
-  val LagomLauncherClass = "org.scalaide.lagom.microservice.launching.LagomLauncher$"
   val LagomClassSwitch = "lagomclass"
 
   def main(args: Array[String]): Unit = {
@@ -58,53 +57,41 @@ object LagomLauncher {
               ("akka" -> Map(
                 "remote" -> Map(
                   "netty.tcp" ->
-                    Map("port" -> 2554)
+                    Map("port" -> 2552)
                   )
                 )
               )))
 
-          try {
-          import scala.concurrent.ExecutionContext.Implicits._
-          Future {
-          import scala.collection.JavaConverters._
-          val serLoc = new ServiceLocatorServer()
-          serLoc.start(3467, 0, Map.empty.asJava)
-          }.map {_ =>
+          val cassConfig = {
+            val now = DateTimeFormatter.ofPattern("yyMMddHHmmssSSS").format(LocalDateTime.now())
+            val testName = s"ServiceTest_$now"
+            val cassandraPort = CassandraLauncher.randomPort
+            val cassandraDirectory = Files.createTempDirectory(testName).toFile
+            FileUtils.deleteRecursiveOnExit(cassandraDirectory)
+            CassandraLauncher.start(cassandraDirectory, "lagom-test-embedded-cassandra.yaml", clean = false, port = 0)
+            Configuration(TestUtil.persistenceConfig(testName, cassandraPort))
+          }
 
-//          val cassConfig = {
-//            val now = DateTimeFormatter.ofPattern("yyMMddHHmmssSSS").format(LocalDateTime.now())
-//            val testName = s"ServiceTest_$now"
-//            val cassandraPort = CassandraLauncher.randomPort
-//            val cassandraDirectory = Files.createTempDirectory(testName).toFile
-//            FileUtils.deleteRecursiveOnExit(cassandraDirectory)
-//            CassandraLauncher.start(cassandraDirectory, "lagom-test-embedded-cassandra.yaml", clean = false, port = 0)
-//            Configuration(TestUtil.persistenceConfig(testName, cassandraPort))
-//          }
-
-          val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config /*++ cassConfig*/))
+          val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config ++ cassConfig))
           appLoader.logger.info("################ starting... ###############")
           val lagomApplication = appLoader.loadDevMode(context)
           appLoader.logger.info("!!!!!!!!" + lagomApplication.serviceInfo.serviceName)
-          //Play.start(lagomApplication.application)
-          val serverConfig = ServerConfig(port = Some(9099), mode = lagomApplication.environment.mode, address = "localhost")
+          Play.start(lagomApplication.application)
+          val serverConfig = ServerConfig(port = Some(9000), mode = lagomApplication.environment.mode, address = "localhost")
           val playServer = ServerProvider.defaultServerProvider.createServer(serverConfig, lagomApplication.application)
+          lagomApplication match {
+            case requiresPort: RequiresLagomServicePort =>
+              requiresPort.provideLagomServicePort(playServer.httpPort.orElse(playServer.httpsPort).get)
+            case other => ()
           }
-//          lagomApplication match {
-//            case requiresPort: RequiresLagomServicePort =>
-//              requiresPort.provideLagomServicePort(playServer.httpPort.orElse(playServer.httpsPort).get)
-//            case other => ()
-//          }
-//          Runtime.getRuntime.addShutdownHook {
-//            new Thread { () =>
-//              Try(Play.stop(lagomApplication.application))
-//              Try(playServer.stop())
-//              Try(CassandraLauncher.stop())
-//              Try(serLoc.close())
-//            }
-//          }
-          (1 to 10).foreach { _ => Thread.sleep(1000) }
-          } catch {
-            case e: Error => appLoader.logger.error("!!!!!!!!!!!" + e)
+          (1 to 10000).foreach { _ => Thread.sleep(100) }
+          TestUtil.awaitPersistenceInit(lagomApplication.actorSystem)
+          Runtime.getRuntime.addShutdownHook {
+            new Thread { () =>
+              Try(Play.stop(lagomApplication.application))
+              Try(playServer.stop())
+              Try(CassandraLauncher.stop())
+            }
           }
         }
       }
