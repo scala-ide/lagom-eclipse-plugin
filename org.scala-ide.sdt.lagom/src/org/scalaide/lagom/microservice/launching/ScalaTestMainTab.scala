@@ -1,4 +1,4 @@
-package org.scalaide.lagom.launching
+package org.scalaide.lagom.microservice.launching
 
 import org.eclipse.jdt.debug.ui.launchConfigurations.JavaMainTab
 import org.eclipse.swt.widgets.Composite

@@ -34,7 +34,7 @@
  * SUCH DAMAGE.
  */
 
-package org.scalaide.lagom.ui
+package org.scalaide.lagom.microservice.ui
 
 import org.eclipse.ui.part.PageBook
 import org.eclipse.swt.widgets.Composite
@@ -72,7 +72,7 @@ import org.eclipse.jface.action.IMenuManager
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.action.IMenuListener
 import org.eclipse.debug.ui.DebugUITools
-import org.scalaide.lagom.launching.LagomLaunchDelegate
+import org.scalaide.lagom.microservice.launching.LagomLaunchDelegate
 import RerunHelper._
 import org.eclipse.debug.internal.ui.DebugUIPlugin
 import org.eclipse.debug.ui.IDebugUIConstants

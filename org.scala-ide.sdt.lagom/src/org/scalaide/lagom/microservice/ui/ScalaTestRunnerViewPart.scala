@@ -34,7 +34,7 @@
  * SUCH DAMAGE.
  */
 
-package org.scalaide.lagom.ui
+package org.scalaide.lagom.microservice.ui
 
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.jdt.internal.junit.ui.JUnitProgressBar
@@ -65,7 +65,7 @@ import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.debug.ui.DebugUITools
 import org.eclipse.debug.core.ILaunch
-import org.scalaide.lagom.launching.LagomLaunchDelegate
+import org.scalaide.lagom.microservice.launching.LagomLaunchDelegate
 import org.eclipse.debug.internal.ui.DebugUIPlugin
 import org.eclipse.debug.ui.IDebugUIConstants
 import org.eclipse.ui.actions.ActionFactory

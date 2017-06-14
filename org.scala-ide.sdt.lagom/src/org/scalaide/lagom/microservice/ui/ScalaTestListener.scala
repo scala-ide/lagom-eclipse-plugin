@@ -34,7 +34,7 @@
  * SUCH DAMAGE.
  */
 
-package org.scalaide.lagom.ui
+package org.scalaide.lagom.microservice.ui
 
 import java.net.ServerSocket
 import java.net.Socket

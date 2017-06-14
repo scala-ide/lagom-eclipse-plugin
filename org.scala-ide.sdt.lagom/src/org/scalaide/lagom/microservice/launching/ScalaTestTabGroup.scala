@@ -1,4 +1,4 @@
-package org.scalaide.lagom.launching
+package org.scalaide.lagom.microservice.launching
 
 import org.eclipse.debug.ui._
 import org.eclipse.debug.ui.sourcelookup._

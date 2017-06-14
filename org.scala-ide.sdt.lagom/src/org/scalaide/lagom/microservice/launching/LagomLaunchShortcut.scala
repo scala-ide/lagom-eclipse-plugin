@@ -1,4 +1,4 @@
-package org.scalaide.lagom.launching
+package org.scalaide.lagom.microservice.launching
 
 import scala.annotation.tailrec
 import scala.reflect.NameTransformer
@@ -142,7 +142,7 @@ object LagomLaunchShortcut {
   def getLaunchManager = DebugPlugin.getDefault.getLaunchManager
 
   def launchLagom(classElement: ScalaClassElement, mode: String) {
-    val configType = getLaunchManager.getLaunchConfigurationType("scalaide.lagom")
+    val configType = getLaunchManager.getLaunchConfigurationType("scalaide.lagom.microservice")
     val existingConfigs = getLaunchManager.getLaunchConfigurations(configType)
     val simpleName = NameTransformer.decode(classElement.labelName)
     val existingConfigOpt = existingConfigs.find(config => config.getName == simpleName)

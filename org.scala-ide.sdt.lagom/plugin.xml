@@ -5,12 +5,12 @@
   <extension point = "org.eclipse.debug.core.launchConfigurationTypes">
   
     <launchConfigurationType
-           id="scalaide.lagom"
-           delegate="org.scalaide.lagom.launching.LagomLaunchDelegate"
+           id="scalaide.lagom.microservice"
+           delegate="org.scalaide.lagom.microservice.launching.LagomLaunchDelegate"
            delegateDescription="The Lagom Launcher supports running and debugging Lagom microservices."
-           delegateName="Lagom Launcher"
+           delegateName="Lagom Microservice Launcher"
            modes="run, debug"
-           name="Lagom"
+           name="Lagom Microservice Launcher"
            public="true"
            sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
            sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
@@ -21,9 +21,9 @@
   <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
   
     <launchConfigurationTypeImage
-           configTypeID="scalaide.lagom"
+           configTypeID="scalaide.lagom.microservice"
            icon="icons/full/etool16/littlelagom.png"
-           id="scalaide.lagom.image">
+           id="scalaide.lagom.microservice.image">
     </launchConfigurationTypeImage>
   
   </extension>
@@ -41,9 +41,9 @@
   <extension point="org.eclipse.core.expressions.propertyTesters">
     
       <propertyTester
-           class="org.scalaide.lagom.launching.LagomLaunchableTester"
-           id="org.scalaide.lagom.launching.LagomLaunchableTester"
-           namespace="org.scalaide.lagom.launching"
+           class="org.scalaide.lagom.microservice.launching.LagomLaunchableTester"
+           id="org.scalaide.lagom.microservice.launching.LagomLaunchableTester"
+           namespace="org.scalaide.lagom.microservice.launching"
            properties="hasLagomLoader"
            type="org.eclipse.core.runtime.IAdaptable"/>  
     
@@ -52,9 +52,9 @@
   <extension point="org.eclipse.debug.ui.launchShortcuts">
     
     <shortcut
-        class="org.scalaide.lagom.launching.LagomLaunchShortcut"
+        class="org.scalaide.lagom.microservice.launching.LagomLaunchShortcut"
         icon="icons/full/obj16/littlelagom.png"
-        id="org.eclipse.shortcut.scalaide.lagom"
+        id="org.eclipse.shortcut.scalaide.lagom.microservice"
         label="%LagomLaunchShortcut.label"
         modes="run,debug">
       <contextualLaunch>
@@ -62,7 +62,7 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test property="org.scalaide.lagom.launching.hasLagomLoader"/>
+              <test property="org.scalaide.lagom.microservice.launching.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>

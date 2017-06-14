@@ -1,4 +1,4 @@
-package org.scalaide.lagom.launching
+package org.scalaide.lagom.microservice.launching
 
 import org.eclipse.core.expressions.PropertyTester
 import org.eclipse.core.runtime.IAdaptable

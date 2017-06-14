@@ -1,4 +1,4 @@
-package org.scalaide.lagom.ui
+package org.scalaide.lagom.microservice.ui
 
 sealed abstract class Formatter
 

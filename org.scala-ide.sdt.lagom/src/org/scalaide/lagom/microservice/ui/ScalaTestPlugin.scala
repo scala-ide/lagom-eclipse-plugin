@@ -34,7 +34,7 @@
  * SUCH DAMAGE.
  */
 
-package org.scalaide.lagom.ui
+package org.scalaide.lagom.microservice.ui
 
 import org.eclipse.swt.widgets.Display
 import org.eclipse.ui.plugin.AbstractUIPlugin

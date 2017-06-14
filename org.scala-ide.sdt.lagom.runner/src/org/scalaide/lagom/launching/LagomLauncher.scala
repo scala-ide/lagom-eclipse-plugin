@@ -24,7 +24,7 @@ import com.lightbend.lagom.discovery.ServiceLocatorServer
 import scala.concurrent.Future
 
 object LagomLauncher {
-  val LagomLauncherClass = "org.scalaide.lagom.launching.LagomLauncher$"
+  val LagomLauncherClass = "org.scalaide.lagom.microservice.launching.LagomLauncher$"
   val LagomClassSwitch = "lagomclass"
 
   def main(args: Array[String]): Unit = {

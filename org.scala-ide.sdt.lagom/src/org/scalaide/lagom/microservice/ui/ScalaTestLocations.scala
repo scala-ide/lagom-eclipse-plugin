@@ -34,7 +34,7 @@
  * SUCH DAMAGE.
  */
 
-package org.scalaide.lagom.ui
+package org.scalaide.lagom.microservice.ui
 
 /**
  * Location in source code about which an event concerns.
