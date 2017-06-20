@@ -21,7 +21,7 @@
   <modules>
     <module>org.scala-ide.sdt.lagom.runner</module>
     <module>org.scala-ide.sdt.lagom</module>
-    <module>org.scala-ide.sdt.lagom.tests</module>
+<!--    <module>org.scala-ide.sdt.lagom.tests</module>-->
     <module>org.scala-ide.sdt.lagom.feature</module>
     <module>org.scala-ide.sdt.lagom.source.feature</module>
     <module>org.scala-ide.sdt.lagom.update-site</module>

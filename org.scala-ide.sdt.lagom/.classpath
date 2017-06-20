@@ -60,11 +60,6 @@
 			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/ssl-config-core_2.11/docs/ssl-config-core_2.11-0.2.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="target/lib/play_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play_2.11/docs/play_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/build-link/jars/build-link-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/build-link/srcs/build-link-2.5.10-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/build-link/docs/build-link-2.5.10-javadoc.jar!/"/>

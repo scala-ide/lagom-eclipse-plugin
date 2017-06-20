@@ -31,16 +31,23 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
-      val libPath = new Path(s"target/lib/$lib")
+      val libPath = new Path(s"runner-libs/$lib")
       val libBundleLocation = FileLocator.find(lagomBundle, libPath, null)
       val libFile = FileLocator.toFileURL(libBundleLocation)
       libFile.getPath
     }
-    val paths = Seq("lagomlauncher.jar", "lagom-service-locator.jar", "lagom-javadsl-server.jar",
-        "lagom-javadsl-client.jar", "lagom-javadsl-api_2.11.jar",
-        "lagom-service-registry-client.jar", "pcollections.jar",
-        "lagom-javadsl-jackson.jar", "jackson-module-parameter-names.jar",
-        "jackson-datatype-pcollections.jar", "jackson-datatype-guava.jar").map(findPath)
+    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
+      "lagom-service-locator_2.11-1.3.4.jar",
+      "lagom-service-registry-client_2.11-1.3.4.jar",
+      "lagom-javadsl-server_2.11-1.3.4.jar",
+      "lagom-javadsl-client_2.11-1.3.4.jar",
+      "lagom-javadsl-api_2.11-1.3.4.jar",
+      "lagom-javadsl-jackson_2.11-1.3.4.jar",
+      "jackson-module-parameter-names-2.7.8.jar",
+      "jackson-datatype-guava-2.7.8.jar",
+      "jackson-datatype-pcollections-2.7.8.jar",
+      "pcollections-2.1.2.jar"
+    ).map(findPath)
     classpath ++ paths
   }
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {

@@ -1,723 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/el/javax.el-api/3.0.0/javax.el-api-3.0.0.jar"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-api_2.11/jars/lagom-scaladsl-api_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-api_2.11/srcs/lagom-scaladsl-api_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-api_2.11/docs/lagom-scaladsl-api_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-api_2.11/jars/lagom-api_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-api_2.11/srcs/lagom-api_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-api_2.11/docs/lagom-api_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/srcs/scala-parser-combinators_2.11-1.0.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/docs/scala-parser-combinators_2.11-1.0.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.5.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/srcs/scala-xml_2.11-1.0.5-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/docs/scala-xml_2.11-1.0.5-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/jars/akka-actor_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/srcs/akka-actor_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/docs/akka-actor_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/config/bundles/config-1.3.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/config/srcs/config-1.3.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/config/docs/config-1.3.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-java8-compat_2.11/bundles/scala-java8-compat_2.11-0.7.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-java8-compat_2.11/srcs/scala-java8-compat_2.11-0.7.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-lang.modules/scala-java8-compat_2.11/docs/scala-java8-compat_2.11-0.7.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.11/jars/akka-slf4j_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.11/srcs/akka-slf4j_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.11/docs/akka-slf4j_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/jars/akka-stream_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/docs/akka-stream_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.reactivestreams/reactive-streams/jars/reactive-streams-1.0.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.reactivestreams/reactive-streams/srcs/reactive-streams-1.0.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.reactivestreams/reactive-streams/docs/reactive-streams-1.0.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/ssl-config-core_2.11/bundles/ssl-config-core_2.11-0.2.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/ssl-config-core_2.11/srcs/ssl-config-core_2.11-0.2.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe/ssl-config-core_2.11/docs/ssl-config-core_2.11-0.2.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play_2.11/srcs/play_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play_2.11/docs/play_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/build-link/jars/build-link-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/build-link/srcs/build-link-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/build-link/docs/build-link-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-exceptions/jars/play-exceptions-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-exceptions/srcs/play-exceptions-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-exceptions/docs/play-exceptions-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-iteratees_2.11/jars/play-iteratees_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-iteratees_2.11/srcs/play-iteratees_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-iteratees_2.11/docs/play-iteratees_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-stm/scala-stm_2.11/jars/scala-stm_2.11-0.7.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-stm/scala-stm_2.11/srcs/scala-stm_2.11-0.7-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scala-stm/scala-stm_2.11/docs/scala-stm_2.11-0.7-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-json_2.11/jars/play-json_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-json_2.11/srcs/play-json_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-json_2.11/docs/play-json_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-functional_2.11/jars/play-functional_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-functional_2.11/srcs/play-functional_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-functional_2.11/docs/play-functional_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-datacommons_2.11/jars/play-datacommons_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-datacommons_2.11/srcs/play-datacommons_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-datacommons_2.11/docs/play-datacommons_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/joda-time/joda-time/jars/joda-time-2.9.6.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/joda-time/joda-time/srcs/joda-time-2.9.6-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/joda-time/joda-time/docs/joda-time-2.9.6-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.joda/joda-convert/jars/joda-convert-1.8.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.joda/joda-convert/srcs/joda-convert-1.8.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.joda/joda-convert/docs/joda-convert-1.8.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/bundles/jackson-core-2.7.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/srcs/jackson-core-2.7.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/docs/jackson-core-2.7.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/bundles/jackson-annotations-2.7.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/srcs/jackson-annotations-2.7.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/docs/jackson-annotations-2.7.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/bundles/jackson-databind-2.7.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/srcs/jackson-databind-2.7.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/docs/jackson-databind-2.7.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/bundles/jackson-datatype-jdk8-2.7.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/srcs/jackson-datatype-jdk8-2.7.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/docs/jackson-datatype-jdk8-2.7.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/bundles/jackson-datatype-jsr310-2.7.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/srcs/jackson-datatype-jsr310-2.7.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/docs/jackson-datatype-jsr310-2.7.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-netty-utils/jars/play-netty-utils-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-netty-utils/srcs/play-netty-utils-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-netty-utils/docs/play-netty-utils-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.21.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/slf4j-api/srcs/slf4j-api-1.7.21-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/slf4j-api/docs/slf4j-api-1.7.21-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/jul-to-slf4j/jars/jul-to-slf4j-1.7.21.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/jul-to-slf4j/srcs/jul-to-slf4j-1.7.21-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/jul-to-slf4j/docs/jul-to-slf4j-1.7.21-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/jcl-over-slf4j/jars/jcl-over-slf4j-1.7.21.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/jcl-over-slf4j/srcs/jcl-over-slf4j-1.7.21-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/jcl-over-slf4j/docs/jcl-over-slf4j-1.7.21-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-streams_2.11/jars/play-streams_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-streams_2.11/srcs/play-streams_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-streams_2.11/docs/play-streams_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/twirl-api_2.11/jars/twirl-api_2.11-1.1.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/twirl-api_2.11/srcs/twirl-api_2.11-1.1.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/twirl-api_2.11/docs/twirl-api_2.11-1.1.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.commons/commons-lang3/jars/commons-lang3-3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.commons/commons-lang3/srcs/commons-lang3-3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.commons/commons-lang3/docs/commons-lang3-3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-codec/commons-codec/srcs/commons-codec-1.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-codec/commons-codec/docs/commons-codec-1.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/xerces/xercesImpl/jars/xercesImpl-2.11.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/xerces/xercesImpl/srcs/xercesImpl-2.11.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/xerces/xercesImpl/docs/xercesImpl-2.11.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/xml-apis/xml-apis/jars/xml-apis-1.4.01.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/xml-apis/xml-apis/srcs/xml-apis-1.4.01-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/xml-apis/xml-apis/docs/xml-apis-1.4.01-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.transaction/jta/jars/jta-1.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.transaction/jta/srcs/jta-1.1-sources.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.inject/guice/jars/guice-4.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.inject/guice/srcs/guice-4.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.inject/guice/docs/guice-4.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.inject/javax.inject/jars/javax.inject-1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.inject/javax.inject/srcs/javax.inject-1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.inject/javax.inject/docs/javax.inject-1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/aopalliance/aopalliance/jars/aopalliance-1.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/aopalliance/aopalliance/srcs/aopalliance-1.0-sources.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.guava/guava/bundles/guava-19.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.guava/guava/srcs/guava-19.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.guava/guava/docs/guava-19.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.inject.extensions/guice-assistedinject/jars/guice-assistedinject-4.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.inject.extensions/guice-assistedinject/srcs/guice-assistedinject-4.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.google.inject.extensions/guice-assistedinject/docs/guice-assistedinject-4.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-logback_2.11/jars/lagom-logback_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-logback_2.11/srcs/lagom-logback_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-logback_2.11/docs/lagom-logback_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.1.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/ch.qos.logback/logback-core/srcs/logback-core-1.1.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/ch.qos.logback/logback-core/docs/logback-core-1.1.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.1.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/ch.qos.logback/logback-classic/srcs/logback-classic-1.1.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/ch.qos.logback/logback-classic/docs/logback-classic-1.1.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-server_2.11/jars/lagom-scaladsl-server_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-server_2.11/srcs/lagom-scaladsl-server_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-server_2.11/docs/lagom-scaladsl-server_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-server_2.11/jars/lagom-server_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-server_2.11/srcs/lagom-server_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-server_2.11/docs/lagom-server_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-client_2.11/jars/lagom-client_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-client_2.11/srcs/lagom-client_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-client_2.11/docs/lagom-client_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-spi_2.11/jars/lagom-spi_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-spi_2.11/srcs/lagom-spi_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-spi_2.11/docs/lagom-spi_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-ws_2.11/jars/play-ws_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-ws_2.11/srcs/play-ws_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-ws_2.11/docs/play-ws_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/async-http-client/jars/async-http-client-2.0.11.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/async-http-client/srcs/async-http-client-2.0.11-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/async-http-client/docs/async-http-client-2.0.11-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-codec-http/jars/netty-codec-http-4.0.41.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-codec-http/srcs/netty-codec-http-4.0.41.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-codec-http/docs/netty-codec-http-4.0.41.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-codec/jars/netty-codec-4.0.41.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-codec/srcs/netty-codec-4.0.41.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-codec/docs/netty-codec-4.0.41.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-transport/jars/netty-transport-4.0.41.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-transport/srcs/netty-transport-4.0.41.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-transport/docs/netty-transport-4.0.41.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-buffer/jars/netty-buffer-4.0.41.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-buffer/srcs/netty-buffer-4.0.41.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-buffer/docs/netty-buffer-4.0.41.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-common/jars/netty-common-4.0.41.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-common/srcs/netty-common-4.0.41.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-common/docs/netty-common-4.0.41.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-handler/jars/netty-handler-4.0.41.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-handler/srcs/netty-handler-4.0.41.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-handler/docs/netty-handler-4.0.41.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty-transport-native-epoll/jars/netty-transport-native-epoll-4.0.41.Final-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-resolver-dns/jars/netty-resolver-dns-2.0.11.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-resolver-dns/srcs/netty-resolver-dns-2.0.11-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-resolver-dns/docs/netty-resolver-dns-2.0.11-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-resolver/jars/netty-resolver-2.0.11.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-resolver/srcs/netty-resolver-2.0.11-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-resolver/docs/netty-resolver-2.0.11-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-codec-dns/jars/netty-codec-dns-2.0.11.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-codec-dns/srcs/netty-codec-dns-2.0.11-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.asynchttpclient/netty-codec-dns/docs/netty-codec-dns-2.0.11-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.netty/netty-reactive-streams/jars/netty-reactive-streams-1.0.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.netty/netty-reactive-streams/srcs/netty-reactive-streams-1.0.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.netty/netty-reactive-streams/docs/netty-reactive-streams-1.0.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.javassist/javassist/bundles/javassist-3.20.0-GA.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.javassist/javassist/srcs/javassist-3.20.0-GA-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.javassist/javassist/docs/javassist-3.20.0-GA-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/oauth.signpost/signpost-core/jars/signpost-core-1.2.1.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/oauth.signpost/signpost-core/srcs/signpost-core-1.2.1.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/oauth.signpost/signpost-core/docs/signpost-core-1.2.1.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/oauth.signpost/signpost-commonshttp4/jars/signpost-commonshttp4-1.2.1.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/oauth.signpost/signpost-commonshttp4/srcs/signpost-commonshttp4-1.2.1.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/oauth.signpost/signpost-commonshttp4/docs/signpost-commonshttp4-1.2.1.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.4.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.httpcomponents/httpcore/srcs/httpcore-4.4.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.httpcomponents/httpcore/docs/httpcore-4.4.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.5.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.httpcomponents/httpclient/srcs/httpclient-4.5.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.httpcomponents/httpclient/docs/httpclient-4.5.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-logging/commons-logging/srcs/commons-logging-1.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-logging/commons-logging/docs/commons-logging-1.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.dropwizard.metrics/metrics-core/bundles/metrics-core-3.1.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.dropwizard.metrics/metrics-core/srcs/metrics-core-3.1.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.dropwizard.metrics/metrics-core/docs/metrics-core-3.1.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-client_2.11/jars/lagom-scaladsl-client_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-client_2.11/srcs/lagom-scaladsl-client_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-client_2.11/docs/lagom-scaladsl-client_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-play-json_2.11/jars/lagom-scaladsl-play-json_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-play-json_2.11/srcs/lagom-scaladsl-play-json_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-play-json_2.11/docs/lagom-scaladsl-play-json_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-dev-mode_2.11/jars/lagom-scaladsl-dev-mode_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-dev-mode_2.11/srcs/lagom-scaladsl-dev-mode_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-dev-mode_2.11/docs/lagom-scaladsl-dev-mode_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-netty-server_2.11/jars/play-netty-server_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-netty-server_2.11/srcs/play-netty-server_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-netty-server_2.11/docs/play-netty-server_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-server_2.11/jars/play-server_2.11-2.5.10.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-server_2.11/srcs/play-server_2.11-2.5.10-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.play/play-server_2.11/docs/play-server_2.11-2.5.10-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.netty/netty-reactive-streams-http/jars/netty-reactive-streams-http-1.0.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.netty/netty-reactive-streams-http/srcs/netty-reactive-streams-http-1.0.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.netty/netty-reactive-streams-http/docs/netty-reactive-streams-http-1.0.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-persistence-cassandra_2.11/jars/lagom-scaladsl-persistence-cassandra_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-persistence-cassandra_2.11/srcs/lagom-scaladsl-persistence-cassandra_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-persistence-cassandra_2.11/docs/lagom-scaladsl-persistence-cassandra_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-persistence-core_2.11/jars/lagom-persistence-core_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-persistence-core_2.11/srcs/lagom-persistence-core_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-persistence-core_2.11/docs/lagom-persistence-core_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-cluster-core_2.11/jars/lagom-cluster-core_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-cluster-core_2.11/srcs/lagom-cluster-core_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-cluster-core_2.11/docs/lagom-cluster-core_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster_2.11/jars/akka-cluster_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster_2.11/srcs/akka-cluster_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster_2.11/docs/akka-cluster_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-remote_2.11/jars/akka-remote_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-remote_2.11/srcs/akka-remote_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-remote_2.11/docs/akka-remote_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-protobuf_2.11/jars/akka-protobuf_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-protobuf_2.11/srcs/akka-protobuf_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-protobuf_2.11/docs/akka-protobuf_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty/bundles/netty-3.10.6.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty/srcs/netty-3.10.6.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.netty/netty/docs/netty-3.10.6.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.uncommons.maths/uncommons-maths/jars/uncommons-maths-1.2.2a.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.uncommons.maths/uncommons-maths/srcs/uncommons-maths-1.2.2a-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.uncommons.maths/uncommons-maths/docs/uncommons-maths-1.2.2a-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.aeron/aeron-driver/jars/aeron-driver-1.1.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.aeron/aeron-driver/srcs/aeron-driver-1.1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.aeron/aeron-driver/docs/aeron-driver-1.1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.aeron/aeron-client/jars/aeron-client-1.1.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.aeron/aeron-client/srcs/aeron-client-1.1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.aeron/aeron-client/docs/aeron-client-1.1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.agrona/agrona/jars/agrona-0.9.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.agrona/agrona/srcs/agrona-0.9.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.agrona/agrona/docs/agrona-0.9.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence_2.11/jars/akka-persistence_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence_2.11/srcs/akka-persistence_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence_2.11/docs/akka-persistence_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence-query-experimental_2.11/jars/akka-persistence-query-experimental_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence-query-experimental_2.11/srcs/akka-persistence-query-experimental_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence-query-experimental_2.11/docs/akka-persistence-query-experimental_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-testkit_2.11/jars/akka-testkit_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-testkit_2.11/srcs/akka-testkit_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-testkit_2.11/docs/akka-testkit_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-stream-testkit_2.11/jars/akka-stream-testkit_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-stream-testkit_2.11/srcs/akka-stream-testkit_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-stream-testkit_2.11/docs/akka-stream-testkit_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster-sharding_2.11/jars/akka-cluster-sharding_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster-sharding_2.11/srcs/akka-cluster-sharding_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster-sharding_2.11/docs/akka-cluster-sharding_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster-tools_2.11/jars/akka-cluster-tools_2.11-2.4.17.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster-tools_2.11/srcs/akka-cluster-tools_2.11-2.4.17-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-cluster-tools_2.11/docs/akka-cluster-tools_2.11-2.4.17-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-persistence_2.11/jars/lagom-scaladsl-persistence_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-persistence_2.11/srcs/lagom-scaladsl-persistence_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-persistence_2.11/docs/lagom-scaladsl-persistence_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-cluster_2.11/jars/lagom-scaladsl-cluster_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-cluster_2.11/srcs/lagom-scaladsl-cluster_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-cluster_2.11/docs/lagom-scaladsl-cluster_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-persistence-cassandra-core_2.11/jars/lagom-persistence-cassandra-core_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-persistence-cassandra-core_2.11/srcs/lagom-persistence-cassandra-core_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-persistence-cassandra-core_2.11/docs/lagom-persistence-cassandra-core_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence-cassandra_2.11/bundles/akka-persistence-cassandra_2.11-0.26.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence-cassandra_2.11/srcs/akka-persistence-cassandra_2.11-0.26-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.typesafe.akka/akka-persistence-cassandra_2.11/docs/akka-persistence-cassandra_2.11-0.26-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.datastax.cassandra/cassandra-driver-core/bundles/cassandra-driver-core-3.1.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.datastax.cassandra/cassandra-driver-core/srcs/cassandra-driver-core-3.1.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.datastax.cassandra/cassandra-driver-core/docs/cassandra-driver-core-3.1.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-ffi/jars/jnr-ffi-2.0.7.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-ffi/srcs/jnr-ffi-2.0.7-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-ffi/docs/jnr-ffi-2.0.7-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jffi/jars/jffi-1.2.10.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jffi/jars/jffi-1.2.10-native.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm/jars/asm-5.0.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm/srcs/asm-5.0.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm/docs/asm-5.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-commons/jars/asm-commons-5.0.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-commons/srcs/asm-commons-5.0.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-commons/docs/asm-commons-5.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-tree/jars/asm-tree-5.0.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-tree/srcs/asm-tree-5.0.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-tree/docs/asm-tree-5.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-analysis/jars/asm-analysis-5.0.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-analysis/srcs/asm-analysis-5.0.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-analysis/docs/asm-analysis-5.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-util/jars/asm-util-5.0.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-util/srcs/asm-util-5.0.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.ow2.asm/asm-util/docs/asm-util-5.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-x86asm/jars/jnr-x86asm-1.0.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-x86asm/srcs/jnr-x86asm-1.0.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-x86asm/docs/jnr-x86asm-1.0.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-posix/jars/jnr-posix-3.0.27.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-posix/srcs/jnr-posix-3.0.27-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-posix/docs/jnr-posix-3.0.27-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-constants/jars/jnr-constants-0.9.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-constants/srcs/jnr-constants-0.9.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jnr/jnr-constants/docs/jnr-constants-0.9.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-testkit_2.11/jars/lagom-scaladsl-testkit_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-testkit_2.11/srcs/lagom-scaladsl-testkit_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-testkit_2.11/docs/lagom-scaladsl-testkit_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-core-testkit_2.11/jars/lagom-core-testkit_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-core-testkit_2.11/srcs/lagom-core-testkit_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-core-testkit_2.11/docs/lagom-core-testkit_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-broker_2.11/jars/lagom-scaladsl-broker_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-broker_2.11/srcs/lagom-scaladsl-broker_2.11-1.3.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-scaladsl-broker_2.11/docs/lagom-scaladsl-broker_2.11-1.3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.cassandra/cassandra-all/jars/cassandra-all-3.0.9.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.cassandra/cassandra-all/srcs/cassandra-all-3.0.9-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.cassandra/cassandra-all/docs/cassandra-all-3.0.9-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.xerial.snappy/snappy-java/bundles/snappy-java-1.1.2.6.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.xerial.snappy/snappy-java/srcs/snappy-java-1.1.2.6-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.xerial.snappy/snappy-java/docs/snappy-java-1.1.2.6-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/net.jpountz.lz4/lz4/jars/lz4-1.3.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/net.jpountz.lz4/lz4/srcs/lz4-1.3.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/net.jpountz.lz4/lz4/docs/lz4-1.3.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.ning/compress-lzf/bundles/compress-lzf-0.8.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.ning/compress-lzf/srcs/compress-lzf-0.8.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.ning/compress-lzf/docs/compress-lzf-0.8.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-cli/commons-cli/jars/commons-cli-1.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-cli/commons-cli/srcs/commons-cli-1.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/commons-cli/commons-cli/docs/commons-cli-1.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.commons/commons-math3/jars/commons-math3-3.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.commons/commons-math3/srcs/commons-math3-3.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.commons/commons-math3/docs/commons-math3-3.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/jars/concurrentlinkedhashmap-lru-1.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/srcs/concurrentlinkedhashmap-lru-1.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/docs/concurrentlinkedhashmap-lru-1.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/antlr/jars/antlr-3.5.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/antlr/srcs/antlr-3.5.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/antlr/docs/antlr-3.5.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/antlr-runtime/jars/antlr-runtime-3.5.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/antlr-runtime/srcs/antlr-runtime-3.5.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/antlr-runtime/docs/antlr-runtime-3.5.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/ST4/jars/ST4-4.0.8.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/ST4/srcs/ST4-4.0.8-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.antlr/ST4/docs/ST4-4.0.8-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/log4j-over-slf4j/jars/log4j-over-slf4j-1.7.21.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/log4j-over-slf4j/srcs/log4j-over-slf4j-1.7.21-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.slf4j/log4j-over-slf4j/docs/log4j-over-slf4j-1.7.21-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.9.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/srcs/jackson-core-asl-1.9.2-sources.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.9.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/srcs/jackson-mapper-asl-1.9.2-sources.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.googlecode.json-simple/json-simple/jars/json-simple-1.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.googlecode.json-simple/json-simple/srcs/json-simple-1.1-sources.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.boundary/high-scale-lib/jars/high-scale-lib-1.0.6.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.boundary/high-scale-lib/srcs/high-scale-lib-1.0.6-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.boundary/high-scale-lib/docs/high-scale-lib-1.0.6-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.yaml/snakeyaml/bundles/snakeyaml-1.16.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.yaml/snakeyaml/srcs/snakeyaml-1.16-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.yaml/snakeyaml/docs/snakeyaml-1.16-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.mindrot/jbcrypt/jars/jbcrypt-0.3m.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.mindrot/jbcrypt/srcs/jbcrypt-0.3m-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.mindrot/jbcrypt/docs/jbcrypt-0.3m-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.dropwizard.metrics/metrics-jvm/bundles/metrics-jvm-3.1.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.dropwizard.metrics/metrics-jvm/srcs/metrics-jvm-3.1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/io.dropwizard.metrics/metrics-jvm/docs/metrics-jvm-3.1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.addthis.metrics/reporter-config3/jars/reporter-config3-3.0.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.addthis.metrics/reporter-config3/srcs/reporter-config3-3.0.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.addthis.metrics/reporter-config3/docs/reporter-config3-3.0.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.addthis.metrics/reporter-config-base/jars/reporter-config-base-3.0.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.addthis.metrics/reporter-config-base/srcs/reporter-config-base-3.0.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.addthis.metrics/reporter-config-base/docs/reporter-config-base-3.0.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.hibernate/hibernate-validator/jars/hibernate-validator-5.2.4.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.hibernate/hibernate-validator/srcs/hibernate-validator-5.2.4.Final-sources.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.validation/validation-api/jars/validation-api-1.1.0.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.validation/validation-api/srcs/validation-api-1.1.0.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/javax.validation/validation-api/docs/validation-api-1.1.0.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.jboss.logging/jboss-logging/jars/jboss-logging-3.3.0.Final.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.jboss.logging/jboss-logging/srcs/jboss-logging-3.3.0.Final-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.jboss.logging/jboss-logging/docs/jboss-logging-3.3.0.Final-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml/classmate/bundles/classmate-1.3.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml/classmate/srcs/classmate-1.3.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.fasterxml/classmate/docs/classmate-1.3.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.thinkaurelius.thrift/thrift-server/jars/thrift-server-0.3.7.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.thinkaurelius.thrift/thrift-server/srcs/thrift-server-0.3.7-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.thinkaurelius.thrift/thrift-server/docs/thrift-server-0.3.7-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lmax/disruptor/jars/disruptor-3.3.6.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lmax/disruptor/srcs/disruptor-3.3.6-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lmax/disruptor/docs/disruptor-3.3.6-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.thrift/libthrift/jars/libthrift-0.9.2.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.thrift/libthrift/docs/libthrift-0.9.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/junit/junit/jars/junit-4.11.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/junit/junit/srcs/junit-4.11-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/junit/junit/docs/junit-4.11-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.hamcrest/hamcrest-core/srcs/hamcrest-core-1.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.hamcrest/hamcrest-core/docs/hamcrest-core-1.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.clearspring.analytics/stream/jars/stream-2.5.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.clearspring.analytics/stream/srcs/stream-2.5.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.clearspring.analytics/stream/docs/stream-2.5.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/it.unimi.dsi/fastutil/jars/fastutil-6.5.7.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/it.unimi.dsi/fastutil/srcs/fastutil-6.5.7-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/it.unimi.dsi/fastutil/docs/fastutil-6.5.7-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.cassandra/cassandra-thrift/jars/cassandra-thrift-3.0.9.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.cassandra/cassandra-thrift/srcs/cassandra-thrift-3.0.9-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.apache.cassandra/cassandra-thrift/docs/cassandra-thrift-3.0.9-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/net.java.dev.jna/jna/jars/jna-4.0.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/net.java.dev.jna/jna/srcs/jna-4.0.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/net.java.dev.jna/jna/docs/jna-4.0.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jbellis/jamm/jars/jamm-0.3.0.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jbellis/jamm/srcs/jamm-0.3.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.github.jbellis/jamm/docs/jamm-0.3.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.fusesource/sigar/jars/sigar-1.6.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.fusesource/sigar/srcs/sigar-1.6.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.fusesource/sigar/docs/sigar-1.6.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-4.4.2.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.eclipse.jdt.core.compiler/ecj/srcs/ecj-4.4.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.eclipse.jdt.core.compiler/ecj/docs/ecj-4.4.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.caffinitas.ohc/ohc-core/jars/ohc-core-0.4.3.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.caffinitas.ohc/ohc-core/srcs/ohc-core-0.4.3-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.caffinitas.ohc/ohc-core/docs/ohc-core-0.4.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scalatest/scalatest_2.11/bundles/scalatest_2.11-3.0.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scalatest/scalatest_2.11/docs/scalatest_2.11-3.0.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scalactic/scalactic_2.11/bundles/scalactic_2.11-3.0.1.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scalactic/scalactic_2.11/srcs/scalactic_2.11-3.0.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/org.scalactic/scalactic_2.11/docs/scalactic_2.11-3.0.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.softwaremill.macwire/macros_2.11/jars/macros_2.11-2.2.5.jar"/>
-	<classpathentry kind="lib" path="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-service-locator_2.11/jars/lagom-service-locator_2.11-1.3.4.jar" sourcepath="/media/wpopielarski/0bdab96b-2e8f-4cd1-82ac-212f16fd303a/.ivy2/cache/com.lightbend.lagom/lagom-service-locator_2.11/srcs/lagom-service-locator_2.11-1.3.4-sources.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-server_2.11/1.3.4/lagom-scaladsl-server_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8.jar" sourcepath="M2_REPO/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-server_2.11/1.3.4/lagom-server_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-client_2.11/1.3.4/lagom-client_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-api_2.11/1.3.4/lagom-api_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.4/scala-parser-combinators_2.11-1.0.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/scala-lang/modules/scala-xml_2.11/1.0.5/scala-xml_2.11-1.0.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-actor_2.11/2.4.12/akka-actor_2.11-2.4.12.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/config/1.3.0/config-1.3.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/scala-lang/modules/scala-java8-compat_2.11/0.7.0/scala-java8-compat_2.11-0.7.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-slf4j_2.11/2.4.12/akka-slf4j_2.11-2.4.12.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-stream_2.11/2.4.17/akka-stream_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/reactivestreams/reactive-streams/1.0.0/reactive-streams-1.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/ssl-config-core_2.11/0.2.1/ssl-config-core_2.11-0.2.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/build-link/2.5.10/build-link-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-exceptions/2.5.10/play-exceptions-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-iteratees_2.11/2.5.10/play-iteratees_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/scala-stm/scala-stm_2.11/0.7/scala-stm_2.11-0.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-json_2.11/2.5.10/play-json_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-functional_2.11/2.5.10/play-functional_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-datacommons_2.11/2.5.10/play-datacommons_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/joda-time/joda-time/2.9.6/joda-time-2.9.6.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/joda/joda-convert/1.8.1/joda-convert-1.8.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/scala-lang/scala-reflect/2.11.7/scala-reflect-2.11.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.7.8/jackson-core-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.7.8/jackson-annotations-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.7.8/jackson-databind-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.7.8/jackson-datatype-jdk8-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.7.8/jackson-datatype-jsr310-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-netty-utils/2.5.10/play-netty-utils-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/jul-to-slf4j/1.7.21/jul-to-slf4j-1.7.21.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/jcl-over-slf4j/1.7.21/jcl-over-slf4j-1.7.21.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-streams_2.11/2.5.10/play-streams_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/twirl-api_2.11/1.1.1/twirl-api_2.11-1.1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.10/commons-codec-1.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/inject/guice/4.0/guice-4.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/guava/guava/18.0/guava-18.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-spi_2.11/1.3.4/lagom-spi_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-ws_2.11/2.5.10/play-ws_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/asynchttpclient/async-http-client/2.0.11/async-http-client-2.0.11.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-codec-http/4.0.41.Final/netty-codec-http-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-codec/4.0.41.Final/netty-codec-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-transport/4.0.41.Final/netty-transport-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-buffer/4.0.41.Final/netty-buffer-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-common/4.0.41.Final/netty-common-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-handler/4.0.41.Final/netty-handler-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-transport-native-epoll/4.0.41.Final/netty-transport-native-epoll-4.0.41.Final-linux-x86_64.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/asynchttpclient/netty-resolver-dns/2.0.11/netty-resolver-dns-2.0.11.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/asynchttpclient/netty-resolver/2.0.11/netty-resolver-2.0.11.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/asynchttpclient/netty-codec-dns/2.0.11/netty-codec-dns-2.0.11.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/netty/netty-reactive-streams/1.0.8/netty-reactive-streams-1.0.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/oauth/signpost/signpost-core/1.2.1.2/signpost-core-1.2.1.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/oauth/signpost/signpost-commonshttp4/1.2.1.2/signpost-commonshttp4-1.2.1.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpcore/4.2.4/httpcore-4.2.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/dropwizard/metrics/metrics-core/3.1.0/metrics-core-3.1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-transport-native-epoll/4.0.41.Final/netty-transport-native-epoll-4.0.41.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-client_2.11/1.3.4/lagom-scaladsl-client_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-api_2.11/1.3.4/lagom-scaladsl-api_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-play-json_2.11/1.3.4/lagom-scaladsl-play-json_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-service-locator_2.11/1.3.4/lagom-service-locator_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-javadsl-server_2.11/1.3.4/lagom-javadsl-server_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-javadsl-client_2.11/1.3.4/lagom-javadsl-client_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-javadsl-api_2.11/1.3.4/lagom-javadsl-api_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-java_2.11/2.5.10/play-java_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-validator/4.3.0.Final/hibernate-validator-4.3.0.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/logging/jboss-logging/3.1.0.CR2/jboss-logging-3.1.0.CR2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/classmate/1.3.0/classmate-1.3.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/4.2.7.RELEASE/spring-context-4.2.7.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/4.2.7.RELEASE/spring-core-4.2.7.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/4.2.7.RELEASE/spring-beans-4.2.7.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/reflections/reflections/0.9.10/reflections-0.9.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/jodah/typetools/0.4.4/typetools-0.4.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/tomcat/tomcat-servlet-api/8.0.33/tomcat-servlet-api-8.0.33.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/pcollections/pcollections/2.1.2/pcollections-2.1.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-javadsl-jackson_2.11/1.3.4/lagom-javadsl-jackson_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/module/jackson-module-parameter-names/2.7.8/jackson-module-parameter-names-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/datatype/jackson-datatype-pcollections/2.7.8/jackson-datatype-pcollections-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/datatype/jackson-datatype-guava/2.7.8/jackson-datatype-guava-2.7.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-logback_2.11/1.3.4/lagom-logback_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-service-registry-client_2.11/1.3.4/lagom-service-registry-client_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-netty-server_2.11/2.5.10/play-netty-server_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/play/play-server_2.11/2.5.10/play-server_2.11-2.5.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/netty/netty-reactive-streams-http/1.0.8/netty-reactive-streams-http-1.0.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-persistence-cassandra_2.11/1.3.4/lagom-scaladsl-persistence-cassandra_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-persistence-core_2.11/1.3.4/lagom-persistence-core_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-cluster-core_2.11/1.3.4/lagom-cluster-core_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-cluster_2.11/2.4.17/akka-cluster_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-remote_2.11/2.4.17/akka-remote_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-protobuf_2.11/2.4.17/akka-protobuf_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/uncommons/maths/uncommons-maths/1.2.2a/uncommons-maths-1.2.2a.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/aeron/aeron-driver/1.1.0/aeron-driver-1.1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/aeron/aeron-client/1.1.0/aeron-client-1.1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/agrona/agrona/0.9.2/agrona-0.9.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-persistence_2.11/2.4.17/akka-persistence_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-persistence-query-experimental_2.11/2.4.17/akka-persistence-query-experimental_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-testkit_2.11/2.4.17/akka-testkit_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-stream-testkit_2.11/2.4.17/akka-stream-testkit_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-cluster-sharding_2.11/2.4.17/akka-cluster-sharding_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-cluster-tools_2.11/2.4.17/akka-cluster-tools_2.11-2.4.17.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-persistence_2.11/1.3.4/lagom-scaladsl-persistence_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-scaladsl-cluster_2.11/1.3.4/lagom-scaladsl-cluster_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lightbend/lagom/lagom-persistence-cassandra-core_2.11/1.3.4/lagom-persistence-cassandra-core_2.11-1.3.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/typesafe/akka/akka-persistence-cassandra_2.11/0.26/akka-persistence-cassandra_2.11-0.26.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/datastax/cassandra/cassandra-driver-core/3.1.4/cassandra-driver-core-3.1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/github/jnr/jnr-ffi/2.0.7/jnr-ffi-2.0.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/github/jnr/jffi/1.2.10/jffi-1.2.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/github/jnr/jffi/1.2.10/jffi-1.2.10-native.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-commons/5.0.3/asm-commons-5.0.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-tree/5.0.3/asm-tree-5.0.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-analysis/5.0.3/asm-analysis-5.0.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-util/5.0.3/asm-util-5.0.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/github/jnr/jnr-x86asm/1.0.2/jnr-x86asm-1.0.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/github/jnr/jnr-posix/3.0.27/jnr-posix-3.0.27.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/github/jnr/jnr-constants/0.9.0/jnr-constants-0.9.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cassandra/cassandra-all/3.0.9/cassandra-all-3.0.9.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/xerial/snappy/snappy-java/1.1.1.7/snappy-java-1.1.1.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/jpountz/lz4/lz4/1.3.0/lz4-1.3.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/ning/compress-lzf/0.8.4/compress-lzf-0.8.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-cli/commons-cli/1.1/commons-cli-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-math3/3.2/commons-math3-3.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/googlecode/concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4/concurrentlinkedhashmap-lru-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/antlr/antlr/3.5.2/antlr-3.5.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/antlr/ST4/4.0.8/ST4-4.0.8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/log4j-over-slf4j/1.7.7/log4j-over-slf4j-1.7.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/boundary/high-scale-lib/1.0.6/high-scale-lib-1.0.6.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/mindrot/jbcrypt/0.3m/jbcrypt-0.3m.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/dropwizard/metrics/metrics-jvm/3.1.0/metrics-jvm-3.1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/addthis/metrics/reporter-config3/3.0.0/reporter-config3-3.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/addthis/metrics/reporter-config-base/3.0.0/reporter-config-base-3.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/thinkaurelius/thrift/thrift-server/0.3.7/thrift-server-0.3.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lmax/disruptor/3.0.1/disruptor-3.0.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/thrift/libthrift/0.9.2/libthrift-0.9.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/4.10/junit-4.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/it/unimi/dsi/fastutil/6.5.7/fastutil-6.5.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cassandra/cassandra-thrift/3.0.9/cassandra-thrift-3.0.9.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/java/dev/jna/jna/4.0.0/jna-4.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/fusesource/sigar/1.6.4/sigar-1.6.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/eclipse/jdt/core/compiler/ecj/4.4.2/ecj-4.4.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/caffinitas/ohc/ohc-core/0.4.3/ohc-core-0.4.3.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>org.scala-ide.sdt.lagom.runner</name>
-	<comment></comment>
+	<comment>Inherit this pom file for developing Scala IDE pugins. It contains the right profiles and repositories for developing
+    plugins against Scala IDE stable, milestone and nightly versions. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

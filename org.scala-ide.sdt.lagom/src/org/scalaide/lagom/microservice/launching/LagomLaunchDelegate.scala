@@ -30,12 +30,12 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
-      val libPath = new Path(s"target/lib/$lib")
+      val libPath = new Path(s"runner-libs/$lib")
       val libBundleLocation = FileLocator.find(lagomBundle, libPath, null)
       val libFile = FileLocator.toFileURL(libBundleLocation)
       libFile.getPath
     }
-    val paths = Seq("lagomlauncher.jar").map(findPath)
+    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar").map(findPath)
     classpath ++ paths
   }
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {

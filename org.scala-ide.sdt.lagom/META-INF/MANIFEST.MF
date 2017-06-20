@@ -38,5 +38,4 @@ Export-Package:
  org.scalaide.lagom.microservice.launching,
  org.scalaide.lagom.microservice.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: target/lib/play_2.11-2.5.10.jar,
- .
+Bundle-ClassPath: .
