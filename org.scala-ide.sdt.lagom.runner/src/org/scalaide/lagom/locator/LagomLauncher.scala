@@ -28,7 +28,7 @@ object LagomLauncher {
     try {
       import scala.collection.JavaConverters._
       val serLoc = new ServiceLocatorServer()
-      serLoc.start(3467, 0, Map.empty.asJava)
+      serLoc.start(3467, 0, Map( "cas_native" -> "tcp://127.0.0.1:2345/cas_native").asJava)
       Runtime.getRuntime.addShutdownHook {
         new Thread { () =>
           Try(serLoc.close())

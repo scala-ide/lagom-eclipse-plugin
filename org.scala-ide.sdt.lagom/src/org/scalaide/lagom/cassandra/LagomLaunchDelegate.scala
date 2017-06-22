@@ -34,7 +34,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       val libFile = FileLocator.toFileURL(libBundleLocation)
       libFile.getPath
     }
-    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar"
+    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
+        "lagom-cassandra-server_2.11-1.3.4.jar"
     ).map(findPath)
     classpath ++ paths
   }

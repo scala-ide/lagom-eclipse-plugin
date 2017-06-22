@@ -57,40 +57,27 @@ object LagomLauncher {
               ("akka" -> Map(
                 "remote" -> Map(
                   "netty.tcp" ->
-                    Map("port" -> 2552)
+                    Map("port" -> 2553)
                   )
                 )
               )))
 
-          val cassConfig = {
-            val now = DateTimeFormatter.ofPattern("yyMMddHHmmssSSS").format(LocalDateTime.now())
-            val testName = s"ServiceTest_$now"
-            val cassandraPort = CassandraLauncher.randomPort
-            val cassandraDirectory = Files.createTempDirectory(testName).toFile
-            FileUtils.deleteRecursiveOnExit(cassandraDirectory)
-            CassandraLauncher.start(cassandraDirectory, "lagom-test-embedded-cassandra.yaml", clean = false, port = 0)
-            Configuration(TestUtil.persistenceConfig(testName, cassandraPort))
-          }
-
-          val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config ++ cassConfig))
+          val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config))
           appLoader.logger.info("################ starting... ###############")
           val lagomApplication = appLoader.loadDevMode(context)
           appLoader.logger.info("!!!!!!!!" + lagomApplication.serviceInfo.serviceName)
           Play.start(lagomApplication.application)
-          val serverConfig = ServerConfig(port = Some(9000), mode = lagomApplication.environment.mode, address = "localhost")
+          val serverConfig = ServerConfig(port = Some(9099), mode = lagomApplication.environment.mode, address = "localhost")
           val playServer = ServerProvider.defaultServerProvider.createServer(serverConfig, lagomApplication.application)
           lagomApplication match {
             case requiresPort: RequiresLagomServicePort =>
               requiresPort.provideLagomServicePort(playServer.httpPort.orElse(playServer.httpsPort).get)
             case other => ()
           }
-          (1 to 10000).foreach { _ => Thread.sleep(100) }
-          TestUtil.awaitPersistenceInit(lagomApplication.actorSystem)
           Runtime.getRuntime.addShutdownHook {
             new Thread { () =>
               Try(Play.stop(lagomApplication.application))
               Try(playServer.stop())
-              Try(CassandraLauncher.stop())
             }
           }
         }
