@@ -93,7 +93,7 @@
   
     <launchConfigurationTypeImage
            configTypeID="scalaide.lagom.locator"
-           icon="icons/full/etool16/littlelagom.png"
+           icon="icons/full/etool16/lagomlocator.png"
            id="scalaide.lagom.locator.image">
     </launchConfigurationTypeImage>
   
@@ -124,7 +124,7 @@
     
     <shortcut
         class="org.scalaide.lagom.locator.launching.LagomLaunchShortcut"
-        icon="icons/full/obj16/littlelagom.png"
+        icon="icons/full/obj16/lagomlocator.png"
         id="org.eclipse.shortcut.scalaide.lagom.locator"
         label="%LagomLocatorShortcut.label"
         modes="run,debug">
@@ -134,6 +134,76 @@
             <count value="1" />
             <iterate>
               <test property="org.scalaide.lagom.locator.launching.hasLagomLoader"/>
+            </iterate>
+          </with>
+        </enablement>
+      </contextualLaunch>
+    </shortcut>
+    
+  </extension>
+  
+  <!-- Lagom Cassandra Server -->
+  <extension point = "org.eclipse.debug.core.launchConfigurationTypes">
+  
+    <launchConfigurationType
+           id="scalaide.lagom.cassandra"
+           delegate="org.scalaide.lagom.cassandra.LagomLaunchDelegate"
+           delegateDescription="The Lagom Launcher supports running and debugging Lagom Cassandra Server."
+           delegateName="Lagom Cassandra Launcher"
+           modes="run, debug"
+           name="Lagom Cassandra Launcher"
+           public="true"
+           sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+           sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
+    </launchConfigurationType>
+  
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+  
+    <launchConfigurationTypeImage
+           configTypeID="scalaide.lagom.cassandra"
+           icon="icons/full/etool16/lagomcassandra.png"
+           id="scalaide.lagom.cassandra.image">
+    </launchConfigurationTypeImage>
+  
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    
+    <launchConfigurationTabGroup
+        type="scala.scalatest"
+        class="scala.tools.eclipse.scalatest.launching.ScalaTestTabGroup"
+        id="scala.scalatest.tabGroup">
+    </launchConfigurationTabGroup>
+    
+  </extension>
+  
+  <extension point="org.eclipse.core.expressions.propertyTesters">
+    
+      <propertyTester
+           class="org.scalaide.lagom.cassandra.LagomLaunchableTester"
+           id="org.scalaide.lagom.cassandra.LagomLaunchableTester"
+           namespace="org.scalaide.lagom.cassandra"
+           properties="hasLagomLoader"
+           type="org.eclipse.core.runtime.IAdaptable"/>  
+    
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchShortcuts">
+    
+    <shortcut
+        class="org.scalaide.lagom.cassandra.LagomLaunchShortcut"
+        icon="icons/full/obj16/lagomcassandra.png"
+        id="org.eclipse.shortcut.scalaide.lagom.cassandra"
+        label="%LagomCassandraShortcut.label"
+        modes="run,debug">
+      <contextualLaunch>
+        <enablement>
+          <with variable="selection">
+            <count value="1" />
+            <iterate>
+              <test property="org.scalaide.lagom.cassandra.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>

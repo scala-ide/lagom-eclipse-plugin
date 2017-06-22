@@ -8,9 +8,9 @@ import com.lightbend.lagom.internal.cassandra.CassandraLauncher
 
 object LagomLauncher extends App {
   val port :: _ = args.toList
-  val hostname = "127.0.0.1"
   private def waitForRunningCassandra(maxWaiting: FiniteDuration): Unit = {
     import scala.collection.JavaConverters._
+    val hostname = "127.0.0.1"
     val contactPoint = Seq(new java.net.InetSocketAddress(hostname, port.toInt)).asJava
     val clusterBuilder = Cluster.builder.addContactPointsWithPorts(contactPoint)
 
