@@ -22,6 +22,9 @@ import com.lightbend.lagom.scaladsl.persistence.cassandra.testkit.TestUtil
 import java.time.LocalDateTime
 import com.lightbend.lagom.discovery.ServiceLocatorServer
 import scala.concurrent.Future
+import akka.actor.ActorSystem
+import play.core.ApplicationProvider
+import akka.stream.ActorMaterializer
 
 object LagomLauncher {
   val LagomClassSwitch = "lagomclass"
@@ -57,23 +60,55 @@ object LagomLauncher {
               ("akka" -> Map(
                 "remote" -> Map(
                   "netty.tcp" ->
-                    Map("port" -> 2553)
+                    Map("port" -> 0)
+                  ),
+                "dev-mode" -> Map(
+                  "actor-system" -> Map(
+                    "name" -> "lagom-dev-mode"
+                  ),
+                "config" -> Map(
+                  "log-dead-letter" -> "off",
+                  "http.server.transparent-head-requests" -> false,
+                  "akka.actor.provider" -> "akka.actor.LocalActorRefProvider"
                   )
                 )
-              )))
+              ))))
+/*
+dev-mode {
+      actor-system {
+        name = "lagom-dev-mode"
+      }
 
+      # The dev mode actor system. Lagom typically uses the application actor system, however, in dev mode, an actor
+      # system is needed that outlives the application actor system, since the HTTP server will need to use this, and it
+      # lives through many application (and therefore actor system) restarts.
+      config {
+        # Turn off dead letters until Akka HTTP server is stable
+        log-dead-letters = off
+
+        # Disable Akka-HTTP's transparent HEAD handling. so that play's HEAD handling can take action
+        http.server.transparent-head-requests = false
+
+        akka.actor.provider = akka.actor.LocalActorRefProvider
+      }
+    }
+ */
           val context = LagomApplicationContext(Context(Environment.simple(mode = Mode.Dev), None, new DefaultWebCommands, config))
           appLoader.logger.info("################ starting... ###############")
           val lagomApplication = appLoader.loadDevMode(context)
           appLoader.logger.info("!!!!!!!!" + lagomApplication.serviceInfo.serviceName)
-          Play.start(lagomApplication.application)
           val serverConfig = ServerConfig(port = Some(9099), mode = lagomApplication.environment.mode, address = "localhost")
-          val playServer = ServerProvider.defaultServerProvider.createServer(serverConfig, lagomApplication.application)
+          val devModeAkkaConfig = lagomApplication.configuration.underlying.getConfig("akka.dev-mode.config")
+          val actorSystemName = lagomApplication.configuration.underlying.getString("akka.dev-mode.actor-system.name")
+          val actorSystem = ActorSystem(actorSystemName, devModeAkkaConfig)
+          val playServer = ServerProvider.defaultServerProvider.createServer(ServerProvider.Context(serverConfig, ApplicationProvider(lagomApplication.application),
+              actorSystem, lagomApplication.materializer, () => Future.successful(())))
           lagomApplication match {
             case requiresPort: RequiresLagomServicePort =>
               requiresPort.provideLagomServicePort(playServer.httpPort.orElse(playServer.httpsPort).get)
             case other => ()
           }
+          Play.start(lagomApplication.application)
           Runtime.getRuntime.addShutdownHook {
             new Thread { () =>
               Try(Play.stop(lagomApplication.application))

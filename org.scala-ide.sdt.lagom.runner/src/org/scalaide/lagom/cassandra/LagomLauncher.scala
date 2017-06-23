@@ -41,9 +41,12 @@ object LagomLauncher extends App {
     }
     tryConnect(maxWaiting.fromNow)
   }
-  CassandraLauncher.main(args)
-  new Thread { _ =>
+  new Thread { override def run = {
     import scala.concurrent.duration._
-    waitForRunningCassandra(10 seconds)
-  }.start
+    waitForRunningCassandra(200 seconds)
+  }
+  }.start()
+  println("!!!! CASSANDRA !!!!!")
+  CassandraLauncher.main(args)
+  println("OUT")
 }
