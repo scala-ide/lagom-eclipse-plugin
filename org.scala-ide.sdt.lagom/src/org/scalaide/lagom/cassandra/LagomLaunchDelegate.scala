@@ -41,7 +41,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
   }
   private def cassandraJVMOptions = Array("-Xms256m", "-Xmx1024m", "-Dcassandra.jmx.local.port=4099",
     "-DCassandraLauncher.configResource=dev-embedded-cassandra.yaml")
-  private def cassandraProgramArgs = Array("2345")
+  private def cassandraProgramArgs = Array("4000")
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val className = config.getClassToLaunch
     val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.cassandra.LagomLauncher", addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)

@@ -76,6 +76,21 @@
 			<artifactId>lagom-cassandra-server_2.11</artifactId>
 			<version>1.3.4</version>
 		</dependency>
+		<dependency>
+			<groupId>com.lightbend.lagom</groupId>
+			<artifactId>lagom-build-tool-support</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lightbend.lagom</groupId>
+			<artifactId>build-link</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lightbend.lagom</groupId>
+			<artifactId>lagom-reloadable-server_2.11</artifactId>
+			<version>1.3.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -141,6 +156,18 @@
 								<artifactItem>
 									<groupId>com.lightbend.lagom</groupId>
 									<artifactId>lagom-cassandra-server_2.11</artifactId>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.lightbend.lagom</groupId>
+									<artifactId>lagom-build-tool-support</artifactId>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.lightbend.lagom</groupId>
+									<artifactId>build-link</artifactId>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.lightbend.lagom</groupId>
+									<artifactId>lagom-reloadable-server_2.11</artifactId>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
