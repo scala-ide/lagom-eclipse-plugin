@@ -27,7 +27,7 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
   private def addLagomClass(lagomClass: String, programArgs: Array[String]): Array[String] =
     programArgs ++ Array(s"lagomclass$lagomClass")
-  private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
+  private def addRunnerAndDependenciesToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
       val libPath = new Path(s"runner-libs/$lib")
@@ -38,15 +38,17 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
         "lagom-build-tool-support-1.3.5.jar",
         "build-link-1.3.5.jar",
-        "lagom-reloadable-server_2.11-1.3.5.jar").map(findPath)
+        "lagom-reloadable-server_2.11-1.3.5.jar",
+        "play-file-watch_2.11-1.0.1.jar",
+        "better-files_2.11-2.17.1.jar").map(findPath)
     classpath ++ paths
   }
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val className = config.getClassToLaunch
-    val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.launching.LagomLauncher", addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)
+    val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.launching.LagomLauncher", addRunnerAndDependenciesToClasspath(config.getClassPath) ++ config.getBootClassPath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
-    lagomConfig.setProgramArguments(addLagomClass(config.getClassToLaunch, config.getProgramArguments))
+    lagomConfig.setProgramArguments(addLagomClass(config.getClassToLaunch, config.getProgramArguments) ++ Array(s"workdir${config.getWorkingDirectory}"))
     lagomConfig.setResumeOnStartup(config.isResumeOnStartup)
     lagomConfig.setVMArguments(config.getVMArguments)
     lagomConfig.setVMSpecificAttributesMap(config.getVMSpecificAttributesMap)

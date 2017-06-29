@@ -9,9 +9,7 @@ class ScalaTestTabGroup extends AbstractLaunchConfigurationTabGroup {
     setTabs(Array[ILaunchConfigurationTab](
       new ScalaTestMainTab(),
       new JavaArgumentsTab(),
-      new JavaJRETab(),
       new JavaClasspathTab(),
-      new SourceLookupTab(),
       new EnvironmentTab(),
       new CommonTab()
     ))
