@@ -54,8 +54,10 @@ object LagomLauncher {
   def main(args: Array[String]): Unit = {
     val workDir = args.find(_.startsWith("workdir")).map(_.substring("workdir".length))
     println(workDir.getOrElse("."))
+    val servicePath = args.find(_.startsWith("servicepath")).map(_.substring("servicepath".length)).get
+    println(servicePath)
     try {
-      val reloadLock = LagomLauncher.getClass
+      val reloadLock = LagomLauncher
       val devSettings =
         LagomConfig.actorSystemConfig("testMe-one") ++
           Option("http://127.0.0.1:8000").map(LagomConfig.ServiceLocatorUrl -> _).toMap ++
@@ -64,26 +66,25 @@ object LagomLauncher {
           }
       val watchService = FileWatchService.defaultWatchService(
         new File(workDir.getOrElse("."), "bin"),
-        15000, SbtLoggerProxy)
+        5000, SbtLoggerProxy)
+      val serviceClassPath = servicePath.split(":").map(new File(_)).toSeq
       val service = Reloader.startDevMode(
         getClass.getClassLoader,
         Nil,
-        () => CompileSuccess(Map.empty, Seq(new File(workDir.getOrElse("."), "bin"))),
+        () => { println("in reload compile"); Thread.sleep(5000); CompileSuccess(Map.empty, serviceClassPath) },//TODO
         identity,
         Seq(new File(workDir.getOrElse("."), "src/main/scala")),
         watchService,
         new File(workDir.getOrElse(".")),
         devSettings.toSeq,
         9099,
-        reloadLock) /*.startNoReload(getClass.getClassLoader,
-        Nil,
-        new File("."),
-        devSettings.toSeq,
-        9099)*/
+        reloadLock)
 
       // Eagerly reload to start
       service.reload()
-      service.addChangeListener(() => service.reload())
+      service.addChangeListener { () =>
+        println("in changed")
+        service.reload() }
 
     } catch {
       case e: Throwable => e.printStackTrace()
