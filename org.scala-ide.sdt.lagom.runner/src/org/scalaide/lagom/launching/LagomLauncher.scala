@@ -66,12 +66,12 @@ object LagomLauncher {
           }
       val watchService = FileWatchService.defaultWatchService(
         new File(workDir.getOrElse("."), "bin"),
-        5000, SbtLoggerProxy)
+        200, SbtLoggerProxy)
       val serviceClassPath = servicePath.split(":").map(new File(_)).toSeq
       val service = Reloader.startDevMode(
         getClass.getClassLoader,
         Nil,
-        () => { println("in reload compile"); Thread.sleep(5000); CompileSuccess(Map.empty, serviceClassPath) },//TODO
+        () => { println("in reload compile"); CompileSuccess(Map.empty, serviceClassPath) },
         identity,
         Seq(new File(workDir.getOrElse("."), "src/main/scala")),
         watchService,

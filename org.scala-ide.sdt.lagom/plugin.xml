@@ -32,9 +32,9 @@
   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
     
     <launchConfigurationTabGroup
-        type="scala.scalatest"
-        class="scala.tools.eclipse.scalatest.launching.ScalaTestTabGroup"
-        id="scala.scalatest.tabGroup">
+        type="scalaide.lagom.microservice"
+        class="org.scalaide.lagom.microservice.launching.LagomServerTabGroup"
+        id="scalaide.lagom.microservice.tabGroup">
     </launchConfigurationTabGroup>
     
   </extension>
