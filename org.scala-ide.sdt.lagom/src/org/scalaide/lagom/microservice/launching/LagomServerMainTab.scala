@@ -119,10 +119,10 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   import LagomServerConfiguration._
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
-    fLagomPortText.setText(configuration.getAttribute(LagomServerPort, 9099.toString))
-    fLocatorPortText.setText(configuration.getAttribute(LagomLocatorPort, 8000.toString))
-    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, 4000.toString))
-    fWatchTimeoutText.setText(configuration.getAttribute(LagomWatchTimeout, 200.toString))
+    fLagomPortText.setText(configuration.getAttribute(LagomServerPort, LagomServerPortDefault))
+    fLocatorPortText.setText(configuration.getAttribute(LagomLocatorPort, LagomLocatorPortDefault))
+    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraPortDefault))
+    fWatchTimeoutText.setText(configuration.getAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault))
   }
 
   def performApply(config: ILaunchConfigurationWorkingCopy) {
@@ -142,5 +142,9 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       initializeJavaProject(javaElement, config)
     else
       config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
+    config.setAttribute(LagomServerPort, LagomServerPortDefault)
+    config.setAttribute(LagomLocatorPort, LagomLocatorPortDefault)
+    config.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+    config.setAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
   }
 }
