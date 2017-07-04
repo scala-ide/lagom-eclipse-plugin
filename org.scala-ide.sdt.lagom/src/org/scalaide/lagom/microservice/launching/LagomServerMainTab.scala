@@ -1,66 +1,24 @@
 package org.scalaide.lagom.microservice.launching
 
-import org.eclipse.jdt.debug.ui.launchConfigurations.JavaMainTab
-import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Group
+import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.debug.core.ILaunchConfiguration
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
 import org.eclipse.debug.internal.ui.SWTFactory
+import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab
+import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
+import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
+import org.eclipse.pde.internal.ui.IHelpContextIds
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
-import org.eclipse.ui.PlatformUI
-import org.eclipse.jdt.internal.debug.ui.IJavaDebugHelpContextIds
+import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
-import org.eclipse.swt.widgets.Button
+import org.eclipse.ui.PlatformUI
+import org.scalaide.lagom.LagomImages
+
+import com.ibm.icu.text.MessageFormat
 import org.eclipse.swt.events.ModifyListener
 import org.eclipse.swt.events.ModifyEvent
-import org.eclipse.jdt.internal.debug.ui.actions.ControlAccessibleListener
-import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
-import org.eclipse.swt.events.SelectionListener
-import org.eclipse.swt.events.SelectionEvent
-import org.eclipse.jdt.internal.debug.ui.launcher.SharedJavaMainTab
-import org.eclipse.swt.graphics.Image
-import org.eclipse.jdt.ui.JavaUI
-import org.eclipse.jdt.ui.ISharedImages
-import org.eclipse.jdt.core.IJavaProject
-import org.eclipse.jdt.core.IJavaElement
-import org.eclipse.jdt.core.JavaCore
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.jdt.core.JavaModelException
-import org.eclipse.jdt.internal.debug.ui.JDIDebugUIPlugin
-import org.eclipse.jdt.core.search.IJavaSearchScope
-import org.eclipse.jdt.core.search.SearchEngine
-import org.eclipse.jdt.internal.debug.ui.launcher.MainMethodSearchEngine
-import org.eclipse.jdt.core.IType
-import java.lang.reflect.InvocationTargetException
-import org.eclipse.jdt.internal.debug.ui.launcher.DebugTypeSelectionDialog
-import org.eclipse.jface.window.Window
-import org.eclipse.debug.core.ILaunchConfiguration
-import org.eclipse.core.resources.IWorkspace
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.core.resources.IResource
-import com.ibm.icu.text.MessageFormat
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
-import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
-import org.eclipse.core.runtime.CoreException
-import org.scalaide.core.IScalaPlugin
-import org.eclipse.core.runtime.IAdaptable
-import org.scalaide.core.internal.jdt.model.ScalaSourceFile
-import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog
-import org.eclipse.ui.dialogs.ResourceListSelectionDialog
-import org.eclipse.core.resources.IFile
-import org.eclipse.jdt.core.IPackageFragment
-import org.eclipse.ui.dialogs.ElementListSelectionDialog
-import org.eclipse.jface.viewers.LabelProvider
-import org.eclipse.core.resources.IProject
-import org.eclipse.jface.viewers.TableViewer
-import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.TableColumn
-import org.eclipse.swt.widgets.Table
-import org.eclipse.jface.viewers.TableViewerColumn
-import org.eclipse.swt.widgets.TableItem
-import org.eclipse.swt.custom.TableEditor
-import org.eclipse.swt.events.SelectionAdapter
-import org.scalaide.core.IScalaProject
-import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab
 
 class LagomServerMainTab extends AbstractJavaMainTab {
   // project location
@@ -70,17 +28,10 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   // service locator port: 8000
   // cassandra port: 4000
   // watch service timeout: 200
-  // UI widgets
-  private var mainGroup: Group = null
-  private var fSearchButton: Button = null
-  private var fSuiteRadioButton: Button = null
-  private var fFileRadioButton: Button = null
-  private var fPackageRadioButton: Button = null
-  private var fIncludeNestedCheckBox: Button = null
-
-  private var testNamesGroup: Group = null
-  private var fTestNamesTable: Table = null
-  private var fTestNamesEditor: TableEditor = null
+  private var fLagomPortText: Text = null
+  private var fLocatorPortText: Text = null
+  private var fCassandraPortText: Text = null
+  private var fWatchTimeoutText: Text = null
 
   override def getId: String = "scalaide.lagom.microservice.tabGroup"
   override def getName: String = "Lagom Service"
@@ -92,32 +43,58 @@ class LagomServerMainTab extends AbstractJavaMainTab {
     createVerticalSpacer(comp, 1)
     createMainTypeEditor(comp, "Main Lagom Service Parameters")
     setControl(comp)
-    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IJavaDebugHelpContextIds.LAUNCH_CONFIGURATION_DIALOG_MAIN_TAB)
+    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IHelpContextIds.LAUNCHER_CONFIGURATION)
   }
 
   private def createMainTypeEditor(parent: Composite, text: String) {
     val mainParamsGroup = SWTFactory.createGroup(parent, text, 2, 1, GridData.FILL_BOTH)
     createLines(mainParamsGroup)
+    mainParamsGroup.pack()
   }
 
   protected def createLines(parent: Composite) {
-    val text =""
-    SWTFactory.createLabel(parent, "Lagom Server Port", 0)
-    SWTFactory.createSingleText(parent, 0)
-    SWTFactory.createLabel(parent, "Lagom Service Locator Port", 0)
-    SWTFactory.createSingleText(parent, 0)
-    SWTFactory.createLabel(parent, "Cassandra Port", 0)
-    SWTFactory.createSingleText(parent, 0)
-    SWTFactory.createLabel(parent, "Watch Service Timeout", 0)
-    SWTFactory.createSingleText(parent, 0)
+    SWTFactory.createLabel(parent, "Lagom Server Port", 1)
+    fLagomPortText = SWTFactory.createSingleText(parent, 1)
+    fLagomPortText.addModifyListener(new ModifyListener() {
+      override def modifyText(me: ModifyEvent): Unit = {
+        scheduleUpdateJob()
+      }
+    })
+    SWTFactory.createLabel(parent, "Lagom Service Locator Port", 1)
+    fLocatorPortText = SWTFactory.createSingleText(parent, 1)
+    fLocatorPortText.addModifyListener(new ModifyListener() {
+      override def modifyText(me: ModifyEvent): Unit = {
+        scheduleUpdateJob()
+      }
+    })
+    SWTFactory.createLabel(parent, "Cassandra Port", 1)
+    fCassandraPortText = SWTFactory.createSingleText(parent, 1)
+    fCassandraPortText.addModifyListener(new ModifyListener() {
+      override def modifyText(me: ModifyEvent): Unit = {
+        print(me.data)
+        scheduleUpdateJob()
+      }
+    })
+    SWTFactory.createLabel(parent, "Watch Service Timeout [ms]", 1)
+    fWatchTimeoutText = SWTFactory.createSingleText(parent, 1)
+    fWatchTimeoutText.addModifyListener(new ModifyListener() {
+      override def modifyText(me: ModifyEvent): Unit = {
+        scheduleUpdateJob()
+      }
+    })
   }
 
-  override def getImage = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_CLASS);
+  private val image = Option(LagomImages.LAGOM_LAGOM_SERVER.createImage)
+  override def getImage = image.getOrElse(null)
+
+  override def dispose = {
+    image.foreach(_.dispose())
+  }
 
   override def isValid(config: ILaunchConfiguration): Boolean = {
     setErrorMessage(null)
     setMessage(null)
-    var name = fProjText.getText().trim()
+    var name = fProjText.getText.trim
     if (name.length > 0) {
       val workspace = ResourcesPlugin.getWorkspace
       val status = workspace.validateName(name, IResource.PROJECT)
@@ -139,10 +116,22 @@ class LagomServerMainTab extends AbstractJavaMainTab {
     return true
   }
 
+  import LagomServerConfiguration._
+  override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
+    super.initializeFrom(configuration)
+    fLagomPortText.setText(configuration.getAttribute(LagomServerPort, 9099.toString))
+    fLocatorPortText.setText(configuration.getAttribute(LagomLocatorPort, 8000.toString))
+    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, 4000.toString))
+    fWatchTimeoutText.setText(configuration.getAttribute(LagomWatchTimeout, 200.toString))
+  }
+
   def performApply(config: ILaunchConfigurationWorkingCopy) {
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
-
+    configMap.put(LagomServerPort, fLagomPortText.getText.trim)
+    configMap.put(LagomLocatorPort, fLocatorPortText.getText.trim)
+    configMap.put(LagomCassandraPort, fCassandraPortText.getText.trim)
+    configMap.put(LagomWatchTimeout, fWatchTimeoutText.getText.trim)
     config.setAttributes(configMap)
     mapResources(config)
   }

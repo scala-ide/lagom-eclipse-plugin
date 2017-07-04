@@ -52,7 +52,6 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
 import ScalaTestRunnerViewPart._
-import org.scalaide.lagom.ScalaTestImages
 import org.eclipse.swt.custom.ViewForm
 import org.eclipse.swt.widgets.Layout
 import org.eclipse.swt.graphics.Point
@@ -123,19 +122,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   private var nodeList: List[Node] = Nil
   private var suiteMap: Map[String, SuiteModel] = null
 
-  val suiteIcon = ScalaTestImages.SCALATEST_SUITE.createImage
-  val suiteSucceedIcon = ScalaTestImages.SCALATEST_SUITE_OK.createImage
-  val suiteFailIcon = ScalaTestImages.SCALATEST_SUITE_FAIL.createImage
-  val suiteAbortedIcon = ScalaTestImages.SCALATEST_SUITE_ABORTED.createImage
-  val suiteRunIcon = ScalaTestImages.SCALATEST_SUITE_RUN.createImage
-  val scopeIcon = ScalaTestImages.SCALATEST_SCOPE.createImage
-  val testRunIcon = ScalaTestImages.SCALATEST_RUN.createImage
-  val testSucceedIcon = ScalaTestImages.SCALATEST_SUCCEED.createImage
-  val testFailedIcon = ScalaTestImages.SCALATEST_FAILED.createImage
-  val testIgnoredIcon = ScalaTestImages.SCALATEST_IGNORED.createImage
-  val infoIcon = ScalaTestImages.SCALATEST_INFO.createImage
-  val stackTraceIcon = ScalaTestImages.SCALATEST_STACKTRACE.createImage
-
   def getSession = fTestRunSession
 
   def setSession(session: ScalaTestRunSession) {
@@ -162,18 +148,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   }
 
   override def dispose() {
-    suiteIcon.dispose()
-    suiteSucceedIcon.dispose()
-    suiteFailIcon.dispose()
-    suiteAbortedIcon.dispose()
-    suiteRunIcon.dispose()
-    scopeIcon.dispose()
-    testRunIcon.dispose()
-    testSucceedIcon.dispose()
-    testFailedIcon.dispose()
-    testIgnoredIcon.dispose()
-    infoIcon.dispose()
-    stackTraceIcon.dispose()
   }
 
   private def createProgressCountPanel(parent: Composite): Composite = {
@@ -210,7 +184,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
 
     val label = new CLabel(bottom, SWT.NONE)
     label.setText("Stack Trace")
-    label.setImage(stackTraceIcon)
     bottom.setTopLeft(label)
     val stackTraceToolBar= new ToolBar(bottom, SWT.FLAT | SWT.WRAP)
     bottom.setTopCenter(stackTraceToolBar)
@@ -893,8 +866,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   private class RerunAllTestsAction extends Action {
     setText("Rerun All Tests")
     setToolTipText("Rerun All Tests")
-    setImageDescriptor(ScalaTestImages.SCALATEST_RERUN_ALL_TESTS_ENABLED)
-    setDisabledImageDescriptor(ScalaTestImages.SCALATEST_RERUN_ALL_TESTS_DISABLED)
     setEnabled(false)
 
     var session: ScalaTestRunSession = null
@@ -908,8 +879,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   private class RerunFailedTestsAction extends Action {
     setText("Rerun Failed Tests")
     setToolTipText("Rerun Failed Tests")
-    setImageDescriptor(ScalaTestImages.SCALATEST_RERUN_FAILED_TESTS_ENABLED)
-    setDisabledImageDescriptor(ScalaTestImages.SCALATEST_RERUN_FAILED_TESTS_DISABLED)
     setEnabled(false)
 
     var session: ScalaTestRunSession = null
@@ -926,9 +895,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   }
 
   private class ShowNextFailureAction extends Action("Next Failure") {
-    setDisabledImageDescriptor(ScalaTestImages.SCALATEST_NEXT_FAILED_DISABLED)
-    setHoverImageDescriptor(ScalaTestImages.SCALATEST_NEXT_FAILED_ENABLED)
-    setImageDescriptor(ScalaTestImages.SCALATEST_NEXT_FAILED_ENABLED)
     setToolTipText("Next Failed Test")
 
     override def run() {
@@ -938,9 +904,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   }
 
   private class ShowPreviousFailureAction extends Action("Previous Failure") {
-    setDisabledImageDescriptor(ScalaTestImages.SCALATEST_PREV_FAILED_DISABLED)
-    setHoverImageDescriptor(ScalaTestImages.SCALATEST_PREV_FAILED_ENABLED)
-    setImageDescriptor(ScalaTestImages.SCALATEST_PREV_FAILED_ENABLED)
     setToolTipText("Previous Failed Test")
 
     override def run() {
@@ -952,8 +915,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
   private class StopAction extends Action {
     setText("Stop Running ScalaTest")
     setToolTipText("Stop ScalaTest Run")
-    setImageDescriptor(ScalaTestImages.SCALATEST_STOP_ENABLED)
-    setDisabledImageDescriptor(ScalaTestImages.SCALATEST_STOP_DISABLED)
 
     override def run() {
       terminateRun()
@@ -962,7 +923,6 @@ class ScalaTestRunnerViewPart extends ViewPart with Observer {
 
   private class FailedTestsOnlyFilterAction extends Action("Show Failed Tests Only", IAction.AS_CHECK_BOX) {
     setToolTipText("Show Failed Tests Only")
-    setImageDescriptor(ScalaTestImages.SCALATEST_SHOW_FAILED_TESTS_ONLY)
 
     override def run() {
       setShowFailedTestsOnly(isChecked)

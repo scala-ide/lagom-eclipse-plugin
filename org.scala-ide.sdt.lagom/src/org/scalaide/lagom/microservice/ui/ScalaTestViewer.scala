@@ -494,43 +494,7 @@ private class TestSessionLabelProvider(fTestRunnerPart: ScalaTestRunnerViewPart,
     return addElapsedTime(label, duration)
   }
 
-  override def getImage(element: AnyRef): Image = {
-    element match {
-      case test: TestModel =>
-        test.status match {
-          case TestStatus.STARTED =>
-            fTestRunnerPart.testRunIcon
-          case TestStatus.SUCCEEDED =>
-            fTestRunnerPart.testSucceedIcon
-          case TestStatus.FAILED =>
-            fTestRunnerPart.testFailedIcon
-          case TestStatus.IGNORED =>
-            fTestRunnerPart.testIgnoredIcon
-          case TestStatus.PENDING =>
-            fTestRunnerPart.testIgnoredIcon
-          case TestStatus.CANCELED =>
-            fTestRunnerPart.testIgnoredIcon
-        }
-      case scope: ScopeModel =>
-        fTestRunnerPart.scopeIcon
-      case suite: SuiteModel =>
-        suite.status match {
-          case SuiteStatus.STARTED =>
-            fTestRunnerPart.suiteRunIcon
-          case SuiteStatus.SUCCEED =>
-            fTestRunnerPart.suiteSucceedIcon
-          case SuiteStatus.FAILED =>
-            fTestRunnerPart.suiteFailIcon
-          case SuiteStatus.ABORTED =>
-            fTestRunnerPart.suiteAbortedIcon
-        }
-      case info: InfoModel =>
-        fTestRunnerPart.infoIcon
-      case _ =>
-        throw new IllegalArgumentException(String.valueOf(element))
-    }
-  }
-
+  override def getImage(element: AnyRef): Image = ???
   def setShowTime(showTime: Boolean) {
     fShowTime = showTime
     fireLabelProviderChanged(new LabelProviderChangedEvent(this));

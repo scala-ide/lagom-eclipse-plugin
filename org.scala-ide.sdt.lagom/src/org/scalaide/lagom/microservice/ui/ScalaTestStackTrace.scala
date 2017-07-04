@@ -51,7 +51,6 @@ import org.eclipse.jface.dialogs.MessageDialog
 import org.scalaide.core.internal.project.ScalaProject
 import org.eclipse.jface.action.ToolBarManager
 import org.eclipse.jface.action.Action
-import org.scalaide.lagom.ScalaTestImages
 
 class ScalaTestStackTrace(parent: Composite, fTestRunner: ScalaTestRunnerViewPart, toolBar: ToolBar) {
   
@@ -186,9 +185,6 @@ class ScalaTestStackTrace(parent: Composite, fTestRunner: ScalaTestRunnerViewPar
   private class EnableStackFoldingAction(fView: ScalaTestStackTrace) extends Action("Stack Folding") {
     setDescription("Fold the Stack Trace")
     setToolTipText("Fold Stack Trace")
-    setDisabledImageDescriptor(ScalaTestImages.SCALATEST_STACK_FOLD_DISABLED)
-    setHoverImageDescriptor(ScalaTestImages.SCALATEST_STACK_FOLD_ENABLED)
-    setImageDescriptor(ScalaTestImages.SCALATEST_STACK_FOLD_ENABLED)
     setChecked(true)
     
     override def run() {

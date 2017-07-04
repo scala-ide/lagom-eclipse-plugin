@@ -39,7 +39,6 @@ package org.scalaide.lagom.microservice.ui
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Text
-import org.scalaide.lagom.ScalaTestImages
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.graphics.Image
@@ -60,12 +59,12 @@ class ScalaTestCounterPanel(parent: Composite) extends Composite(parent, SWT.WRA
   
   protected var fTotal: Int = 0
   
-  private val fSucceedIcon = ScalaTestImages.SCALATEST_SUCCEED.createImage
-  private val fFailureIcon = ScalaTestImages.SCALATEST_FAILED.createImage
-  private val fIgnoredIcon = ScalaTestImages.SCALATEST_IGNORED.createImage
-  private val fSuiteRunIcon = ScalaTestImages.SCALATEST_SUITE_RUN.createImage
-  private val fSuiteIcon = ScalaTestImages.SCALATEST_SUITE.createImage
-  private val fSuiteAbortedIcon = ScalaTestImages.SCALATEST_SUITE_ABORTED.createImage
+  private val fSucceedIcon = null
+  private val fFailureIcon = null
+  private val fIgnoredIcon = null
+  private val fSuiteRunIcon = null
+  private val fSuiteIcon = null
+  private val fSuiteAbortedIcon = null
   
   createComponents()
   
@@ -93,12 +92,6 @@ class ScalaTestCounterPanel(parent: Composite) extends Composite(parent, SWT.WRA
   }
   
   private def disposeIcons() {
-    fSucceedIcon.dispose()
-    fFailureIcon.dispose()
-    fIgnoredIcon.dispose()
-    fSuiteIcon.dispose()
-    fSuiteAbortedIcon.dispose()
-    fSuiteRunIcon.dispose()
   }
   
   private def createLabel(name: String, image: Image, init: String): Text = {
