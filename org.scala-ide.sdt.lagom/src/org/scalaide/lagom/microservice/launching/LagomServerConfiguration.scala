@@ -9,4 +9,6 @@ object LagomServerConfiguration {
   val LagomLocatorPortDefault = 8000.toString
   val LagomCassandraPortDefault = 4000.toString
   val LagomWatchTimeoutDefault = 200.toString
+  val LagomServiceRunnerClass = "org.scalaide.lagom.launching.LagomLauncher"
+  val LagomApplicationLoaderPath = "play.application.loader"
 }

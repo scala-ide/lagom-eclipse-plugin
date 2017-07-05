@@ -5,10 +5,13 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
 import org.eclipse.debug.internal.ui.SWTFactory
+import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab
 import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
 import org.eclipse.pde.internal.ui.IHelpContextIds
+import org.eclipse.swt.events.ModifyEvent
+import org.eclipse.swt.events.ModifyListener
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Composite
@@ -17,8 +20,10 @@ import org.eclipse.ui.PlatformUI
 import org.scalaide.lagom.LagomImages
 
 import com.ibm.icu.text.MessageFormat
-import org.eclipse.swt.events.ModifyListener
-import org.eclipse.swt.events.ModifyEvent
+import com.typesafe.config.ConfigFactory
+import java.net.URLClassLoader
+import java.net.URL
+import org.eclipse.core.resources.IProject
 
 class LagomServerMainTab extends AbstractJavaMainTab {
   // project location
@@ -91,6 +96,8 @@ class LagomServerMainTab extends AbstractJavaMainTab {
     image.foreach(_.dispose())
   }
 
+  import LagomServerConfiguration._
+
   override def isValid(config: ILaunchConfiguration): Boolean = {
     setErrorMessage(null)
     setMessage(null)
@@ -100,23 +107,51 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       val status = workspace.validateName(name, IResource.PROJECT)
       if (status.isOK) {
         val project = ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-        if (!project.exists()) {
-          setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_20, Array(name)))
-          return false
-        }
-        if (!project.isOpen) {
-          setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_21, Array(name)))
-          return false
-        }
+        PartialFunction.empty[IProject, Boolean].orElse[IProject, Boolean] {
+          case project if !project.exists() =>
+            setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_20, Array(name)))
+            false
+        }.orElse[IProject, Boolean] {
+          case project if !project.isOpen =>
+            setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_21, Array(name)))
+            false
+        }.orElse[IProject, Boolean] {
+          case project if !project.hasNature(JavaCore.NATURE_ID) =>
+            setErrorMessage(s"Project $name does not have Java nature.")
+            false
+        }.orElse[IProject, Boolean] {
+          case project if noLagomLoaderPathInConfig(project) =>
+            setErrorMessage(s"Project $name does not define $LagomApplicationLoaderPath path in configuration.")
+            false
+        }.orElse[IProject, Boolean] {
+          case _ =>
+            true
+        }(project)
       } else {
         setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_19, Array(status.getMessage())))
-        return false
+        false
       }
+    } else {
+      true
     }
-    return true
   }
 
-  import LagomServerConfiguration._
+  private def noLagomLoaderPathInConfig(project: IProject): Boolean = try {
+    val javaProject = JavaCore.create(project)
+    val projectLocation = project.getLocation
+    val configClassLoader = new URLClassLoader(javaProject.getResolvedClasspath(true).map {
+      _.getOutputLocation
+    }.filter { _ != null }.distinct.map { icp =>
+      projectLocation.append(icp.removeFirstSegments(1)).toFile.toURI.toURL
+    } ++ Option(javaProject.getOutputLocation).map { o =>
+      projectLocation.append(o.removeFirstSegments(1)).toFile.toURI.toURL
+    }.toArray[URL])
+    val projectConfig = ConfigFactory.load(configClassLoader)
+    !projectConfig.hasPath(LagomApplicationLoaderPath)
+  } catch {
+    case allowToFailInRunner: Throwable => true
+  }
+
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
     fLagomPortText.setText(configuration.getAttribute(LagomServerPort, LagomServerPortDefault))
@@ -128,6 +163,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   def performApply(config: ILaunchConfigurationWorkingCopy) {
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
+    configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
     configMap.put(LagomServerPort, fLagomPortText.getText.trim)
     configMap.put(LagomLocatorPort, fLocatorPortText.getText.trim)
     configMap.put(LagomCassandraPort, fCassandraPortText.getText.trim)
@@ -142,6 +178,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       initializeJavaProject(javaElement, config)
     else
       config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
+    config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
     config.setAttribute(LagomServerPort, LagomServerPortDefault)
     config.setAttribute(LagomLocatorPort, LagomLocatorPortDefault)
     config.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
