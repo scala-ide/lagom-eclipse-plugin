@@ -1,5 +1,9 @@
 package org.scalaide.lagom.microservice.launching
 
+import java.net.URL
+import java.net.URLClassLoader
+
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.debug.core.ILaunchConfiguration
@@ -21,18 +25,8 @@ import org.scalaide.lagom.LagomImages
 
 import com.ibm.icu.text.MessageFormat
 import com.typesafe.config.ConfigFactory
-import java.net.URLClassLoader
-import java.net.URL
-import org.eclipse.core.resources.IProject
 
 class LagomServerMainTab extends AbstractJavaMainTab {
-  // project location
-  // source dirs
-  // output dirs not necessary
-  // play port number: 9099
-  // service locator port: 8000
-  // cassandra port: 4000
-  // watch service timeout: 200
   private var fLagomPortText: Text = null
   private var fLocatorPortText: Text = null
   private var fCassandraPortText: Text = null
@@ -98,6 +92,30 @@ class LagomServerMainTab extends AbstractJavaMainTab {
 
   import LagomServerConfiguration._
 
+  private def projectValidator: PartialFunction[IProject, Boolean] = {
+    val name = fProjText.getText.trim
+    PartialFunction.empty[IProject, Boolean].orElse[IProject, Boolean] {
+      case project if !project.exists() =>
+        setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_20, Array(name)))
+        false
+    }.orElse[IProject, Boolean] {
+      case project if !project.isOpen =>
+        setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_21, Array(name)))
+        false
+    }.orElse[IProject, Boolean] {
+      case project if !project.hasNature(JavaCore.NATURE_ID) =>
+        setErrorMessage(s"Project $name does not have Java nature.")
+        false
+    }.orElse[IProject, Boolean] {
+      case project if noLagomLoaderPathInConfig(project) =>
+        setErrorMessage(s"Project $name does not define $LagomApplicationLoaderPath path in configuration.")
+        false
+    }.orElse[IProject, Boolean] {
+      case _ =>
+        true
+    }
+  }
+
   override def isValid(config: ILaunchConfiguration): Boolean = {
     setErrorMessage(null)
     setMessage(null)
@@ -107,26 +125,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       val status = workspace.validateName(name, IResource.PROJECT)
       if (status.isOK) {
         val project = ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-        PartialFunction.empty[IProject, Boolean].orElse[IProject, Boolean] {
-          case project if !project.exists() =>
-            setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_20, Array(name)))
-            false
-        }.orElse[IProject, Boolean] {
-          case project if !project.isOpen =>
-            setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_21, Array(name)))
-            false
-        }.orElse[IProject, Boolean] {
-          case project if !project.hasNature(JavaCore.NATURE_ID) =>
-            setErrorMessage(s"Project $name does not have Java nature.")
-            false
-        }.orElse[IProject, Boolean] {
-          case project if noLagomLoaderPathInConfig(project) =>
-            setErrorMessage(s"Project $name does not define $LagomApplicationLoaderPath path in configuration.")
-            false
-        }.orElse[IProject, Boolean] {
-          case _ =>
-            true
-        }(project)
+        projectValidator(project)
       } else {
         setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_19, Array(status.getMessage())))
         false
