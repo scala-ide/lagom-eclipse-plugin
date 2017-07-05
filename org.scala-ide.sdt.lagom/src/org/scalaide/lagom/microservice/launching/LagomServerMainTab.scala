@@ -116,6 +116,21 @@ class LagomServerMainTab extends AbstractJavaMainTab {
     }
   }
 
+  private def settingsValidator: Boolean =
+    if (!fCassandraPortText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Cassandra port must be a number.")
+      false
+    } else if (!fLagomPortText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Lagom Server port must be a number.")
+      false
+    } else if (!fLocatorPortText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Service Locator port must be a number.")
+      false
+    } else if (!fWatchTimeoutText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Timeout must be a number.")
+      false
+    } else true
+
   override def isValid(config: ILaunchConfiguration): Boolean = {
     setErrorMessage(null)
     setMessage(null)
@@ -125,7 +140,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       val status = workspace.validateName(name, IResource.PROJECT)
       if (status.isOK) {
         val project = ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-        projectValidator(project)
+        projectValidator(project) && settingsValidator
       } else {
         setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_19, Array(status.getMessage())))
         false
