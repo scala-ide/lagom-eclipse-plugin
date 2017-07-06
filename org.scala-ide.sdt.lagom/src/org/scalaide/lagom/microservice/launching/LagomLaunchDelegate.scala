@@ -2,12 +2,15 @@ package org.scalaide.lagom.microservice.launching
 
 import java.io.File
 
+import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
+import org.eclipse.jdt.core.IClasspathEntry
+import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.launching.AbstractJavaLaunchConfigurationDelegate
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
 import org.eclipse.jdt.launching.IVMInstall
@@ -19,9 +22,7 @@ import org.scalaide.core.internal.launching.ClasspathGetterForLaunchDelegate
 import org.scalaide.core.internal.launching.ProblemHandlersForLaunchDelegate
 import org.scalaide.debug.internal.launching.StandardVMScalaDebugger
 import org.scalaide.logging.HasLogger
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.jdt.core.JavaCore
-import org.eclipse.jdt.core.IClasspathEntry
+import org.eclipse.core.resources.IProject
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -58,16 +59,30 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
 
   private def srcsAndOutsProgArgs(project: String): Array[String] = {
     val collect = scala.collection.mutable.ArrayBuffer.empty[String]
-    val prj = ResourcesPlugin.getWorkspace.getRoot.getProject(project)
+    val prj = asProject(project)
     val prjLoc = prj.getLocation
     val javaPrj = JavaCore.create(prj)
-    javaPrj.getResolvedClasspath(true).filter {
+    val (srcs, outs) = (javaPrj.getResolvedClasspath(true).filter {
       _.getEntryKind == IClasspathEntry.CPE_SOURCE
     }.map { entry =>
-      entry.getPath -> Option(entry.getOutputLocation)
-    }
+      Option(entry.getPath) -> Option(entry.getOutputLocation)
+    } ++ Array(None -> Option(javaPrj.getOutputLocation))).unzip
+    val ProjectRootSegment = 1
+    val srcLocations = srcs.collect {
+      case Some(s) =>
+        prjLoc.append(s.removeFirstSegments(ProjectRootSegment)).toFile.toURI.toURL.getPath
+    }.distinct.mkString(File.pathSeparator)
+    val outLocations = outs.collect {
+      case Some(o) =>
+        prjLoc.append(o.removeFirstSegments(ProjectRootSegment)).toFile.toURI.toURL.getPath
+    }.distinct.mkString(File.pathSeparator)
+    collect += s"$LagomSourceDirsProgArgName$srcLocations"
+    collect += s"$LagomOutputDirsProgArgName$outLocations"
     collect.toArray
   }
+
+  private def asProject(name: String): IProject =
+    ResourcesPlugin.getWorkspace.getRoot.getProject(name)
 
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val launchConfig = launch.getLaunchConfiguration
@@ -76,7 +91,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val watchTimeout = launchConfig.getAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
     val locatorPort = launchConfig.getAttribute(LagomLocatorPort, NotSet)
     val cassandraPort = launchConfig.getAttribute(LagomCassandraPort, NotSet)
-    val (servicePath, dependenciesPath) = config.getClassPath.partition(p => p.startsWith(config.getWorkingDirectory))
+    val (servicePath, dependenciesPath) = config.getClassPath.partition(_.startsWith(asProject(projectName).getLocationURI.getPath))
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch, addRunnerAndDependenciesToClasspath(dependenciesPath) ++ config.getBootClassPath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
@@ -84,7 +99,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       config.getProgramArguments ++
       Array(s"$LagomServicePathProgArgName${servicePath.mkString(File.pathSeparator)}",
         s"$LagomProjectProgArgName$projectName",
-        s"$LagomServerPortProgArgName$serverPort") ++
+        s"$LagomServerPortProgArgName$serverPort",
+        s"$LagomWorkDirProgArgName${config.getWorkingDirectory}") ++
       optionalProgArgs(locatorPort, cassandraPort) ++
       srcsAndOutsProgArgs(projectName)
     )

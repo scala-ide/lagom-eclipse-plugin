@@ -24,4 +24,5 @@ object LagomServerConfiguration {
   val LagomLocatorPortProgArgName = "locport"
   val LagomCassandraPortProgArgName = "cassport"
   val LagomWatchTimeoutProgArgName = "wtime"
+  val LagomWorkDirProgArgName = "workdir"
 }

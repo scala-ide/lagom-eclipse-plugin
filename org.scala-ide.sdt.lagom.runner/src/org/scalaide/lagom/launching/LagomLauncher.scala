@@ -1,41 +1,31 @@
 package org.scalaide.lagom.launching
 
-import scala.util.Try
-
-import com.lightbend.lagom.scaladsl.server.LagomApplicationContext
-import com.lightbend.lagom.scaladsl.server.LagomApplicationLoader
-import com.lightbend.lagom.scaladsl.server.RequiresLagomServicePort
-
-import akka.persistence.cassandra.testkit.CassandraLauncher
-import play.api.ApplicationLoader.Context
-import play.api.Configuration
-import play.api.Environment
-import play.api.Mode
-import play.api.Play
-import play.core.DefaultWebCommands
-import play.core.server.ServerConfig
-import play.core.server.ServerProvider
-import java.time.format.DateTimeFormatter
-import java.nio.file.Files
-import org.apache.cassandra.io.util.FileUtils
-import com.lightbend.lagom.scaladsl.persistence.cassandra.testkit.TestUtil
-import java.time.LocalDateTime
-import com.lightbend.lagom.discovery.ServiceLocatorServer
-import scala.concurrent.Future
-import akka.actor.ActorSystem
-import play.core.ApplicationProvider
-import akka.stream.ActorMaterializer
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 import java.io.File
-import play.api.ApplicationLoader
-import com.lightbend.lagom.dev.Reloader
+
 import com.lightbend.lagom.dev.LagomConfig
+import com.lightbend.lagom.dev.Reloader
 import com.lightbend.lagom.dev.Reloader.CompileSuccess
+
 import play.dev.filewatch.FileWatchService
 import play.dev.filewatch.LoggerProxy
 
 object LagomLauncher {
+  /**
+   * Program attributes.
+   * Keep in sync with [[org.scalaide.lagom.microservice.launching.LagomServerConfiguration]]
+   */
+  val LagomSourceDirsProgArgName = "srcdirs"
+  val LagomOutputDirsProgArgName = "outdirs"
+  val LagomProjectProgArgName = "proj"
+  val LagomServicePathProgArgName = "servicepath"
+  val LagomServerPortProgArgName = "servport"
+  val LagomLocatorPortProgArgName = "locport"
+  val LagomCassandraPortProgArgName = "cassport"
+  val LagomWatchTimeoutProgArgName = "wtime"
+  val LagomWorkDirProgArgName = "workdir"
+
+  val hostname = "http://127.0.0.1"
+
   object SbtLoggerProxy extends LoggerProxy {
     override def debug(message: => String): Unit = println(message)
 
@@ -51,44 +41,55 @@ object LagomLauncher {
 
     override def trace(t: => Throwable): Unit = println(t)
   }
+
   def main(args: Array[String]): Unit = {
-    val workDir = args.find(_.startsWith("workdir")).map(_.substring("workdir".length))
-    println(workDir.getOrElse("."))
-    val servicePath = args.find(_.startsWith("servicepath")).map(_.substring("servicepath".length)).get
+    val srcs = args.find(_.startsWith(LagomSourceDirsProgArgName)).map(_.drop(LagomSourceDirsProgArgName.length)).get
+    val outs = args.find(_.startsWith(LagomOutputDirsProgArgName)).map(_.drop(LagomOutputDirsProgArgName.length)).get
+    val serverPort = args.find(_.startsWith(LagomServerPortProgArgName)).map(_.drop(LagomServerPortProgArgName.length)).get.toInt
+    val servicePath = args.find(_.startsWith(LagomServicePathProgArgName)).map(_.drop(LagomServicePathProgArgName.length)).get
+    val watchTimeout = args.find(_.startsWith(LagomWatchTimeoutProgArgName)).map(_.drop(LagomWatchTimeoutProgArgName.length)).get.toInt
+    val projectName = args.find(_.startsWith(LagomProjectProgArgName)).map(_.drop(LagomProjectProgArgName.length)).get
+    val workingDir = args.find(_.startsWith(LagomWorkDirProgArgName)).map { w =>
+      new File(w.drop(LagomWorkDirProgArgName.length))
+    }.get
+    val locatorPort = args.find(_.startsWith(LagomLocatorPortProgArgName))
+    val cassandraPort = args.find(_.startsWith(LagomCassandraPortProgArgName)).map(_.toInt)
     println(servicePath)
     try {
       val reloadLock = LagomLauncher
       val devSettings =
-        LagomConfig.actorSystemConfig("testMe-one") ++
-          Option("http://127.0.0.1:8000").map(LagomConfig.ServiceLocatorUrl -> _).toMap ++
-          Option(4000).fold(Map.empty[String, String]) { port =>
-            LagomConfig.cassandraPort(port)
-          }
+        LagomConfig.actorSystemConfig(projectName) ++
+        locatorPort.map(hostname + ":" + _).map(LagomConfig.ServiceLocatorUrl -> _).toMap ++
+        cassandraPort.fold(Map.empty[String, String])(LagomConfig.cassandraPort)
+      val outputDirForWatchServiceWhichCanBeAny = new File(outs.split(File.pathSeparator).head)
       val watchService = FileWatchService.defaultWatchService(
-        new File(workDir.getOrElse("."), "bin"),
-        200, SbtLoggerProxy)
-      val serviceClassPath = servicePath.split(":").map(new File(_)).toSeq
+        outputDirForWatchServiceWhichCanBeAny,
+        watchTimeout,
+        SbtLoggerProxy
+      )
+      val serviceClassPath = servicePath.split(File.pathSeparator).map(new File(_)).toSeq
+      val sourcesToWatch = srcs.split(File.pathSeparator).map(new File(_)).toSeq
       val service = Reloader.startDevMode(
         getClass.getClassLoader,
         Nil,
-        () => { println("in reload compile"); CompileSuccess(Map.empty, serviceClassPath) },
+        () => { CompileSuccess(Map.empty, serviceClassPath) },
         identity,
-        Seq(new File(workDir.getOrElse("."), "src/main/scala")),
+        sourcesToWatch,
         watchService,
-        new File(workDir.getOrElse(".")),
+        workingDir,
         devSettings.toSeq,
-        9099,
-        reloadLock)
+        serverPort,
+        reloadLock
+      )
 
       // Eagerly reload to start
       service.reload()
       service.addChangeListener { () =>
         println("in changed")
-        service.reload() }
-
+        service.reload()
+      }
     } catch {
       case e: Throwable => e.printStackTrace()
-    } finally {
     }
   }
 }
