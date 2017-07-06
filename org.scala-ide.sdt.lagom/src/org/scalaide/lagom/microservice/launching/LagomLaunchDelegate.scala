@@ -1,9 +1,15 @@
 package org.scalaide.lagom.microservice.launching
 
+import java.io.File
+
+import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.Path
+import org.eclipse.core.runtime.Platform
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.jdt.launching.AbstractJavaLaunchConfigurationDelegate
+import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
 import org.eclipse.jdt.launching.IVMInstall
 import org.eclipse.jdt.launching.IVMRunner
 import org.eclipse.jdt.launching.JavaLaunchDelegate
@@ -13,9 +19,9 @@ import org.scalaide.core.internal.launching.ClasspathGetterForLaunchDelegate
 import org.scalaide.core.internal.launching.ProblemHandlersForLaunchDelegate
 import org.scalaide.debug.internal.launching.StandardVMScalaDebugger
 import org.scalaide.logging.HasLogger
-import org.eclipse.core.runtime.Platform
-import org.eclipse.core.runtime.Path
-import org.eclipse.core.runtime.FileLocator
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.jdt.core.JavaCore
+import org.eclipse.jdt.core.IClasspathEntry
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -25,8 +31,6 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 }
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def addLagomClass(lagomClass: String, programArgs: Array[String]): Array[String] =
-    programArgs ++ Array(s"lagomclass$lagomClass")
   private def addRunnerAndDependenciesToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
@@ -43,15 +47,47 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       "better-files_2.11-2.17.1.jar").map(findPath)
     classpath ++ paths
   }
+
+  import LagomServerConfiguration._
+  private def optionalProgArgs(locatorPort: String, cassandraPort: String): Array[String] = {
+    val collect = scala.collection.mutable.ArrayBuffer.empty[String]
+    if (locatorPort.nonEmpty) collect += s"$LagomLocatorPortProgArgName$locatorPort"
+    if (cassandraPort.nonEmpty) collect += s"$LagomCassandraPortProgArgName$cassandraPort"
+    collect.toArray
+  }
+
+  private def srcsAndOutsProgArgs(project: String): Array[String] = {
+    val collect = scala.collection.mutable.ArrayBuffer.empty[String]
+    val prj = ResourcesPlugin.getWorkspace.getRoot.getProject(project)
+    val prjLoc = prj.getLocation
+    val javaPrj = JavaCore.create(prj)
+    javaPrj.getResolvedClasspath(true).filter {
+      _.getEntryKind == IClasspathEntry.CPE_SOURCE
+    }.map { entry =>
+      entry.getPath -> Option(entry.getOutputLocation)
+    }
+    collect.toArray
+  }
+
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
-    val className = config.getClassToLaunch
-    val (servicePath, dependenciesPath) = config.getClassPath.partition(p => p.startsWith(config.getWorkingDirectory) && p.endsWith("/bin"))
-    val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.launching.LagomLauncher", addRunnerAndDependenciesToClasspath(dependenciesPath) ++ config.getBootClassPath)
+    val launchConfig = launch.getLaunchConfiguration
+    val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
+    val serverPort = launchConfig.getAttribute(LagomServerPort, LagomServerPortDefault)
+    val watchTimeout = launchConfig.getAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
+    val locatorPort = launchConfig.getAttribute(LagomLocatorPort, NotSet)
+    val cassandraPort = launchConfig.getAttribute(LagomCassandraPort, NotSet)
+    val (servicePath, dependenciesPath) = config.getClassPath.partition(p => p.startsWith(config.getWorkingDirectory))
+    val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch, addRunnerAndDependenciesToClasspath(dependenciesPath) ++ config.getBootClassPath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
-    lagomConfig.setProgramArguments(addLagomClass(config.getClassToLaunch, config.getProgramArguments) ++
-      Array(s"workdir${config.getWorkingDirectory}") ++
-      Array(s"servicepath${servicePath.mkString(":")}"))
+    lagomConfig.setProgramArguments(
+      config.getProgramArguments ++
+      Array(s"$LagomServicePathProgArgName${servicePath.mkString(File.pathSeparator)}",
+        s"$LagomProjectProgArgName$projectName",
+        s"$LagomServerPortProgArgName$serverPort") ++
+      optionalProgArgs(locatorPort, cassandraPort) ++
+      srcsAndOutsProgArgs(projectName)
+    )
     lagomConfig.setResumeOnStartup(config.isResumeOnStartup)
     lagomConfig.setVMArguments(config.getVMArguments)
     lagomConfig.setVMSpecificAttributesMap(config.getVMSpecificAttributesMap)

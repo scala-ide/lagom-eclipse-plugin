@@ -35,7 +35,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   override def getId: String = "scalaide.lagom.microservice.tabGroup"
   override def getName: String = "Lagom Service"
 
-  def createControl(parent: Composite) {
+  def createControl(parent: Composite): Unit = {
     val comp = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH)
     comp.getLayout.asInstanceOf[GridLayout].verticalSpacing = 0
     createProjectEditor(comp)
@@ -45,13 +45,13 @@ class LagomServerMainTab extends AbstractJavaMainTab {
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IHelpContextIds.LAUNCHER_CONFIGURATION)
   }
 
-  private def createMainTypeEditor(parent: Composite, text: String) {
+  private def createMainTypeEditor(parent: Composite, text: String): Unit = {
     val mainParamsGroup = SWTFactory.createGroup(parent, text, 2, 1, GridData.FILL_BOTH)
     createLines(mainParamsGroup)
     mainParamsGroup.pack()
   }
 
-  protected def createLines(parent: Composite) {
+  protected def createLines(parent: Composite): Unit = {
     SWTFactory.createLabel(parent, "Lagom Server Port", 1)
     fLagomPortText = SWTFactory.createSingleText(parent, 1)
     fLagomPortText.addModifyListener(new ModifyListener() {
@@ -86,7 +86,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   private val image = Option(LagomImages.LAGOM_LAGOM_SERVER.createImage)
   override def getImage = image.getOrElse(null)
 
-  override def dispose = {
+  override def dispose: Unit = {
     image.foreach(_.dispose())
   }
 
@@ -174,19 +174,23 @@ class LagomServerMainTab extends AbstractJavaMainTab {
     fWatchTimeoutText.setText(configuration.getAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault))
   }
 
-  def performApply(config: ILaunchConfigurationWorkingCopy) {
+  private def setIfSet(key: String, value: String, configMap: scala.collection.mutable.Map[String, Any]): Unit =
+    if (value.nonEmpty) configMap += (key -> value)
+
+  def performApply(config: ILaunchConfigurationWorkingCopy): Unit = {
+    import scala.collection.JavaConverters._
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
     configMap.put(LagomServerPort, fLagomPortText.getText.trim)
-    configMap.put(LagomLocatorPort, fLocatorPortText.getText.trim)
-    configMap.put(LagomCassandraPort, fCassandraPortText.getText.trim)
+    setIfSet(LagomLocatorPort, fLocatorPortText.getText.trim, configMap.asScala)
+    setIfSet(LagomCassandraPort, fCassandraPortText.getText.trim, configMap.asScala)
     configMap.put(LagomWatchTimeout, fWatchTimeoutText.getText.trim)
     config.setAttributes(configMap)
     mapResources(config)
   }
 
-  def setDefaults(config: ILaunchConfigurationWorkingCopy) {
+  def setDefaults(config: ILaunchConfigurationWorkingCopy): Unit = {
     val javaElement = getContext
     if (javaElement != null)
       initializeJavaProject(javaElement, config)

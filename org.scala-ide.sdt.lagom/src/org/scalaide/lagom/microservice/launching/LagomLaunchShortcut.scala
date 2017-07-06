@@ -80,7 +80,7 @@ class LagomLaunchShortcut extends ILaunchShortcut {
 
 object LagomLaunchShortcut {
 
-  def isLagomApplicationLoader(iType: IType): Boolean = {
+  private def isLagomApplicationLoader(iType: IType): Boolean = {
     if (iType.isClass) {
       val project = iType.getJavaProject.getProject
       val scProject = IScalaPlugin().getScalaProject(project)
@@ -113,7 +113,7 @@ object LagomLaunchShortcut {
     }
   }
 
-  def getLagomLoaderClass(element: IJavaElement): Option[ScalaClassElement] = {
+  private def getLagomLoaderClass(element: IJavaElement): Option[ScalaClassElement] = {
     element match {
       case scElement: ScalaElement =>
         val classElement = LagomLaunchShortcut.getClassElement(element)
@@ -127,7 +127,7 @@ object LagomLaunchShortcut {
   }
 
   @tailrec
-  def getClassElement(element: IJavaElement): ScalaClassElement = {
+  private def getClassElement(element: IJavaElement): ScalaClassElement = {
     element match {
       case scClassElement: ScalaClassElement =>
         scClassElement
@@ -139,9 +139,9 @@ object LagomLaunchShortcut {
     }
   }
 
-  def getLaunchManager = DebugPlugin.getDefault.getLaunchManager
+  private def getLaunchManager = DebugPlugin.getDefault.getLaunchManager
 
-  def launchLagom(classElement: ScalaClassElement, mode: String) {
+  private def launchLagom(classElement: ScalaClassElement, mode: String) {
     val configType = getLaunchManager.getLaunchConfigurationType("scalaide.lagom.microservice")
     val existingConfigs = getLaunchManager.getLaunchConfigurations(configType)
     val simpleName = NameTransformer.decode(classElement.labelName)
@@ -151,8 +151,13 @@ object LagomLaunchShortcut {
       case None =>
         val wc = configType.newInstance(null, getLaunchManager.generateLaunchConfigurationName(simpleName.replaceAll(":", "-").replaceAll("\"", "'")))
         val project = classElement.getJavaProject.getProject
-        wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, classElement.getFullyQualifiedName)
+        import LagomServerConfiguration._
+        wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
         wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName)
+        wc.setAttribute(LagomServerPort, LagomServerPortDefault)
+        wc.setAttribute(LagomLocatorPort, LagomLocatorPortDefault)
+        wc.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+        wc.setAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
         wc.doSave
     }
     DebugUITools.launch(config, mode)
