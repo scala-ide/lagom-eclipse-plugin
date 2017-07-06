@@ -145,20 +145,20 @@ class LagomServerMainTab extends AbstractJavaMainTab {
         setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_19, Array(status.getMessage())))
         false
       }
-    } else {
+    } else
       true
-    }
   }
 
   private def noLagomLoaderPathInConfig(project: IProject): Boolean = try {
     val javaProject = JavaCore.create(project)
     val projectLocation = project.getLocation
-    val configClassLoader = new URLClassLoader(javaProject.getResolvedClasspath(true).map {
-      _.getOutputLocation
-    }.filter { _ != null }.distinct.map { icp =>
-      projectLocation.append(icp.removeFirstSegments(1)).toFile.toURI.toURL
+    val ProjectNameSegment = 1
+    val configClassLoader = new URLClassLoader(javaProject.getResolvedClasspath(true).flatMap { cp =>
+      Option(cp.getOutputLocation)
+    }.distinct.map { icp =>
+      projectLocation.append(icp.removeFirstSegments(ProjectNameSegment)).toFile.toURI.toURL
     } ++ Option(javaProject.getOutputLocation).map { o =>
-      projectLocation.append(o.removeFirstSegments(1)).toFile.toURI.toURL
+      projectLocation.append(o.removeFirstSegments(ProjectNameSegment)).toFile.toURI.toURL
     }.toArray[URL])
     val projectConfig = ConfigFactory.load(configClassLoader)
     !projectConfig.hasPath(LagomApplicationLoaderPath)
