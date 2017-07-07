@@ -6,6 +6,7 @@ import com.lightbend.lagom.dev.LagomConfig
 import com.lightbend.lagom.dev.Reloader
 import com.lightbend.lagom.dev.Reloader.CompileSuccess
 
+import play.Logger
 import play.dev.filewatch.FileWatchService
 import play.dev.filewatch.LoggerProxy
 
@@ -26,20 +27,23 @@ object LagomLauncher {
 
   val hostname = "http://127.0.0.1"
 
-  object SbtLoggerProxy extends LoggerProxy {
-    override def debug(message: => String): Unit = println(message)
+  object LagomLauncherLogger extends LoggerProxy {
+    override def debug(message: => String): Unit = Logger.debug(message)
+    override def info(message: => String): Unit = Logger.info(message)
+    override def warn(message: => String): Unit = Logger.warn(message)
+    override def error(message: => String): Unit = Logger.error(message)
+    override def verbose(message: => String): Unit = Logger.info(message)
+    override def success(message: => String): Unit = Logger.info(message)
+    override def trace(t: => Throwable): Unit = Logger.trace("", t)
+  }
 
-    override def info(message: => String): Unit = println(message)
-
-    override def warn(message: => String): Unit = println(message)
-
-    override def error(message: => String): Unit = println(message)
-
-    override def verbose(message: => String): Unit = println(message)
-
-    override def success(message: => String): Unit = println(message)
-
-    override def trace(t: => Throwable): Unit = println(t)
+  /**
+   * Mimics recompilation s with just timeout. Actual implementation should rather wait for event from
+   * compiler about done job but there is not possibility to get such info from eclipse in this place.
+   */
+  private def mimicRecompilationWithTimeout(serviceClassPath: Seq[File], watchTimeout: Int) = () => {
+    Thread.sleep(watchTimeout)
+    CompileSuccess(Map.empty, serviceClassPath)
   }
 
   def main(args: Array[String]): Unit = {
@@ -52,9 +56,10 @@ object LagomLauncher {
     val workingDir = args.find(_.startsWith(LagomWorkDirProgArgName)).map { w =>
       new File(w.drop(LagomWorkDirProgArgName.length))
     }.get
-    val locatorPort = args.find(_.startsWith(LagomLocatorPortProgArgName))
-    val cassandraPort = args.find(_.startsWith(LagomCassandraPortProgArgName)).map(_.toInt)
-    println(servicePath)
+    val locatorPort = args.find(_.startsWith(LagomLocatorPortProgArgName)).map(_.drop(LagomLocatorPortProgArgName.length))
+    val cassandraPort = args.find(_.startsWith(LagomCassandraPortProgArgName)).map(_.drop(LagomCassandraPortProgArgName.length).toInt)
+    val log = Logger.info(_:String)
+    log(s"Starting service $projectName")
     try {
       val reloadLock = LagomLauncher
       val devSettings =
@@ -64,15 +69,16 @@ object LagomLauncher {
       val outputDirForWatchServiceWhichCanBeAny = new File(outs.split(File.pathSeparator).head)
       val watchService = FileWatchService.defaultWatchService(
         outputDirForWatchServiceWhichCanBeAny,
-        watchTimeout,
-        SbtLoggerProxy
+        200, // rewritten from maven plugin
+        LagomLauncherLogger
       )
       val serviceClassPath = servicePath.split(File.pathSeparator).map(new File(_)).toSeq
       val sourcesToWatch = srcs.split(File.pathSeparator).map(new File(_)).toSeq
+      val recompile = mimicRecompilationWithTimeout(serviceClassPath, watchTimeout)
       val service = Reloader.startDevMode(
         getClass.getClassLoader,
         Nil,
-        () => { CompileSuccess(Map.empty, serviceClassPath) },
+        recompile,
         identity,
         sourcesToWatch,
         watchService,
@@ -81,11 +87,11 @@ object LagomLauncher {
         serverPort,
         reloadLock
       )
-
       // Eagerly reload to start
       service.reload()
+      log(s"Service $projectName started")
       service.addChangeListener { () =>
-        println("in changed")
+        log(s"Reloading service $projectName. Check for RELOAD message or increase watch timeout.")
         service.reload()
       }
     } catch {

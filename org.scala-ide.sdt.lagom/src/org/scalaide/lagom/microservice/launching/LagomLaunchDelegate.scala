@@ -2,6 +2,7 @@ package org.scalaide.lagom.microservice.launching
 
 import java.io.File
 
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IProgressMonitor
@@ -22,7 +23,6 @@ import org.scalaide.core.internal.launching.ClasspathGetterForLaunchDelegate
 import org.scalaide.core.internal.launching.ProblemHandlersForLaunchDelegate
 import org.scalaide.debug.internal.launching.StandardVMScalaDebugger
 import org.scalaide.logging.HasLogger
-import org.eclipse.core.resources.IProject
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -100,7 +100,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       Array(s"$LagomServicePathProgArgName${servicePath.mkString(File.pathSeparator)}",
         s"$LagomProjectProgArgName$projectName",
         s"$LagomServerPortProgArgName$serverPort",
-        s"$LagomWorkDirProgArgName${config.getWorkingDirectory}") ++
+        s"$LagomWorkDirProgArgName${config.getWorkingDirectory}",
+        s"$LagomWatchTimeoutProgArgName$watchTimeout") ++
       optionalProgArgs(locatorPort, cassandraPort) ++
       srcsAndOutsProgArgs(projectName)
     )
