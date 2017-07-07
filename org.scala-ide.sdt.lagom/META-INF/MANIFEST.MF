@@ -37,8 +37,7 @@ Import-Package:
  scala.tools.eclipse.contribution.weaving.jdt.ui.javaeditor.formatter;apply-aspects:=false
 Export-Package: 
  org.scalaide.lagom,
- org.scalaide.lagom.microservice.launching,
- org.scalaide.lagom.microservice.ui
+ org.scalaide.lagom.microservice.launching
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  libs/config-1.3.1.jar
