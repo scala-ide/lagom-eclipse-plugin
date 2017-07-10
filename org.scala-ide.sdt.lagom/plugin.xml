@@ -63,7 +63,7 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test property="org.scalaide.lagom.microservice.launching.hasLagomLoader"/>
+              <test forcePluginActivation="true" property="org.scalaide.lagom.microservice.launching.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>

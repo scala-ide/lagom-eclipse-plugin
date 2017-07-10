@@ -1,8 +1,5 @@
 package org.scalaide.lagom.microservice.launching
 
-import java.net.URL
-import java.net.URLClassLoader
-
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.ResourcesPlugin
@@ -24,7 +21,6 @@ import org.eclipse.ui.PlatformUI
 import org.scalaide.lagom.LagomImages
 
 import com.ibm.icu.text.MessageFormat
-import com.typesafe.config.ConfigFactory
 
 class LagomServerMainTab extends AbstractJavaMainTab {
   private var fLagomPortText: Text = null
@@ -149,23 +145,8 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       true
   }
 
-  private def noLagomLoaderPathInConfig(project: IProject): Boolean = try {
-    val javaProject = JavaCore.create(project)
-    val projectLocation = project.getLocation
-    val ProjectNameSegment = 1
-    val configClassLoader = new URLClassLoader(javaProject.getResolvedClasspath(true).flatMap { cp =>
-      Option(cp.getOutputLocation)
-    }.distinct.map { icp =>
-      projectLocation.append(icp.removeFirstSegments(ProjectNameSegment)).toFile.toURI.toURL
-    } ++ Option(javaProject.getOutputLocation).map { o =>
-      projectLocation.append(o.removeFirstSegments(ProjectNameSegment)).toFile.toURI.toURL
-    }.toArray[URL])
-    val projectConfig = ConfigFactory.load(configClassLoader)
-    !projectConfig.hasPath(LagomApplicationLoaderPath)
-  } catch {
-    case allowToFailInRunner: Throwable => true
-  }
-
+  private val noLagomLoaderPathInConfig: IProject => Boolean = (noLagomLoaderPath.apply _) compose (JavaCore.create _)
+  
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
     fLagomPortText.setText(configuration.getAttribute(LagomServerPort, LagomServerPortDefault))
