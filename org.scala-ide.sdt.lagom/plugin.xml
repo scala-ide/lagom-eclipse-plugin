@@ -2,6 +2,17 @@
 <?eclipse version="3.2"?>
 <plugin>
 
+  <extension point="org.eclipse.core.expressions.propertyTesters">
+    
+      <propertyTester
+           class="org.scalaide.lagom.LagomLaunchableTester"
+           id="org.scalaide.lagom.LagomLaunchableTester"
+           namespace="org.scalaide.lagom"
+           properties="hasLagomLoader"
+           type="org.eclipse.core.runtime.IAdaptable"/>  
+    
+  </extension>
+  
   <!-- Lagom Microservice -->
   <extension point = "org.eclipse.debug.core.launchConfigurationTypes">
   
@@ -39,17 +50,6 @@
     
   </extension>
   
-  <extension point="org.eclipse.core.expressions.propertyTesters">
-    
-      <propertyTester
-           class="org.scalaide.lagom.microservice.launching.LagomLaunchableTester"
-           id="org.scalaide.lagom.microservice.launching.LagomLaunchableTester"
-           namespace="org.scalaide.lagom.microservice.launching"
-           properties="hasLagomLoader"
-           type="org.eclipse.core.runtime.IAdaptable"/>  
-    
-  </extension>
-  
   <extension point="org.eclipse.debug.ui.launchShortcuts">
     
     <shortcut
@@ -63,7 +63,9 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test forcePluginActivation="true" property="org.scalaide.lagom.microservice.launching.hasLagomLoader"/>
+              <test
+                forcePluginActivation="true"
+                property="org.scalaide.lagom.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>
@@ -109,17 +111,6 @@
     
   </extension>
   
-  <extension point="org.eclipse.core.expressions.propertyTesters">
-    
-      <propertyTester
-           class="org.scalaide.lagom.locator.launching.LagomLaunchableTester"
-           id="org.scalaide.lagom.locator.launching.LagomLaunchableTester"
-           namespace="org.scalaide.lagom.locator.launching"
-           properties="hasLagomLoader"
-           type="org.eclipse.core.runtime.IAdaptable"/>  
-    
-  </extension>
-  
   <extension point="org.eclipse.debug.ui.launchShortcuts">
     
     <shortcut
@@ -133,7 +124,7 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test property="org.scalaide.lagom.locator.launching.hasLagomLoader"/>
+              <test property="org.scalaide.lagom.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>
@@ -172,21 +163,10 @@
   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
     
     <launchConfigurationTabGroup
-        type="scala.scalatest"
-        class="scala.tools.eclipse.scalatest.launching.ScalaTestTabGroup"
-        id="scala.scalatest.tabGroup">
+        type="scalaide.lagom.cassandra"
+        class="org.scalaide.lagom.cassandra.CassandraTabGroup"
+        id="scalaide.lagom.cassandra.tabGroup">
     </launchConfigurationTabGroup>
-    
-  </extension>
-  
-  <extension point="org.eclipse.core.expressions.propertyTesters">
-    
-      <propertyTester
-           class="org.scalaide.lagom.cassandra.LagomLaunchableTester"
-           id="org.scalaide.lagom.cassandra.LagomLaunchableTester"
-           namespace="org.scalaide.lagom.cassandra"
-           properties="hasLagomLoader"
-           type="org.eclipse.core.runtime.IAdaptable"/>  
     
   </extension>
   
@@ -203,27 +183,13 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test property="org.scalaide.lagom.cassandra.hasLagomLoader"/>
+              <test property="org.scalaide.lagom.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>
       </contextualLaunch>
     </shortcut>
     
-  </extension>
-  
-  <extension
-       id="scala.tools.eclipse.consoleView"
-       point="org.eclipse.ui.views">
-     
-    <view name="ScalaTest"
-           icon="icons/full/etool16/scalatest.gif"
-           category="org.scala-ide.sdt.core.viewCategory"
-           fastViewWidthRatio="0.40"
-           class="scala.tools.eclipse.scalatest.ui.ScalaTestRunnerViewPart"
-           id="scala.tools.eclipse.scalatest.ui.ScalaTestResultView">
-    </view>
-       
   </extension>
 
 </plugin>

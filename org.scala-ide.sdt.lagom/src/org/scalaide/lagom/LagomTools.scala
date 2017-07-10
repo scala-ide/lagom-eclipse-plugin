@@ -1,11 +1,10 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom
 
 import java.net.URL
 import java.net.URLClassLoader
-
 import org.eclipse.jdt.core.IJavaProject
-
 import com.typesafe.config.ConfigFactory
+import org.scalaide.lagom.microservice.launching.LagomServerConfiguration
 
 object noLagomLoaderPath {
   import LagomServerConfiguration._

@@ -24,135 +24,26 @@ import org.scalaide.core.internal.jdt.model.ScalaClassElement
 import org.scalaide.core.internal.jdt.model.ScalaCompilationUnit
 import org.scalaide.core.internal.jdt.model.ScalaElement
 import org.scalaide.core.internal.jdt.model.ScalaSourceFile
+import org.eclipse.core.resources.IProject
 
-class LagomLaunchShortcut extends ILaunchShortcut {
-  import LagomLaunchShortcut._
-
-  def launch(selection: ISelection, mode: String): Unit = {
-    selection match {
-      case treeSelection: ITreeSelection =>
-        treeSelection.getFirstElement match {
-          case scSrcFile: ScalaSourceFile =>
-            scSrcFile.getChildren.collect {
-              case child => getLagomLoaderClass(child)
-            }.collectFirst {
-              case Some(classElement) =>
-                classElement
-            }.map {
-              launchLagom(_, mode)
-            }.orElse {
-              MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
-              None
-            }
-          case classElement: ScalaClassElement =>
-            getLagomLoaderClass(classElement).map {
-              launchLagom(_, mode)
-            }.orElse {
-              MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
-              None
-            }
-          case _ =>
-            MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
-        }
-      case _ =>
-        MessageDialog.openError(null, "Error", "Please select Lagom application loader class to launch.")
-    }
-  }
-
-  def launch(editorPart: IEditorPart, mode: String) {
-    // This get called when user right-clicked within the opened file editor and choose 'Run As' -> ScalaTest
-    val typeRoot = JavaUI.getEditorInputTypeRoot(editorPart.getEditorInput())
-    val selectionProvider: ISelectionProvider = editorPart.getSite().getSelectionProvider()
-    if (selectionProvider != null) {
-      val selection: ISelection = selectionProvider.getSelection()
-      val element = SelectionConverter.getElementAtOffset(typeRoot, selection.asInstanceOf[ITextSelection])
-      val classElementOpt = LagomLaunchShortcut.getLagomLoaderClass(element)
-      classElementOpt match {
-        case Some(classElement) =>
-          launchLagom(classElement, mode)
-        case None =>
-          MessageDialog.openError(null, "Error", "Please select a ScalaTest suite to launch.")
-      }
-    } else
-      MessageDialog.openError(null, "Error", "Please select a ScalaTest suite to launch.")
-  }
-}
+class LagomLaunchShortcut extends org.scalaide.lagom.LagomLaunchShortcut(LagomLaunchShortcut.launchLagom)
 
 object LagomLaunchShortcut {
+  private def getLaunchManager = DebugPlugin.getDefault.getLaunchManager
 
-  def isLagomApplicationLoader(iType: IType): Boolean = {
-    if (iType.isClass) {
-      val project = iType.getJavaProject.getProject
-      val scProject = IScalaPlugin().getScalaProject(project)
-      scProject.presentationCompiler { compiler =>
-        import compiler._
-        val scu = iType.getCompilationUnit.asInstanceOf[ScalaCompilationUnit]
-        val response = new Response[Tree]
-        compiler.askParsedEntered(new BatchSourceFile(scu.file, scu.getContents), false, response)
-        response.getOption().map { tree =>
-          tree.children.exists {
-            case classDef: ClassDef if classDef.symbol.fullName == iType.getFullyQualifiedName =>
-              val linearizedBaseClasses = compiler.asyncExec { classDef.symbol.info.baseClasses }.getOrElse(List.empty)()
-              linearizedBaseClasses.exists {
-                _.fullName == "com.lightbend.lagom.scaladsl.server.LagomApplicationLoader"
-              }
-            case _ =>
-              false
-          }
-        }
-      }.flatten.getOrElse(false)
-    } else
-      false
-  }
-
-  def containsLagomLoaderClass(scSrcFile: ScalaSourceFile): Boolean = {
-    val lagomOpt = scSrcFile.getAllTypes().find { tpe => isLagomApplicationLoader(tpe) }
-    lagomOpt match {
-      case Some(lagom) => true
-      case None        => false
-    }
-  }
-
-  def getLagomLoaderClass(element: IJavaElement): Option[ScalaClassElement] = {
-    element match {
-      case scElement: ScalaElement =>
-        val classElement = LagomLaunchShortcut.getClassElement(element)
-        if (classElement != null && LagomLaunchShortcut.isLagomApplicationLoader(classElement))
-          Some(classElement)
-        else
-          None
-      case _ =>
-        None
-    }
-  }
-
-  @tailrec
-  def getClassElement(element: IJavaElement): ScalaClassElement = {
-    element match {
-      case scClassElement: ScalaClassElement =>
-        scClassElement
-      case _ =>
-        if (element.getParent != null)
-          getClassElement(element.getParent)
-        else
-          null
-    }
-  }
-
-  def getLaunchManager = DebugPlugin.getDefault.getLaunchManager
-
-  def launchLagom(classElement: ScalaClassElement, mode: String) {
+  def launchLagom(project: IProject, mode: String) {
     val configType = getLaunchManager.getLaunchConfigurationType("scalaide.lagom.cassandra")
     val existingConfigs = getLaunchManager.getLaunchConfigurations(configType)
-    val simpleName = NameTransformer.decode(classElement.labelName)
-    val existingConfigOpt = existingConfigs.find(config => config.getName == simpleName)
+    val existingConfigOpt = existingConfigs.find(config => config.getName == project.getName)
     val config = existingConfigOpt match {
       case Some(existingConfig) => existingConfig
       case None =>
-        val wc = configType.newInstance(null, getLaunchManager.generateLaunchConfigurationName(simpleName.replaceAll(":", "-").replaceAll("\"", "'")))
-        val project = classElement.getJavaProject.getProject
-        wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, classElement.getFullyQualifiedName)
+        import LagomCassandraConfiguration._
+        val wc = configType.newInstance(null, getLaunchManager.generateLaunchConfigurationName(LagomCassandraName))
         wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName)
+        wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomCassandraRunnerClass)
+        wc.setAttribute(LagomPort, LagomPortDefault)
+        wc.setAttribute(LagomTimeout, LagomTimeoutDefault)
         wc.doSave
     }
     DebugUITools.launch(config, mode)

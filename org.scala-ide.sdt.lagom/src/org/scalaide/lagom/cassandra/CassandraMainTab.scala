@@ -1,4 +1,4 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom.cassandra
 
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
@@ -19,25 +19,23 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
 import org.eclipse.ui.PlatformUI
 import org.scalaide.lagom.LagomImages
-import org.scalaide.lagom.noLagomLoaderPath
+import org.scalaide.lagom.microservice.launching.LagomServerConfiguration
 
 import com.ibm.icu.text.MessageFormat
 
-class LagomServerMainTab extends AbstractJavaMainTab {
-  private var fLagomPortText: Text = null
-  private var fLocatorPortText: Text = null
-  private var fCassandraPortText: Text = null
-  private var fWatchTimeoutText: Text = null
+class CassandraMainTab extends AbstractJavaMainTab {
+  private var fPortText: Text = null
+  private var fTimeoutText: Text = null
 
-  override def getId: String = "scalaide.lagom.microservice.tabGroup"
-  override def getName: String = "Lagom Service"
+  override def getId: String = "scalaide.lagom.cassandra.tabGroup"
+  override def getName: String = "Lagom Cassandra"
 
   def createControl(parent: Composite): Unit = {
     val comp = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH)
     comp.getLayout.asInstanceOf[GridLayout].verticalSpacing = 0
     createProjectEditor(comp)
     createVerticalSpacer(comp, 1)
-    createMainTypeEditor(comp, "Main Lagom Service Parameters")
+    createMainTypeEditor(comp, "Main Lagom Cassandra Parameters")
     setControl(comp)
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IHelpContextIds.LAUNCHER_CONFIGURATION)
   }
@@ -49,45 +47,30 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   }
 
   protected def createLines(parent: Composite): Unit = {
-    SWTFactory.createLabel(parent, "Lagom Server Port", 1)
-    fLagomPortText = SWTFactory.createSingleText(parent, 1)
-    fLagomPortText.addModifyListener(new ModifyListener() {
+    SWTFactory.createLabel(parent, "Cassandra Server Port", 1)
+    fPortText = SWTFactory.createSingleText(parent, 1)
+    fPortText.addModifyListener(new ModifyListener() {
       override def modifyText(me: ModifyEvent): Unit = {
         scheduleUpdateJob()
       }
     })
-    SWTFactory.createLabel(parent, "Lagom Service Locator Port", 1)
-    fLocatorPortText = SWTFactory.createSingleText(parent, 1)
-    fLocatorPortText.addModifyListener(new ModifyListener() {
-      override def modifyText(me: ModifyEvent): Unit = {
-        scheduleUpdateJob()
-      }
-    })
-    SWTFactory.createLabel(parent, "Cassandra Port", 1)
-    fCassandraPortText = SWTFactory.createSingleText(parent, 1)
-    fCassandraPortText.addModifyListener(new ModifyListener() {
-      override def modifyText(me: ModifyEvent): Unit = {
-        print(me.data)
-        scheduleUpdateJob()
-      }
-    })
-    SWTFactory.createLabel(parent, "Watch Service Timeout [ms]", 1)
-    fWatchTimeoutText = SWTFactory.createSingleText(parent, 1)
-    fWatchTimeoutText.addModifyListener(new ModifyListener() {
+    SWTFactory.createLabel(parent, "Cassandra Startup Timeout [ms]", 1)
+    fTimeoutText = SWTFactory.createSingleText(parent, 1)
+    fTimeoutText.addModifyListener(new ModifyListener() {
       override def modifyText(me: ModifyEvent): Unit = {
         scheduleUpdateJob()
       }
     })
   }
 
-  private val image = Option(LagomImages.LAGOM_LAGOM_SERVER.createImage)
+  private val image = Option(LagomImages.LAGOM_CASSANDRA_SERVER.createImage)
   override def getImage = image.getOrElse(null)
 
   override def dispose: Unit = {
     image.foreach(_.dispose())
   }
 
-  import LagomServerConfiguration._
+  import LagomCassandraConfiguration._
 
   private def projectValidator: PartialFunction[IProject, Boolean] = {
     val name = fProjText.getText.trim
@@ -105,7 +88,7 @@ class LagomServerMainTab extends AbstractJavaMainTab {
         false
     }.orElse[IProject, Boolean] {
       case project if noLagomLoaderPathInConfig(project) =>
-        setErrorMessage(s"Project $name does not define $LagomApplicationLoaderPath path in configuration.")
+        setErrorMessage(s"Project $name does not define ${LagomServerConfiguration.LagomApplicationLoaderPath} path in configuration.")
         false
     }.orElse[IProject, Boolean] {
       case _ =>
@@ -114,17 +97,11 @@ class LagomServerMainTab extends AbstractJavaMainTab {
   }
 
   private def settingsValidator: Boolean =
-    if (!fCassandraPortText.getText.trim.forall(Character.isDigit)) {
+    if (!fPortText.getText.trim.forall(Character.isDigit)) {
       setErrorMessage(s"Cassandra port must be a number.")
       false
-    } else if (!fLagomPortText.getText.trim.forall(Character.isDigit)) {
-      setErrorMessage(s"Lagom Server port must be a number.")
-      false
-    } else if (!fLocatorPortText.getText.trim.forall(Character.isDigit)) {
-      setErrorMessage(s"Service Locator port must be a number.")
-      false
-    } else if (!fWatchTimeoutText.getText.trim.forall(Character.isDigit)) {
-      setErrorMessage(s"Timeout must be a number.")
+    } else if (!fTimeoutText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Startup timeout must be a number.")
       false
     } else true
 
@@ -146,28 +123,24 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       true
   }
 
+  import org.scalaide.lagom.noLagomLoaderPath
   private val noLagomLoaderPathInConfig: IProject => Boolean = (noLagomLoaderPath.apply _) compose (JavaCore.create _)
   
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
-    fLagomPortText.setText(configuration.getAttribute(LagomServerPort, LagomServerPortDefault))
-    fLocatorPortText.setText(configuration.getAttribute(LagomLocatorPort, LagomLocatorPortDefault))
-    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraPortDefault))
-    fWatchTimeoutText.setText(configuration.getAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault))
+    fPortText.setText(configuration.getAttribute(LagomPort, LagomPortDefault))
+    fTimeoutText.setText(configuration.getAttribute(LagomTimeout, LagomTimeoutDefault))
   }
 
   private def setIfSet(key: String, value: String, configMap: scala.collection.mutable.Map[String, Any]): Unit =
     if (value.nonEmpty) configMap += (key -> value)
 
   def performApply(config: ILaunchConfigurationWorkingCopy): Unit = {
-    import scala.collection.JavaConverters._
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
-    configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
-    configMap.put(LagomServerPort, fLagomPortText.getText.trim)
-    setIfSet(LagomLocatorPort, fLocatorPortText.getText.trim, configMap.asScala)
-    setIfSet(LagomCassandraPort, fCassandraPortText.getText.trim, configMap.asScala)
-    configMap.put(LagomWatchTimeout, fWatchTimeoutText.getText.trim)
+    configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomCassandraRunnerClass)
+    configMap.put(LagomPort, fPortText.getText.trim)
+    configMap.put(LagomTimeout, fTimeoutText.getText.trim)
     config.setAttributes(configMap)
     mapResources(config)
   }
@@ -178,10 +151,8 @@ class LagomServerMainTab extends AbstractJavaMainTab {
       initializeJavaProject(javaElement, config)
     else
       config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
-    config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
-    config.setAttribute(LagomServerPort, LagomServerPortDefault)
-    config.setAttribute(LagomLocatorPort, LagomLocatorPortDefault)
-    config.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
-    config.setAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
+    config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomCassandraRunnerClass)
+    config.setAttribute(LagomPort, LagomPortDefault)
+    config.setAttribute(LagomTimeout, LagomTimeoutDefault)
   }
 }
