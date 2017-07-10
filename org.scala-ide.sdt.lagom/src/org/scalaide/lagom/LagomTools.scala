@@ -2,12 +2,13 @@ package org.scalaide.lagom
 
 import java.net.URL
 import java.net.URLClassLoader
+
 import org.eclipse.jdt.core.IJavaProject
+
 import com.typesafe.config.ConfigFactory
-import org.scalaide.lagom.microservice.launching.LagomServerConfiguration
 
 object noLagomLoaderPath {
-  import LagomServerConfiguration._
+  import org.scalaide.lagom.microservice.launching.LagomServerConfiguration._
   def apply(javaProject: IJavaProject): Boolean = try {
     val projectLocation = javaProject.getProject.getLocation
     val ProjectNameSegment = 1

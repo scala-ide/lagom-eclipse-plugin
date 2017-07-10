@@ -23,5 +23,4 @@ object LagomImages {
         ScalaImages.MISSING_ICON
     }
   }
-
 }
