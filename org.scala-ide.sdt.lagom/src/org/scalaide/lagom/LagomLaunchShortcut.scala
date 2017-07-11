@@ -8,7 +8,6 @@ import org.eclipse.jdt.ui.JavaUI
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.text.ITextSelection
 import org.eclipse.jface.viewers.ISelection
-import org.eclipse.jface.viewers.ISelectionProvider
 import org.eclipse.jface.viewers.ITreeSelection
 import org.eclipse.ui.IEditorPart
 
@@ -35,14 +34,15 @@ class LagomLaunchShortcut(launchLagom: (IProject, String) => Unit) extends ILaun
     }
   }
 
-  def launch(editorPart: IEditorPart, mode: String) {
+  def launch(editorPart: IEditorPart, mode: String): Unit = {
     val typeRoot = JavaUI.getEditorInputTypeRoot(editorPart.getEditorInput())
-    val selectionProvider: ISelectionProvider = editorPart.getSite().getSelectionProvider()
-    if (selectionProvider != null) {
-      val selection: ISelection = selectionProvider.getSelection()
+    Option(editorPart.getSite.getSelectionProvider).map { selectionProvider =>
+      val selection: ISelection = selectionProvider.getSelection
       val element = SelectionConverter.getElementAtOffset(typeRoot, selection.asInstanceOf[ITextSelection])
       actIfProject(mode, element)
-    } else
+    }.orElse {
       MessageDialog.openError(null, "Error", "Please select element in Lagom project.")
+      None
+    }
   }
 }

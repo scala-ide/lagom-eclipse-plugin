@@ -15,8 +15,10 @@ object LagomLauncher extends App {
    */
   val LagomPortProgArgName = "port"
   val LagomTimeoutProgArgName = "timeout"
+
   val port = args.find(_.startsWith(LagomPortProgArgName)).map(_.drop(LagomPortProgArgName.length)).get.toInt
   val timeout = args.find(_.startsWith(LagomTimeoutProgArgName)).map(_.drop(LagomTimeoutProgArgName.length)).get.toInt
+
   private def waitForRunningCassandra(maxWaiting: FiniteDuration): Unit = {
     import scala.collection.JavaConverters._
     val hostname = "127.0.0.1"
@@ -50,6 +52,7 @@ object LagomLauncher extends App {
     }
     tryConnect(maxWaiting.fromNow)
   }
+
   Logger.info("cassandra starting")
   new Thread {
     override def run = {

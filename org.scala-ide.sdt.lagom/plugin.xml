@@ -104,9 +104,9 @@
   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
     
     <launchConfigurationTabGroup
-        type="scala.scalatest"
-        class="scala.tools.eclipse.scalatest.launching.ScalaTestTabGroup"
-        id="scala.scalatest.tabGroup">
+        type="scalaide.lagom.locator"
+        class="org.scalaide.lagom.locator.launching.LocatorTabGroup"
+        id="scalaide.lagom.locator.tabGroup">
     </launchConfigurationTabGroup>
     
   </extension>

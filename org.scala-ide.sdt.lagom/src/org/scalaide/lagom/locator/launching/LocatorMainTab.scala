@@ -1,4 +1,4 @@
-package org.scalaide.lagom.cassandra
+package org.scalaide.lagom.locator.launching
 
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
@@ -23,19 +23,20 @@ import org.scalaide.lagom.microservice.launching.LagomServerConfiguration
 
 import com.ibm.icu.text.MessageFormat
 
-class CassandraMainTab extends AbstractJavaMainTab {
+class LocatorMainTab extends AbstractJavaMainTab {
   private var fPortText: Text = null
-  private var fTimeoutText: Text = null
+  private var fGatewayPortText: Text = null
+  private var fCassandraPortText: Text = null
 
-  override def getId: String = "scalaide.lagom.cassandra.tabGroup"
-  override def getName: String = "Lagom Cassandra"
+  override def getId: String = "scalaide.lagom.locator.tabGroup"
+  override def getName: String = "Lagom Service Locator"
 
   def createControl(parent: Composite): Unit = {
     val comp = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH)
     comp.getLayout.asInstanceOf[GridLayout].verticalSpacing = 0
     createProjectEditor(comp)
     createVerticalSpacer(comp, 1)
-    createMainTypeEditor(comp, "Main Lagom Cassandra Parameters")
+    createMainTypeEditor(comp, "Main Lagom Service Locator Parameters")
     setControl(comp)
     PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IHelpContextIds.LAUNCHER_CONFIGURATION)
   }
@@ -47,30 +48,37 @@ class CassandraMainTab extends AbstractJavaMainTab {
   }
 
   protected def createLines(parent: Composite): Unit = {
-    SWTFactory.createLabel(parent, "Cassandra Server Port", 1)
+    SWTFactory.createLabel(parent, "Service Locator Port", 1)
     fPortText = SWTFactory.createSingleText(parent, 1)
     fPortText.addModifyListener(new ModifyListener() {
       override def modifyText(me: ModifyEvent): Unit = {
         scheduleUpdateJob()
       }
     })
-    SWTFactory.createLabel(parent, "Cassandra Startup Timeout [ms]", 1)
-    fTimeoutText = SWTFactory.createSingleText(parent, 1)
-    fTimeoutText.addModifyListener(new ModifyListener() {
+    SWTFactory.createLabel(parent, "Service Gateway Port", 1)
+    fGatewayPortText = SWTFactory.createSingleText(parent, 1)
+    fGatewayPortText.addModifyListener(new ModifyListener() {
+      override def modifyText(me: ModifyEvent): Unit = {
+        scheduleUpdateJob()
+      }
+    })
+    SWTFactory.createLabel(parent, "Cassandra Port", 1)
+    fCassandraPortText = SWTFactory.createSingleText(parent, 1)
+    fCassandraPortText.addModifyListener(new ModifyListener() {
       override def modifyText(me: ModifyEvent): Unit = {
         scheduleUpdateJob()
       }
     })
   }
 
-  private val image = Option(LagomImages.LAGOM_CASSANDRA_SERVER.createImage)
+  private val image = Option(LagomImages.LAGOM_LOCATOR_SERVER.createImage)
   override def getImage = image.getOrElse(null)
 
   override def dispose: Unit = {
     image.foreach(_.dispose())
   }
 
-  import LagomCassandraConfiguration._
+  import LagomLocatorConfiguration._
 
   private def projectValidator: PartialFunction[IProject, Boolean] = {
     val name = fProjText.getText.trim
@@ -98,10 +106,13 @@ class CassandraMainTab extends AbstractJavaMainTab {
 
   private def settingsValidator: Boolean =
     if (!fPortText.getText.trim.forall(Character.isDigit)) {
-      setErrorMessage(s"Cassandra port must be a number.")
+      setErrorMessage(s"Service Locator port must be a number.")
       false
-    } else if (!fTimeoutText.getText.trim.forall(Character.isDigit)) {
-      setErrorMessage(s"Startup timeout must be a number.")
+    } else if (!fGatewayPortText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Service Gateway port must be a number.")
+      false
+    } else if (!fCassandraPortText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Cassandra port must be a number.")
       false
     } else true
 
@@ -125,19 +136,21 @@ class CassandraMainTab extends AbstractJavaMainTab {
 
   import org.scalaide.lagom.noLagomLoaderPath
   private val noLagomLoaderPathInConfig: IProject => Boolean = (noLagomLoaderPath.apply _) compose (JavaCore.create _)
-  
+
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
     fPortText.setText(configuration.getAttribute(LagomPort, LagomPortDefault))
-    fTimeoutText.setText(configuration.getAttribute(LagomTimeout, LagomTimeoutDefault))
+    fGatewayPortText.setText(configuration.getAttribute(LagomGatewayPort, LagomGatewayPortDefault))
+    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraPortDefault))
   }
 
   def performApply(config: ILaunchConfigurationWorkingCopy): Unit = {
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
-    configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomCassandraRunnerClass)
+    configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomLocatorRunnerClass)
     configMap.put(LagomPort, fPortText.getText.trim)
-    configMap.put(LagomTimeout, fTimeoutText.getText.trim)
+    configMap.put(LagomGatewayPort, fGatewayPortText.getText.trim)
+    configMap.put(LagomCassandraPort, fCassandraPortText.getText.trim)
     config.setAttributes(configMap)
     mapResources(config)
   }
@@ -148,8 +161,9 @@ class CassandraMainTab extends AbstractJavaMainTab {
       initializeJavaProject(javaElement, config)
     else
       config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
-    config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomCassandraRunnerClass)
+    config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomLocatorName)
     config.setAttribute(LagomPort, LagomPortDefault)
-    config.setAttribute(LagomTimeout, LagomTimeoutDefault)
+    config.setAttribute(LagomGatewayPort, LagomGatewayPortDefault)
+    config.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
   }
 }

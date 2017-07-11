@@ -13,7 +13,9 @@ object LagomLaunchShortcut {
   def launchLagom(project: IProject, mode: String) {
     val configType = getLaunchManager.getLaunchConfigurationType("scalaide.lagom.cassandra")
     val existingConfigs = getLaunchManager.getLaunchConfigurations(configType)
-    val existingConfigOpt = existingConfigs.find(config => config.getName == project.getName)
+    val existingConfigOpt = existingConfigs.find { config =>
+      config.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "") == project.getName
+    }
     val config = existingConfigOpt match {
       case Some(existingConfig) => existingConfig
       case None =>

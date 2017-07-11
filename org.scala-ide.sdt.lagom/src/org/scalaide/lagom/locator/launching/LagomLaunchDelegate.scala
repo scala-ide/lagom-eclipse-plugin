@@ -26,8 +26,6 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 }
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def addLagomClass(lagomClass: String, programArgs: Array[String]): Array[String] =
-    programArgs ++ Array(s"lagomclass$lagomClass")
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
@@ -50,12 +48,21 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     ).map(findPath)
     classpath ++ paths
   }
+
+  import LagomLocatorConfiguration._
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
-    val className = config.getClassToLaunch
-    val lagomConfig = new VMRunnerConfiguration("org.scalaide.lagom.locator.LagomLauncher", addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)
+    val launchConfig = launch.getLaunchConfiguration
+    val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
+    val gateway = launchConfig.getAttribute(LagomGatewayPort, LagomGatewayPortDefault)
+    val cass = launchConfig.getAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+    val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch, addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
-    lagomConfig.setProgramArguments(addLagomClass(config.getClassToLaunch, config.getProgramArguments))
+    lagomConfig.setProgramArguments(config.getProgramArguments ++
+      Array(s"$LagomPortProgArgName$port",
+        s"$LagomGatewayPortProgArgName$gateway",
+        s"$LagomCassandraPortProgArgName$cass")
+    )
     lagomConfig.setResumeOnStartup(config.isResumeOnStartup)
     lagomConfig.setVMArguments(config.getVMArguments)
     lagomConfig.setVMSpecificAttributesMap(config.getVMSpecificAttributesMap)
