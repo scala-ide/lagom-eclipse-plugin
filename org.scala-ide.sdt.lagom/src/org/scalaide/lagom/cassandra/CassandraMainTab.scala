@@ -1,12 +1,10 @@
 package org.scalaide.lagom.cassandra
 
-import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
 import org.eclipse.debug.internal.ui.SWTFactory
-import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab
 import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
@@ -19,7 +17,6 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
 import org.eclipse.ui.PlatformUI
 import org.scalaide.lagom.LagomImages
-import org.scalaide.lagom.microservice.launching.LagomServerConfiguration
 
 import com.ibm.icu.text.MessageFormat
 
@@ -72,30 +69,6 @@ class CassandraMainTab extends AbstractJavaMainTab {
 
   import LagomCassandraConfiguration._
 
-  private def projectValidator: PartialFunction[IProject, Boolean] = {
-    val name = fProjText.getText.trim
-    PartialFunction.empty[IProject, Boolean].orElse[IProject, Boolean] {
-      case project if !project.exists() =>
-        setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_20, Array(name)))
-        false
-    }.orElse[IProject, Boolean] {
-      case project if !project.isOpen =>
-        setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_21, Array(name)))
-        false
-    }.orElse[IProject, Boolean] {
-      case project if !project.hasNature(JavaCore.NATURE_ID) =>
-        setErrorMessage(s"Project $name does not have Java nature.")
-        false
-    }.orElse[IProject, Boolean] {
-      case project if noLagomLoaderPathInConfig(project) =>
-        setErrorMessage(s"Project $name does not define ${LagomServerConfiguration.LagomApplicationLoaderPath} path in configuration.")
-        false
-    }.orElse[IProject, Boolean] {
-      case _ =>
-        true
-    }
-  }
-
   private def settingsValidator: Boolean =
     if (!fPortText.getText.trim.forall(Character.isDigit)) {
       setErrorMessage(s"Cassandra port must be a number.")
@@ -114,7 +87,8 @@ class CassandraMainTab extends AbstractJavaMainTab {
       val status = workspace.validateName(name, IResource.PROJECT)
       if (status.isOK) {
         val project = ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-        projectValidator(project) && settingsValidator
+        import org.scalaide.lagom.projectValidator
+        projectValidator(fProjText.getText.trim, setErrorMessage)(project) && settingsValidator
       } else {
         setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_19, Array(status.getMessage())))
         false
@@ -123,9 +97,6 @@ class CassandraMainTab extends AbstractJavaMainTab {
       true
   }
 
-  import org.scalaide.lagom.noLagomLoaderPath
-  private val noLagomLoaderPathInConfig: IProject => Boolean = (noLagomLoaderPath.apply _) compose (JavaCore.create _)
-  
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
     fPortText.setText(configuration.getAttribute(LagomPort, LagomPortDefault))
