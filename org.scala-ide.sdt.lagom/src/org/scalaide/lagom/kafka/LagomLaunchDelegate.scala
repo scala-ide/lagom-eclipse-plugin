@@ -23,6 +23,14 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
 import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.core.IClasspathEntry
 import java.io.File
+import org.eclipse.m2e.core.MavenPlugin
+import org.eclipse.m2e.core.MavenPlugin
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.apache.maven.artifact.handler.DefaultArtifactHandler
+import org.apache.maven.artifact.Artifact
+import org.apache.maven.lifecycle.internal.MojoExecutor
+import org.eclipse.aether.collection.CollectRequest
+import org.eclipse.aether.graph.Dependency
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -32,6 +40,20 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 }
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
+  private def collectDeps = {
+    val mvn = MavenPlugin.getMaven
+    import scala.collection.JavaConverters._
+    val s = mvn.getLocalRepository
+    val r = MavenPlugin.getMaven.getArtifactRepositories
+    val artifact = mvn.execute(false, true, (context, monitor) => {
+      val artifact = mvn.resolve("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5", "jar", null, r, monitor)
+      val collect = new CollectRequest()
+      //collect.setRoot(new Dependency(artifact, "runtime"))
+      artifact
+    }, new NullProgressMonitor)
+    println(r)
+    println(s)
+  }
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
@@ -70,7 +92,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       case o =>
         prjLoc.append(o.removeFirstSegments(ProjectRootSegment)).toFile.toURI.toURL.getPath
     }.distinct.sorted.headOption
-    val targetDir = defaultOut.orElse(out).get
+    defaultOut.orElse(out).get
   }
 
   import LagomKafkaConfiguration._
@@ -79,6 +101,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
     val zookeeper = launchConfig.getAttribute(LagomZookeeperPort, LagomZookeeperPortDefault)
+    collectDeps
     val / = File.separator
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath

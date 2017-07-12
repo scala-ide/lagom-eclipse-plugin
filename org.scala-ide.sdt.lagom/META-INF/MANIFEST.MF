@@ -22,6 +22,9 @@ Require-Bundle:
  org.eclipse.ui.editors,
  org.eclipse.ui.forms,
  org.eclipse.ui.ide,
+ org.eclipse.m2e.archetype.common,
+ org.eclipse.m2e.maven.runtime,
+ org.eclipse.m2e.core,
  org.scala-lang.scala-library;bundle-version="[2.11.0,2.13.0)",
  org.scala-lang.scala-compiler;bundle-version="[2.11.0,2.13.0)",
  org.scala-lang.scala-reflect,
@@ -34,12 +37,14 @@ Import-Package:
  org.scalaide.core;apply-aspects:=false,
  org.scalaide.debug.internal.launching;apply-aspects:=false,
  org.scalaide.logging;apply-aspects:=false,
- scala.tools.eclipse.contribution.weaving.jdt.ui.javaeditor.formatter;apply-aspects:=false
+ scala.tools.eclipse.contribution.weaving.jdt.ui.javaeditor.formatter;apply-aspects:=false,
+ org.eclipse.m2e.core
 Export-Package: 
  org.scalaide.lagom,
  org.scalaide.lagom.microservice.launching,
  org.scalaide.lagom.locator.launching,
- org.scalaide.lagom.cassandra
+ org.scalaide.lagom.cassandra,
+ org.scalaide.lagom.kafka
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  libs/config-1.3.1.jar
