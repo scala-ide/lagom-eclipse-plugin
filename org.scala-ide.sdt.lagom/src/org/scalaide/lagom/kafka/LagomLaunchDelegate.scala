@@ -40,6 +40,8 @@ import org.eclipse.m2e.core.embedder.ICallable
 import org.eclipse.aether.repository.RemoteRepository
 import org.eclipse.aether.repository.RemoteRepository.Builder
 import org.eclipse.aether.internal.impl.DefaultDependencyCollector
+import org.apache.maven.repository.internal.DefaultVersionResolver
+import org.apache.maven.repository.internal.DefaultVersionRangeResolver
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -86,7 +88,9 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
         //val repositorySession = new DefaultRepositorySystemSession(session.getRepositorySession)
         //repositorySession.setWorkspaceReader(new UnbuiltWorkspaceReader(repositorySession.getWorkspaceReader, session))
         val repoSystem = new DefaultRepositorySystem
-        repoSystem.setDependencyCollector(new DefaultDependencyCollector)
+        val collector = new DefaultDependencyCollector
+        collector.setVersionRangeResolver(new DefaultVersionRangeResolver)
+        repoSystem.setDependencyCollector(collector)
         val collectResult = repoSystem.collectDependencies(context.getRepositorySession, collect)
 
         val node = collectResult.getRoot
