@@ -41,7 +41,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       libFile.getPath
     }
     val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
-        "lagom-kafka-server_2.11-1.3.4.jar"
+        "lagom-kafka-server_2.11-1.3.5.jar"
     ).map(findPath)
     classpath ++ paths
   }

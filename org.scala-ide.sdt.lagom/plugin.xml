@@ -124,7 +124,9 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test property="org.scalaide.lagom.hasLagomLoader"/>
+              <test
+                forcePluginActivation="true"
+                property="org.scalaide.lagom.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>
@@ -183,7 +185,70 @@
           <with variable="selection">
             <count value="1" />
             <iterate>
-              <test property="org.scalaide.lagom.hasLagomLoader"/>
+              <test
+                forcePluginActivation="true"
+                property="org.scalaide.lagom.hasLagomLoader"/>
+            </iterate>
+          </with>
+        </enablement>
+      </contextualLaunch>
+    </shortcut>
+    
+  </extension>
+
+  <!-- Lagom Kafka Server -->
+  <extension point = "org.eclipse.debug.core.launchConfigurationTypes">
+  
+    <launchConfigurationType
+           id="scalaide.lagom.kafka"
+           delegate="org.scalaide.lagom.kafka.LagomLaunchDelegate"
+           delegateDescription="The Lagom Launcher supports running and debugging Lagom Kafka Server."
+           delegateName="Lagom Kafka Launcher"
+           modes="run, debug"
+           name="Lagom Kafka Launcher"
+           public="true"
+           sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+           sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
+    </launchConfigurationType>
+  
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+  
+    <launchConfigurationTypeImage
+           configTypeID="scalaide.lagom.kafka"
+           icon="icons/full/etool16/lagomkafka.png"
+           id="scalaide.lagom.kafka.image">
+    </launchConfigurationTypeImage>
+  
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    
+    <launchConfigurationTabGroup
+        type="scalaide.lagom.kafka"
+        class="org.scalaide.lagom.kafka.KafkaTabGroup"
+        id="scalaide.lagom.kafka.tabGroup">
+    </launchConfigurationTabGroup>
+    
+  </extension>
+  
+  <extension point="org.eclipse.debug.ui.launchShortcuts">
+    
+    <shortcut
+        class="org.scalaide.lagom.kafka.LagomLaunchShortcut"
+        icon="icons/full/obj16/lagomkafka.png"
+        id="org.eclipse.shortcut.scalaide.lagom.kafka"
+        label="%LagomKafkaShortcut.label"
+        modes="run,debug">
+      <contextualLaunch>
+        <enablement>
+          <with variable="selection">
+            <count value="1" />
+            <iterate>
+              <test
+                forcePluginActivation="true"
+                property="org.scalaide.lagom.hasLagomLoader"/>
             </iterate>
           </with>
         </enablement>

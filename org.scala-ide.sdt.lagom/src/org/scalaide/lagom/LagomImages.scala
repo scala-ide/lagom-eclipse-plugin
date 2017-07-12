@@ -12,6 +12,7 @@ object LagomImages {
   val LAGOM_LAGOM_SERVER = create("icons/full/obj16/littlelagom.png")
   val LAGOM_LOCATOR_SERVER = create("icons/full/obj16/lagomlocator.png")
   val LAGOM_CASSANDRA_SERVER = create("icons/full/obj16/lagomcassandra.png")
+  val LAGOM_KAFKA_SERVER = create("icons/full/obj16/lagomkafka.png")
 
   private def create(localPath: String) = {
     try {
