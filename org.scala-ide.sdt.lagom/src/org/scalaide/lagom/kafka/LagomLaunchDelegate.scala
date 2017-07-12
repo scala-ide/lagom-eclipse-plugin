@@ -27,10 +27,19 @@ import org.eclipse.m2e.core.MavenPlugin
 import org.eclipse.m2e.core.MavenPlugin
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.apache.maven.artifact.handler.DefaultArtifactHandler
-import org.apache.maven.artifact.Artifact
 import org.apache.maven.lifecycle.internal.MojoExecutor
 import org.eclipse.aether.collection.CollectRequest
 import org.eclipse.aether.graph.Dependency
+import org.eclipse.aether.artifact.DefaultArtifact
+import org.eclipse.aether.artifact.Artifact
+import org.eclipse.m2e.core.embedder.IMavenExecutionContext
+import org.eclipse.aether.resolution.DependencyResult
+import org.eclipse.aether.resolution.DependencyRequest
+import org.eclipse.aether.internal.impl.DefaultRepositorySystem
+import org.eclipse.m2e.core.embedder.ICallable
+import org.eclipse.aether.repository.RemoteRepository
+import org.eclipse.aether.repository.RemoteRepository.Builder
+import org.eclipse.aether.internal.impl.DefaultDependencyCollector
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -42,18 +51,59 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
   private def collectDeps = {
     val mvn = MavenPlugin.getMaven
-    import scala.collection.JavaConverters._
-    val s = mvn.getLocalRepository
-    val r = MavenPlugin.getMaven.getArtifactRepositories
-    val artifact = mvn.execute(false, true, (context, monitor) => {
-      val artifact = mvn.resolve("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5", "jar", null, r, monitor)
-      val collect = new CollectRequest()
-      //collect.setRoot(new Dependency(artifact, "runtime"))
-      artifact
-    }, new NullProgressMonitor)
-    println(r)
-    println(s)
+    val call: ICallable[Seq[Artifact]] = (context, monitor) => {
+      val dependency = {
+        val artifact = new DefaultArtifact("com.lightbend.lagom", "lagom-kafka-server_2.11",
+          "jar", "1.3.5")
+        new Dependency(artifact, "runtime")
+      }
+
+      /**
+       * Resolve the classpath for the given dependency.
+       */
+      val session = context.getSession
+      def resolveDependency(dependency: Dependency, additionalDependencies: Seq[Dependency] = Nil): Seq[Artifact] = {
+        val collect = new CollectRequest()
+        collect.setRoot(dependency)
+        import scala.collection.JavaConverters._
+        collect.setRepositories(mvn.getArtifactRepositories.asScala.toList.map { repo =>
+          new Builder("maven-central",
+            "default",
+            "http://repo1.maven.org/maven2/").build
+        }.asJava)
+        additionalDependencies.foreach(collect.addDependency)
+
+        toDependencies(resolveDependencies(collect)).map(_.getArtifact)
+      }
+      def toDependencies(depResult: DependencyResult): Seq[Dependency] = {
+        import scala.collection.JavaConverters._
+        depResult.getArtifactResults.asScala.map(_.getRequest.getDependencyNode.getDependency)
+      }
+      def resolveDependencies(collect: CollectRequest): DependencyResult = {
+        val depRequest = new DependencyRequest(collect, null)
+
+        // Replace the workspace reader with one that will resolve projects that haven't been compiled yet
+        //val repositorySession = new DefaultRepositorySystemSession(session.getRepositorySession)
+        //repositorySession.setWorkspaceReader(new UnbuiltWorkspaceReader(repositorySession.getWorkspaceReader, session))
+        val repoSystem = new DefaultRepositorySystem
+        repoSystem.setDependencyCollector(new DefaultDependencyCollector)
+        val collectResult = repoSystem.collectDependencies(context.getRepositorySession, collect)
+
+        val node = collectResult.getRoot
+        depRequest.setRoot(node)
+
+        repoSystem.resolveDependencies(context.getRepositorySession, depRequest)
+      }
+      def resolveArtifact(artifact: Artifact): Seq[Artifact] = {
+        resolveDependency(new Dependency(artifact, "runtime"))
+      }
+      val cp = resolveArtifact(dependency.getArtifact)
+      cp
+    }
+    val cps = mvn.execute(false, true, call, new NullProgressMonitor)
+    println(cps)
   }
+
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
@@ -63,8 +113,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       libFile.getPath
     }
     val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
-        "lagom-kafka-server_2.11-1.3.5.jar"
-    ).map(findPath)
+      "lagom-kafka-server_2.11-1.3.5.jar").map(findPath)
     classpath ++ paths
   }
 
@@ -111,13 +160,11 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     lagomConfig.setProgramArguments(config.getProgramArguments ++
       Array(s"$LagomPortProgArgName$port",
         s"$LagomZookeeperPortProgArgName$zookeeper",
-        s"$LagomTargetDirProgArgName$target")
-    )
+        s"$LagomTargetDirProgArgName$target"))
     lagomConfig.setResumeOnStartup(config.isResumeOnStartup)
     lagomConfig.setVMArguments(config.getVMArguments ++
       kafkaJVMOptions ++
-      Array(s"-Dkafka.logs.dir=${target + /}log4j_output")
-    )
+      Array(s"-Dkafka.logs.dir=${target + /}log4j_output"))
     lagomConfig.setVMSpecificAttributesMap(config.getVMSpecificAttributesMap)
     lagomConfig.setWorkingDirectory(config.getWorkingDirectory)
     super.run(lagomConfig, launch, monitor)
