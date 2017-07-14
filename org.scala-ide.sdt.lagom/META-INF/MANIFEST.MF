@@ -47,4 +47,17 @@ Export-Package:
  org.scalaide.lagom.kafka
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
- libs/config-1.3.1.jar
+ libs/config-1.3.1.jar,
+ libs/jcabi-aether-0.10.1.jar,
+ libs/aether-api-1.13.1.jar,
+ libs/aether-spi-1.13.1.jar,
+ libs/aether-util-1.13.1.jar,
+ libs/aspectjrt-1.8.2.jar,
+ libs/jcabi-aspects-0.18.jar,
+ libs/validation-api-1.1.0.Final.jar,
+ libs/jcabi-log-0.17.2.jar,
+ libs/slf4j-api-1.7.25.jar,
+ libs/aether-impl-1.13.1.jar,
+ libs/aether-connector-file-1.13.1.jar,
+ libs/aether-connector-asynchttpclient-1.13.1.jar,
+ libs/aether-connector-wagon-1.13.1.jar
