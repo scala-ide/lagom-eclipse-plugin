@@ -53,43 +53,7 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 
 object Latch
 
-object app {
-  def apply() = {
-    val locator = MavenRepositorySystemUtils.newServiceLocator()
-    val system = newRepositorySystem(locator)
-    val session = newSession(system)
-    val central = new RemoteRepository.Builder("central", "default", "http://repo1.maven.org/maven2/").build()
-    val artifact = new DefaultArtifact("com.lightbend.lagom:lagom-kafka-server_2.11:1.3.5")
-    import scala.collection.JavaConverters._
-    val collectRequest = new CollectRequest(new Dependency(artifact, JavaScopes.COMPILE), List(central).asJava)
-    val filter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE)
-    val request = new DependencyRequest(collectRequest, filter)
-    val result = system.resolveDependencies(session, request)
-    result.getArtifactResults.forEach { artifact =>
-      println(artifact.getArtifact.getFile)
-    }
-  }
-
-  def newRepositorySystem(locator: DefaultServiceLocator): RepositorySystem = {
-    locator.addService(classOf[RepositoryConnectorFactory], classOf[BasicRepositoryConnectorFactory])
-    locator.addService(classOf[TransporterFactory], classOf[FileTransporterFactory])
-    locator.addService(classOf[TransporterFactory], classOf[HttpTransporterFactory])
-    locator.getService(classOf[RepositorySystem])
-  }
-
-  def newSession(system: RepositorySystem): RepositorySystemSession = {
-    val session = MavenRepositorySystemUtils.newSession()
-    val localRepo = new LocalRepository("target/local-repo")
-    session.setLocalRepositoryManager(system.newLocalRepositoryManager(session, localRepo))
-    session
-  }
-}
-
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def collectDeps = {
-    app()
-  }
-
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
     val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
     def findPath(lib: String) = {
@@ -136,11 +100,15 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
     val zookeeper = launchConfig.getAttribute(LagomZookeeperPort, LagomZookeeperPortDefault)
-    collectDeps
+    import org.scalaide.lagom.maven
+    val kafkaServerClasspath = maven.dependencies(asProject(projectName).getLocationURI.getPath)("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5").map { file =>
+      file.toURI.getPath
+    }
     val / = File.separator
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath
-    val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch, addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath)
+    val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
+      addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath ++ kafkaServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
     lagomConfig.setProgramArguments(config.getProgramArguments ++

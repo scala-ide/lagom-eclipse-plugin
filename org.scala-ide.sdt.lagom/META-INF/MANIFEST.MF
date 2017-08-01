@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.scala-ide.sdt.lagom;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: scala-ide.org
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.scalaide.lagom.LagomPlugin
 Bundle-Localization: plugin
 Bundle-Classpath: .,
  libs/config-1.3.1.jar,
