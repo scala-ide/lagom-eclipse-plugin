@@ -2,7 +2,6 @@ package org.scalaide.lagom.kafka
 
 import java.io.File
 
-import org.eclipse.aether.util.artifact.JavaScopes
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
@@ -27,8 +26,23 @@ import org.scalaide.core.internal.launching.ClasspathGetterForLaunchDelegate
 import org.scalaide.core.internal.launching.ProblemHandlersForLaunchDelegate
 import org.scalaide.debug.internal.launching.StandardVMScalaDebugger
 import org.scalaide.logging.HasLogger
-
-import com.jcabi.aether.Aether
+import org.apache.maven.repository.internal.MavenRepositorySystemUtils
+import org.eclipse.aether.impl.DefaultServiceLocator
+import org.eclipse.aether.spi.connector.RepositoryConnectorFactory
+import org.eclipse.aether.connector.basic.BasicRepositoryConnectorFactory
+import org.eclipse.aether.RepositorySystem
+import org.eclipse.aether.spi.connector.transport.TransporterFactory
+import org.eclipse.aether.transport.file.FileTransporterFactory
+import org.eclipse.aether.transport.http.HttpTransporterFactory
+import org.eclipse.aether.RepositorySystemSession
+import org.eclipse.aether.repository.LocalRepository
+import org.eclipse.aether.repository.RemoteRepository
+import org.eclipse.aether.artifact.DefaultArtifact
+import org.eclipse.aether.collection.CollectRequest
+import org.eclipse.aether.graph.Dependency
+import org.eclipse.aether.util.artifact.JavaScopes
+import org.eclipse.aether.util.filter.DependencyFilterUtils
+import org.eclipse.aether.resolution.DependencyRequest
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -39,153 +53,41 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 
 object Latch
 
+object app {
+  def apply() = {
+    val locator = MavenRepositorySystemUtils.newServiceLocator()
+    val system = newRepositorySystem(locator)
+    val session = newSession(system)
+    val central = new RemoteRepository.Builder("central", "default", "http://repo1.maven.org/maven2/").build()
+    val artifact = new DefaultArtifact("com.lightbend.lagom:lagom-kafka-server_2.11:1.3.5")
+    import scala.collection.JavaConverters._
+    val collectRequest = new CollectRequest(new Dependency(artifact, JavaScopes.COMPILE), List(central).asJava)
+    val filter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE)
+    val request = new DependencyRequest(collectRequest, filter)
+    val result = system.resolveDependencies(session, request)
+    result.getArtifactResults.forEach { artifact =>
+      println(artifact.getArtifact.getFile)
+    }
+  }
+
+  def newRepositorySystem(locator: DefaultServiceLocator): RepositorySystem = {
+    locator.addService(classOf[RepositoryConnectorFactory], classOf[BasicRepositoryConnectorFactory])
+    locator.addService(classOf[TransporterFactory], classOf[FileTransporterFactory])
+    locator.addService(classOf[TransporterFactory], classOf[HttpTransporterFactory])
+    locator.getService(classOf[RepositorySystem])
+  }
+
+  def newSession(system: RepositorySystem): RepositorySystemSession = {
+    val session = MavenRepositorySystemUtils.newSession()
+    val localRepo = new LocalRepository("target/local-repo")
+    session.setLocalRepositoryManager(system.newLocalRepositoryManager(session, localRepo))
+    session
+  }
+}
+
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
   private def collectDeps = {
-    val mvn = MavenPlugin.getMaven
-    val call2: ICallable[Seq[String]] = (context, monitor) => Latch.synchronized {
-      val session = context.getSession
-      val repo = session.getLocalRepository.getBasedir
-      import org.eclipse.aether.artifact.{ DefaultArtifact => _ }
-      import org.eclipse.aether.repository.{ RemoteRepository => _ }
-      import org.sonatype.aether.util.artifact.DefaultArtifact
-      import org.sonatype.aether.repository.RemoteRepository
-      import scala.collection.JavaConverters._
-      val rr = new RemoteRepository("maven-central",
-        "default",
-        "http://repo1.maven.org/maven2/")
-      val qq = new RemoteRepository("local",
-        "default",
-        session.getLocalRepository.getUrl)
-      
-      val deps = new Aether(Seq(rr, qq).asJava, new File(repo)).resolve(
-        new DefaultArtifact("com.lightbend.lagom", "lagom-kafka-server_2.11",
-          "", "jar", "1.3.5"),
-        JavaScopes.RUNTIME)
-      import scala.collection.JavaConverters._
-      deps.asScala.map(_.getArtifactId)
-    }
-//    val call: ICallable[Seq[Artifact]] = (context, monitor) => {
-//      val dependency = {
-//        val artifact = new DefaultArtifact("com.lightbend.lagom", "lagom-kafka-server_2.11",
-//          "jar", "1.3.5")
-//        new Dependency(artifact, "runtime")
-//      }
-//
-//      /**
-//       * Resolve the classpath for the given dependency.
-//       */
-//      val session = context.getSession
-//      def resolveDependency(dependency: Dependency, additionalDependencies: Seq[Dependency] = Nil): Seq[Artifact] = {
-//        val collect = new CollectRequest()
-//        collect.setRoot(dependency)
-//        import scala.collection.JavaConverters._
-//        collect.setRepositories(mvn.getArtifactRepositories.asScala.toList.map { repo =>
-//          new Builder("maven-central",
-//            "default",
-//            "http://repo1.maven.org/maven2/").build
-//        }.asJava)
-//        additionalDependencies.foreach(collect.addDependency)
-//
-//        toDependencies(resolveDependencies(collect)).map(_.getArtifact)
-//      }
-//      def toDependencies(depResult: DependencyResult): Seq[Dependency] = {
-//        import scala.collection.JavaConverters._
-//        depResult.getArtifactResults.asScala.map(_.getRequest.getDependencyNode.getDependency)
-//      }
-//      def resolveDependencies(collect: CollectRequest): DependencyResult = {
-//        val depRequest = new DependencyRequest(collect, null)
-//
-//        import scala.collection.JavaConverters._
-//        // Replace the workspace reader with one that will resolve projects that haven't been compiled yet
-//        //val repositorySession = new DefaultRepositorySystemSession(session.getRepositorySession)
-//        //repositorySession.setWorkspaceReader(new UnbuiltWorkspaceReader(repositorySession.getWorkspaceReader, session))
-//        val polProv = new DefaultChecksumPolicyProvider
-//
-//        val polAnal = new DefaultUpdatePolicyAnalyzer
-//
-//        val repoMngr = new DefaultRemoteRepositoryManager
-//        repoMngr.setChecksumPolicyProvider(polProv)
-//        repoMngr.setUpdatePolicyAnalyzer(polAnal)
-//
-//        val policeMngr = new DefaultUpdatePolicyAnalyzer
-//
-//        val fileProc = new DefaultFileProcessor
-//
-//        val container = new DefaultPlexusContainer
-//
-//        val wagProv = new PlexusWagonProvider(container)
-//        //wagProv.
-//
-//        val wagConf = new PlexusWagonConfigurator
-//
-//        val transF = new WagonTransporterFactory
-//        transF.setWagonProvider(wagProv)
-//        transF.setWagonConfigurator(wagConf)
-//
-//        val transport = new DefaultTransporterProvider
-//        transport.setTransporterFactories(Seq(transF.asInstanceOf[TransporterFactory]).asJava)
-//
-//        val mavenLF = new Maven2RepositoryLayoutFactory
-//
-//        val layout = new DefaultRepositoryLayoutProvider
-//        layout.setRepositoryLayoutFactories(Seq(mavenLF.asInstanceOf[RepositoryLayoutFactory]).asJava)
-//
-//        val bConFac = new BasicRepositoryConnectorFactory
-//        bConFac.setChecksumPolicyProvider(polProv)
-//        bConFac.setFileProcessor(fileProc)
-//        bConFac.setTransporterProvider(transport)
-//        bConFac.setRepositoryLayoutProvider(layout)
-//
-//        val connProv = new DefaultRepositoryConnectorProvider
-//        connProv.setRepositoryConnectorFactories(Seq(bConFac.asInstanceOf[RepositoryConnectorFactory]).asJava)
-//
-//        val syncContextFactory = new DefaultSyncContextFactory
-//
-//        val eventDisp = new DefaultRepositoryEventDispatcher
-//        eventDisp.setRepositoryListeners(Seq(session.getRepositorySession.getRepositoryListener).asJava)
-//
-//        val upMngr = new DefaultUpdateCheckManager
-//        upMngr.setUpdatePolicyAnalyzer(policeMngr)
-//
-//        val versResolv = new DefaultVersionResolver
-//        versResolv.setRepositoryEventDispatcher(eventDisp)
-//        versResolv.setSyncContextFactory(syncContextFactory)
-//
-//        val artResolver = new DefaultArtifactResolver
-//        artResolver.setRepositoryEventDispatcher(eventDisp)
-//        artResolver.setSyncContextFactory(syncContextFactory)
-//        artResolver.setVersionResolver(versResolv)
-//        artResolver.setRepositoryConnectorProvider(connProv)
-//        artResolver.setUpdateCheckManager(upMngr)
-//        artResolver.setRemoteRepositoryManager(repoMngr)
-//
-//        val reader = new DefaultArtifactDescriptorReader
-//        reader.setVersionResolver(versResolv)
-//        reader.setArtifactResolver(artResolver)
-//        reader.setModelBuilder(new DefaultModelBuilder)
-//
-//        val collector = new DefaultDependencyCollector
-//        collector.setArtifactDescriptorReader(reader)
-//        collector.setRemoteRepositoryManager(repoMngr)
-//        collector.setVersionRangeResolver(new DefaultVersionRangeResolver)
-//
-//        val repoSystem = new DefaultRepositorySystem
-//        repoSystem.setDependencyCollector(collector)
-//        val collectResult = repoSystem.collectDependencies(context.getRepositorySession, collect)
-//
-//        val node = collectResult.getRoot
-//        depRequest.setRoot(node)
-//
-//        repoSystem.resolveDependencies(context.getRepositorySession, depRequest)
-//      }
-//      def resolveArtifact(artifact: Artifact): Seq[Artifact] = {
-//        resolveDependency(new Dependency(artifact, "runtime"))
-//      }
-//      val cp = resolveArtifact(dependency.getArtifact)
-//      cp
-//    }
-    val cps = mvn.execute(true, true, call2, new NullProgressMonitor)
-    println(cps)
+    app()
   }
 
   private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {

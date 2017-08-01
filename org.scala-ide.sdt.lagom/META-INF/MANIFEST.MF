@@ -5,7 +5,17 @@ Bundle-SymbolicName: org.scala-ide.sdt.lagom;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: scala-ide.org
 Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.scalaide.lagom.LagomPlugin
 Bundle-Localization: plugin
+Bundle-Classpath: .,
+ libs/config-1.3.1.jar,
+ libs/validation-api-1.1.0.Final.jar,
+ libs/slf4j-api-1.7.25.jar,
+ libs/aether-transport-file-1.1.0.jar,
+ libs/aether-transport-http-1.1.0.jar,
+ libs/httpclient-4.3.5.jar,
+ libs/httpcore-4.3.2.jar,
+ libs/commons-logging-1.1.3.jar
 Require-Bundle: 
  org.eclipse.core.runtime,
  org.eclipse.debug.ui,
@@ -22,7 +32,6 @@ Require-Bundle:
  org.eclipse.ui.editors,
  org.eclipse.ui.forms,
  org.eclipse.ui.ide,
- org.eclipse.m2e.archetype.common,
  org.eclipse.m2e.maven.runtime,
  org.eclipse.m2e.core,
  org.scala-lang.scala-library;bundle-version="[2.11.0,2.13.0)",
@@ -46,18 +55,3 @@ Export-Package:
  org.scalaide.lagom.cassandra,
  org.scalaide.lagom.kafka
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ClassPath: .,
- libs/config-1.3.1.jar,
- libs/jcabi-aether-0.10.1.jar,
- libs/aether-api-1.13.1.jar,
- libs/aether-spi-1.13.1.jar,
- libs/aether-util-1.13.1.jar,
- libs/aspectjrt-1.8.2.jar,
- libs/jcabi-aspects-0.18.jar,
- libs/validation-api-1.1.0.Final.jar,
- libs/jcabi-log-0.17.2.jar,
- libs/slf4j-api-1.7.25.jar,
- libs/aether-impl-1.13.1.jar,
- libs/aether-connector-file-1.13.1.jar,
- libs/aether-connector-asynchttpclient-1.13.1.jar,
- libs/aether-connector-wagon-1.13.1.jar
