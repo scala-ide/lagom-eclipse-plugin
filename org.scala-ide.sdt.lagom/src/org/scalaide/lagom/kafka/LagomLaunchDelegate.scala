@@ -4,10 +4,7 @@ import java.io.File
 
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.Path
-import org.eclipse.core.runtime.Platform
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.jdt.core.IClasspathEntry
@@ -34,18 +31,6 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 object Latch
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def addRunnerToClasspath(classpath: Array[String]): Array[String] = {
-    val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
-    def findPath(lib: String) = {
-      val libPath = new Path(s"runner-libs/$lib")
-      val libBundleLocation = FileLocator.find(lagomBundle, libPath, null)
-      val libFile = FileLocator.toFileURL(libBundleLocation)
-      libFile.getPath
-    }
-    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar").map(findPath)
-    classpath ++ paths
-  }
-
   private def kafkaJVMOptions = Array("-Xms256m", "-Xmx1024m")
 
   private def asProject(name: String): IProject =
@@ -79,7 +64,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
     val zookeeper = launchConfig.getAttribute(LagomZookeeperPort, LagomZookeeperPortDefault)
-    import org.scalaide.lagom.mavenDeps
+    import org.scalaide.lagom._
     val / = File.separator
     val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
     val kafkaServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5")

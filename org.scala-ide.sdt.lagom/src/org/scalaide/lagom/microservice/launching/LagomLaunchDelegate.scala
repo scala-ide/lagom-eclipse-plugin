@@ -4,10 +4,7 @@ import java.io.File
 
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.Path
-import org.eclipse.core.runtime.Platform
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.jdt.core.IClasspathEntry
@@ -32,21 +29,6 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 }
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def addRunnerAndDependenciesToClasspath(classpath: Array[String]): Array[String] = {
-    val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
-    def findPath(lib: String) = {
-      val libPath = new Path(s"runner-libs/$lib")
-      val libBundleLocation = FileLocator.find(lagomBundle, libPath, null)
-      val libFile = FileLocator.toFileURL(libBundleLocation)
-      libFile.getPath
-    }
-    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
-      "lagom-build-tool-support-1.3.5.jar",
-      "better-files_2.11-2.17.1.jar",
-      "play-file-watch_2.11-1.0.1.jar").map(findPath)
-    classpath ++ paths
-  }
-
   import LagomServerConfiguration._
   private def optionalProgArgs(locatorPort: String, cassandraPort: String): Array[String] = {
     val collect = scala.collection.mutable.ArrayBuffer.empty[String]
@@ -90,12 +72,17 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val locatorPort = launchConfig.getAttribute(LagomLocatorPort, NotSet)
     val cassandraPort = launchConfig.getAttribute(LagomCassandraPort, NotSet)
     val (servicePath, dependenciesPath) = config.getClassPath.partition(_.startsWith(asProject(projectName).getLocationURI.getPath))
-    import org.scalaide.lagom.mavenDeps
+    import org.scalaide.lagom._
     val / = File.separator
     val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
     val reloadableServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-reloadable-server_2.11", "1.3.5")
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
-      addRunnerAndDependenciesToClasspath(dependenciesPath) ++ config.getBootClassPath ++ reloadableServerClasspath)
+      addRunnerToClasspath(
+        dependenciesPath,
+        Seq("lagom-build-tool-support-1.3.5.jar",
+          "better-files_2.11-2.17.1.jar",
+          "play-file-watch_2.11-1.0.1.jar")
+      ) ++ config.getBootClassPath ++ reloadableServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
     lagomConfig.setProgramArguments(

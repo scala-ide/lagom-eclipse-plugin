@@ -22,6 +22,9 @@ import org.eclipse.aether.transport.http.HttpTransporterFactory
 import org.eclipse.aether.util.artifact.JavaScopes
 import org.eclipse.aether.util.filter.DependencyFilterUtils
 import org.eclipse.core.resources.IProject
+import org.eclipse.core.runtime.FileLocator
+import org.eclipse.core.runtime.Path
+import org.eclipse.core.runtime.Platform
 import org.eclipse.jdt.core.IJavaProject
 import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
@@ -113,6 +116,20 @@ package object lagom {
       val localRepo = new LocalRepository(localRepoLocation)
       session.setLocalRepositoryManager(system.newLocalRepositoryManager(session, localRepo))
       session
+    }
+  }
+
+  object addRunnerToClasspath {
+    def apply(classpath: Array[String], fromRunnerLib: Seq[String] = Nil): Array[String] = {
+      val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
+      def findPath(lib: String) = {
+        val libPath = new Path(s"runner-libs/$lib")
+        val libBundleLocation = FileLocator.find(lagomBundle, libPath, null)
+        val libFile = FileLocator.toFileURL(libBundleLocation)
+        libFile.getPath
+      }
+      val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar") ++ fromRunnerLib map (findPath)
+      classpath ++ paths
     }
   }
 }

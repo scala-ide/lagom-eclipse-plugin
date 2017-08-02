@@ -1,12 +1,8 @@
 package org.scalaide.lagom.cassandra
 
-import org.eclipse.core.resources.IResource
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
 import org.eclipse.debug.internal.ui.SWTFactory
-import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab
-import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
 import org.eclipse.pde.internal.ui.IHelpContextIds
 import org.eclipse.swt.events.ModifyEvent
@@ -16,11 +12,10 @@ import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
 import org.eclipse.ui.PlatformUI
+import org.scalaide.lagom.AbstractMainTab
 import org.scalaide.lagom.LagomImages
 
-import com.ibm.icu.text.MessageFormat
-
-class CassandraMainTab extends AbstractJavaMainTab {
+class CassandraMainTab extends AbstractMainTab {
   private var fPortText: Text = null
   private var fTimeoutText: Text = null
 
@@ -78,24 +73,8 @@ class CassandraMainTab extends AbstractJavaMainTab {
       false
     } else true
 
-  override def isValid(config: ILaunchConfiguration): Boolean = {
-    setErrorMessage(null)
-    setMessage(null)
-    var name = fProjText.getText.trim
-    if (name.length > 0) {
-      val workspace = ResourcesPlugin.getWorkspace
-      val status = workspace.validateName(name, IResource.PROJECT)
-      if (status.isOK) {
-        val project = ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-        import org.scalaide.lagom.projectValidator
-        projectValidator(fProjText.getText.trim, setErrorMessage)(project) && settingsValidator
-      } else {
-        setErrorMessage(MessageFormat.format(LauncherMessages.JavaMainTab_19, Array(status.getMessage())))
-        false
-      }
-    } else
-      true
-  }
+  override def isValid(config: ILaunchConfiguration): Boolean =
+    isValid(settingsValidator)(config)
 
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
@@ -114,11 +93,7 @@ class CassandraMainTab extends AbstractJavaMainTab {
   }
 
   def setDefaults(config: ILaunchConfigurationWorkingCopy): Unit = {
-    val javaElement = getContext
-    if (javaElement != null)
-      initializeJavaProject(javaElement, config)
-    else
-      config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
+    setProjectName(config)
     config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomCassandraRunnerClass)
     config.setAttribute(LagomPort, LagomPortDefault)
     config.setAttribute(LagomTimeout, LagomTimeoutDefault)
