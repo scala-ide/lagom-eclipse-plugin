@@ -28,72 +28,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-service-locator_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-service-registry-client_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-javadsl-server_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-javadsl-client_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-javadsl-api_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-javadsl-jackson_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.module</groupId>
-			<artifactId>jackson-module-parameter-names</artifactId>
-			<version>2.7.8</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-guava</artifactId>
-			<version>2.7.8</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-pcollections</artifactId>
-			<version>2.7.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.pcollections</groupId>
-			<artifactId>pcollections</artifactId>
-			<version>2.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-cassandra-server_2.11</artifactId>
-			<version>1.3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
 			<artifactId>lagom-build-tool-support</artifactId>
-			<version>1.3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>build-link</artifactId>
-			<version>1.3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-reloadable-server_2.11</artifactId>
 			<version>1.3.5</version>
 		</dependency>
 		<dependency>
@@ -102,150 +37,30 @@
 			<version>1.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>net.contentobjects.jnotify</groupId>
-			<artifactId>jnotify</artifactId>
-			<version>0.94</version>
-		</dependency>
-		<dependency>
 			<groupId>com.github.pathikrit</groupId>
 			<artifactId>better-files_2.11</artifactId>
 			<version>2.17.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-kafka-server_2.11</artifactId>
-			<version>1.3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.11</artifactId>
-			<version>0.10.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.jcabi</groupId>
-			<artifactId>jcabi-aether</artifactId>
-			<version>0.10.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.jcabi</groupId>
-			<artifactId>jcabi-aether</artifactId>
-			<version>0.10.1</version>
-			<classifier>sources</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-api</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-spi</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.sonatype.aether/aether-util -->
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-util</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.8.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.jcabi/jcabi-aspects -->
-		<dependency>
-			<groupId>com.jcabi</groupId>
-			<artifactId>jcabi-aspects</artifactId>
-			<version>0.18</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.jcabi/jcabi-log -->
-		<dependency>
-			<groupId>com.jcabi</groupId>
-			<artifactId>jcabi-log</artifactId>
-			<version>0.17.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.25</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.sonatype.aether/aether-impl -->
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-impl</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-impl</artifactId>
-			<version>1.13.1</version>
-			<classifier>sources</classifier>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.sonatype.aether/aether-connector-file -->
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-connector-file</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.sonatype.aether/aether-connector-asynchttpclient -->
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-connector-asynchttpclient</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.sonatype.aether/aether-connector-wagon -->
-		<dependency>
-			<groupId>org.sonatype.aether</groupId>
-			<artifactId>aether-connector-wagon</artifactId>
-			<version>1.13.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven/maven-aether-provider -->
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-aether-provider</artifactId>
-			<version>3.0.5</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven/maven-aether-provider -->
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-aether-provider</artifactId>
-			<version>3.0.5</version>
-			<classifier>sources</classifier>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.eclipse.aether/aether-transport-file -->
-		<dependency>
 			<groupId>org.eclipse.aether</groupId>
 			<artifactId>aether-transport-file</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.eclipse.aether/aether-transport-http -->
 		<dependency>
 			<groupId>org.eclipse.aether</groupId>
 			<artifactId>aether-transport-http</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.5</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
 			<version>4.3.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -286,10 +101,6 @@
 									<artifactId>aether-transport-http</artifactId>
 								</artifactItem>
 								<artifactItem>
-									<groupId>org.slf4j</groupId>
-									<artifactId>slf4j-api</artifactId>
-								</artifactItem>
-								<artifactItem>
 									<groupId>org.apache.httpcomponents</groupId>
 									<artifactId>httpclient</artifactId>
 								</artifactItem>
@@ -309,34 +120,21 @@
 						<configuration>
 							<outputDirectory>${project.basedir}/runner-libs</outputDirectory>
 							<artifactItems>
-								<!-- <artifactItem> <groupId>org.scala-ide</groupId> <artifactId>org.scala-ide.sdt.lagom.runner</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-service-locator_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-service-registry-client_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-javadsl-server_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-javadsl-client_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-javadsl-api_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-javadsl-jackson_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.fasterxml.jackson.module</groupId> 
-									<artifactId>jackson-module-parameter-names</artifactId> </artifactItem> <artifactItem> 
-									<groupId>com.fasterxml.jackson.datatype</groupId> <artifactId>jackson-datatype-guava</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.fasterxml.jackson.datatype</groupId> 
-									<artifactId>jackson-datatype-pcollections</artifactId> </artifactItem> <artifactItem> 
-									<groupId>org.pcollections</groupId> <artifactId>pcollections</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-cassandra-server_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-build-tool-support</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>build-link</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.lagom</groupId> <artifactId>lagom-reloadable-server_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>com.lightbend.play</groupId> <artifactId>play-file-watch_2.11</artifactId> 
-									</artifactItem> <artifactItem> <groupId>net.contentobjects.jnotify</groupId> 
-									<artifactId>jnotify</artifactId> </artifactItem> <artifactItem> <groupId>com.github.pathikrit</groupId> 
-									<artifactId>better-files_2.11</artifactId> </artifactItem> -->
 								<artifactItem>
-									<groupId>com.lightbend.lagom</groupId>
-									<artifactId>lagom-kafka-server_2.11</artifactId>
+									<groupId>org.scala-ide</groupId>
+									<artifactId>org.scala-ide.sdt.lagom.runner</artifactId>
 								</artifactItem>
 								<artifactItem>
-									<groupId>org.apache.kafka</groupId>
-									<artifactId>kafka_2.11</artifactId>
+									<groupId>com.lightbend.lagom</groupId>
+									<artifactId>lagom-build-tool-support</artifactId>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.lightbend.play</groupId>
+									<artifactId>play-file-watch_2.11</artifactId>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.github.pathikrit</groupId>
+									<artifactId>better-files_2.11</artifactId>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
