@@ -2,8 +2,6 @@ package org.scalaide.lagom.microservice.launching
 
 import java.io.File
 
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
@@ -37,6 +35,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     collect.toArray
   }
 
+  import org.scalaide.lagom.eclipseTools._
   private def srcsAndOutsProgArgs(project: String): Array[String] = {
     val collect = scala.collection.mutable.ArrayBuffer.empty[String]
     val prj = asProject(project)
@@ -61,9 +60,6 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     collect.toArray
   }
 
-  private def asProject(name: String): IProject =
-    ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val launchConfig = launch.getLaunchConfiguration
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
@@ -73,9 +69,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val cassandraPort = launchConfig.getAttribute(LagomCassandraPort, NotSet)
     val (servicePath, dependenciesPath) = config.getClassPath.partition(_.startsWith(asProject(projectName).getLocationURI.getPath))
     import org.scalaide.lagom._
-    val / = File.separator
-    val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
-    val reloadableServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-reloadable-server_2.11", "1.3.5")
+    val reloadableServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-reloadable-server_2.11", "1.3.5")
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(
         dependenciesPath,

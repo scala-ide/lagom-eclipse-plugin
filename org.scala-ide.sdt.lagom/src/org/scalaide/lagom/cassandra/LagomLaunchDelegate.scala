@@ -1,9 +1,5 @@
 package org.scalaide.lagom.cassandra
 
-import java.io.File
-
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
@@ -30,19 +26,14 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
   private def cassandraJVMOptions = Array("-Xms256m", "-Xmx1024m", "-Dcassandra.jmx.local.port=4099",
     "-DCassandraLauncher.configResource=dev-embedded-cassandra.yaml")
 
-  private def asProject(name: String): IProject =
-    ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-
   import LagomCassandraConfiguration._
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val launchConfig = launch.getLaunchConfiguration
     val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
     val timeout = launchConfig.getAttribute(LagomTimeout, LagomTimeoutDefault)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
-    val / = File.separator
-    val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
     import org.scalaide.lagom._
-    val cassandraServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-cassandra-server_2.11", "1.3.5")
+    val cassandraServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-cassandra-server_2.11", "1.3.5")
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath ++ cassandraServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)

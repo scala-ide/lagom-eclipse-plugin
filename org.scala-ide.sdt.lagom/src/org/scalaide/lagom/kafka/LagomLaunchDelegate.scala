@@ -2,8 +2,6 @@ package org.scalaide.lagom.kafka
 
 import java.io.File
 
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
@@ -31,11 +29,9 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 object Latch
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def kafkaJVMOptions = Array("-Xms256m", "-Xmx1024m")
+	import org.scalaide.lagom.eclipseTools._
 
-  private def asProject(name: String): IProject =
-    ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-
+	private def kafkaJVMOptions = Array("-Xms256m", "-Xmx1024m")
   private def targetDir(prjName: String) = {
     val prj = asProject(prjName)
     val prjLoc = prj.getLocation
@@ -66,8 +62,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val zookeeper = launchConfig.getAttribute(LagomZookeeperPort, LagomZookeeperPortDefault)
     import org.scalaide.lagom._
     val / = File.separator
-    val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
-    val kafkaServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5")
+    val kafkaServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5")
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,

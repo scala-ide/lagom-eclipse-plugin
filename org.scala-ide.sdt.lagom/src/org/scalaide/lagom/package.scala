@@ -1,5 +1,6 @@
 package org.scalaide
 
+import java.io.File
 import java.net.URL
 import java.net.URLClassLoader
 import java.text.MessageFormat
@@ -22,6 +23,7 @@ import org.eclipse.aether.transport.http.HttpTransporterFactory
 import org.eclipse.aether.util.artifact.JavaScopes
 import org.eclipse.aether.util.filter.DependencyFilterUtils
 import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
@@ -104,6 +106,11 @@ package object lagom {
       }.toSeq
     }
 
+    def defaultLocalRepoLocation(prjName: String): String = {
+      val / = File.separator
+      eclipseTools.asProject(prjName).getLocationURI.getPath + / + "target" + / + "local-repo"
+    }
+
     private def newRepositorySystem(locator: DefaultServiceLocator): RepositorySystem = {
       locator.addService(classOf[RepositoryConnectorFactory], classOf[BasicRepositoryConnectorFactory])
       locator.addService(classOf[TransporterFactory], classOf[FileTransporterFactory])
@@ -131,5 +138,10 @@ package object lagom {
       val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar") ++ fromRunnerLib map (findPath)
       classpath ++ paths
     }
+  }
+
+  object eclipseTools {
+    def asProject(name: String): IProject =
+      ResourcesPlugin.getWorkspace.getRoot.getProject(name)
   }
 }

@@ -1,9 +1,5 @@
 package org.scalaide.lagom.locator.launching
 
-import java.io.File
-
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch
 import org.eclipse.debug.core.ILaunchConfiguration
@@ -27,9 +23,6 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 }
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
-  private def asProject(name: String): IProject =
-    ResourcesPlugin.getWorkspace.getRoot.getProject(name)
-
   import LagomLocatorConfiguration._
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val launchConfig = launch.getLaunchConfiguration
@@ -37,10 +30,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val gateway = launchConfig.getAttribute(LagomGatewayPort, LagomGatewayPortDefault)
     val cass = launchConfig.getAttribute(LagomCassandraPort, LagomCassandraPortDefault)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
-    val / = File.separator
-    val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
     import org.scalaide.lagom._
-    val locatorServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-service-locator_2.11", "1.3.5")
+    val locatorServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-service-locator_2.11", "1.3.5")
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath ++ locatorServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
