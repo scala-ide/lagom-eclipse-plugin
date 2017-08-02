@@ -88,9 +88,9 @@ package object lagom {
       val system = newRepositorySystem(locator)
       val session = newSession(system, localRepoLocation)
       val artifact = new DefaultArtifact(Seq(groupId, artifactId, version).mkString(MavenDelimeter))
-      val central = new RemoteRepository.Builder(DefaultRemoteRepoId, DefaultRemoteRepoType, DefaultRemoteRepoUrl).build()
+      val defaultRemote = new RemoteRepository.Builder(DefaultRemoteRepoId, DefaultRemoteRepoType, DefaultRemoteRepoUrl).build()
       import scala.collection.JavaConverters._
-      val collectRequest = new CollectRequest(new Dependency(artifact, JavaScopes.COMPILE), List(central).asJava)
+      val collectRequest = new CollectRequest(new Dependency(artifact, JavaScopes.COMPILE), List(defaultRemote).asJava)
       val filter = DependencyFilterUtils.classpathFilter(JavaScopes.COMPILE)
       val request = new DependencyRequest(collectRequest, filter)
       val result = system.resolveDependencies(session, request)
