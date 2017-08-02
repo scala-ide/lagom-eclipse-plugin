@@ -6,7 +6,6 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
 import org.eclipse.debug.core.ILaunch
@@ -20,29 +19,10 @@ import org.eclipse.jdt.launching.IVMRunner
 import org.eclipse.jdt.launching.JavaLaunchDelegate
 import org.eclipse.jdt.launching.JavaRuntime
 import org.eclipse.jdt.launching.VMRunnerConfiguration
-import org.eclipse.m2e.core.MavenPlugin
-import org.eclipse.m2e.core.embedder.ICallable
 import org.scalaide.core.internal.launching.ClasspathGetterForLaunchDelegate
 import org.scalaide.core.internal.launching.ProblemHandlersForLaunchDelegate
 import org.scalaide.debug.internal.launching.StandardVMScalaDebugger
 import org.scalaide.logging.HasLogger
-import org.apache.maven.repository.internal.MavenRepositorySystemUtils
-import org.eclipse.aether.impl.DefaultServiceLocator
-import org.eclipse.aether.spi.connector.RepositoryConnectorFactory
-import org.eclipse.aether.connector.basic.BasicRepositoryConnectorFactory
-import org.eclipse.aether.RepositorySystem
-import org.eclipse.aether.spi.connector.transport.TransporterFactory
-import org.eclipse.aether.transport.file.FileTransporterFactory
-import org.eclipse.aether.transport.http.HttpTransporterFactory
-import org.eclipse.aether.RepositorySystemSession
-import org.eclipse.aether.repository.LocalRepository
-import org.eclipse.aether.repository.RemoteRepository
-import org.eclipse.aether.artifact.DefaultArtifact
-import org.eclipse.aether.collection.CollectRequest
-import org.eclipse.aether.graph.Dependency
-import org.eclipse.aether.util.artifact.JavaScopes
-import org.eclipse.aether.util.filter.DependencyFilterUtils
-import org.eclipse.aether.resolution.DependencyRequest
 
 trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfigurationDelegate {
   override def getVMRunner(configuration: ILaunchConfiguration, mode: String): IVMRunner = {
@@ -62,8 +42,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
       val libFile = FileLocator.toFileURL(libBundleLocation)
       libFile.getPath
     }
-    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar",
-      "lagom-kafka-server_2.11-1.3.5.jar").map(findPath)
+    val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar").map(findPath)
     classpath ++ paths
   }
 
@@ -100,11 +79,10 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
     val zookeeper = launchConfig.getAttribute(LagomZookeeperPort, LagomZookeeperPortDefault)
-    import org.scalaide.lagom.maven
-    val kafkaServerClasspath = maven.dependencies(asProject(projectName).getLocationURI.getPath)("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5").map { file =>
-      file.toURI.getPath
-    }
+    import org.scalaide.lagom.mavenDeps
     val / = File.separator
+    val localRepoLocation = asProject(projectName).getLocationURI.getPath + / + "target" + / + "local-repo"
+    val kafkaServerClasspath = mavenDeps(localRepoLocation)("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5")
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
