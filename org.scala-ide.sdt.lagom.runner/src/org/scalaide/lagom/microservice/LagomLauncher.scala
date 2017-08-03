@@ -1,4 +1,4 @@
-package org.scalaide.lagom.launching
+package org.scalaide.lagom.microservice
 
 import java.io.File
 
@@ -13,7 +13,7 @@ import play.dev.filewatch.LoggerProxy
 object LagomLauncher {
   /**
    * Program attributes.
-   * Keep in sync with [[org.scalaide.lagom.microservice.launching.LagomServerConfiguration]]
+   * Keep in sync with [[org.scalaide.lagom.microservice.LagomServerConfiguration]]
    */
   val LagomSourceDirsProgArgName = "srcdirs"
   val LagomOutputDirsProgArgName = "outdirs"

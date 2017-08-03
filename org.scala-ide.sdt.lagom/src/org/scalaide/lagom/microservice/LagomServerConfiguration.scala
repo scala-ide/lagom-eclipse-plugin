@@ -13,7 +13,7 @@ object LagomServerConfiguration {
   val LagomWatchTimeoutDefault = 200.toString
   val NotSet = ""
   // launch facilities
-  val LagomServiceRunnerClass = "org.scalaide.lagom.launching.LagomLauncher"
+  val LagomServiceRunnerClass = "org.scalaide.lagom.microservice.LagomLauncher"
   val LagomApplicationLoaderPath = "play.application.loader"
   // program attributes
   val LagomSourceDirsProgArgName = "srcdirs"
