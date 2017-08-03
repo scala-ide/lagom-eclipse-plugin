@@ -5,10 +5,10 @@ object LagomLocatorConfiguration {
   val LagomPort = "LAGOM_PORT"
   val LagomGatewayPort = "LAGOM_GATEWAY_PORT"
   val LagomCassandraPort = "LAGOM_CASSANDRA_PORT"
+  val LagomKafkaPort = "LAGOM_KAFKA_PORT"
   // defaults
   val LagomPortDefault = 8000.toString
   val LagomGatewayPortDefault = 9000.toString
-  val LagomCassandraPortDefault = 4000.toString
   // launch facilities
   val LagomLocatorRunnerClass = "org.scalaide.lagom.locator.LagomLauncher"
   val LagomLocatorName = "lagom-locator"
@@ -16,4 +16,5 @@ object LagomLocatorConfiguration {
   val LagomPortProgArgName = "port"
   val LagomGatewayPortProgArgName = "gatewayport"
   val LagomCassandraPortProgArgName = "cassport"
+  val LagomKafkaPortProgArgName = "kafkaport"
 }

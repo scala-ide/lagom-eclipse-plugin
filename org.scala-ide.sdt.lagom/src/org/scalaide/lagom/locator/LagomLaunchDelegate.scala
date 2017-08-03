@@ -23,12 +23,16 @@ trait LagomScalaDebuggerForLaunchDelegate extends AbstractJavaLaunchConfiguratio
 }
 
 class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm) with HasLogger {
+  private def emptyToNone(test: String) = if (test.isEmpty()) None else Option(test)
   import LagomLocatorConfiguration._
   override def run(config: VMRunnerConfiguration, launch: ILaunch, monitor: IProgressMonitor) = {
     val launchConfig = launch.getLaunchConfiguration
     val port = launchConfig.getAttribute(LagomPort, LagomPortDefault)
     val gateway = launchConfig.getAttribute(LagomGatewayPort, LagomGatewayPortDefault)
-    val cass = launchConfig.getAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+    val cass = emptyToNone(launchConfig.getAttribute(LagomCassandraPort, ""))
+    val kafka = emptyToNone(launchConfig.getAttribute(LagomKafkaPort, ""))
+    val progArgForCass = cass.fold(Array.empty[String])(cass => Array(s"$LagomCassandraPortProgArgName$cass"))
+    val progArgForKafka = kafka.fold(Array.empty[String])(kafka => Array(s"$LagomKafkaPortProgArgName$kafka"))
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     import org.scalaide.lagom._
     val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
@@ -39,8 +43,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     lagomConfig.setEnvironment(config.getEnvironment)
     lagomConfig.setProgramArguments(config.getProgramArguments ++
       Array(s"$LagomPortProgArgName$port",
-        s"$LagomGatewayPortProgArgName$gateway",
-        s"$LagomCassandraPortProgArgName$cass"))
+        s"$LagomGatewayPortProgArgName$gateway") ++ progArgForCass ++ progArgForKafka)
     lagomConfig.setResumeOnStartup(config.isResumeOnStartup)
     lagomConfig.setVMArguments(config.getVMArguments)
     lagomConfig.setVMSpecificAttributesMap(config.getVMSpecificAttributesMap)

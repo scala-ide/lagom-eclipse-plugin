@@ -4,6 +4,8 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.debug.core.DebugPlugin
 import org.eclipse.debug.ui.DebugUITools
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
+import org.scalaide.lagom.cassandra.LagomCassandraConfiguration
+import org.scalaide.lagom.kafka.LagomKafkaConfiguration
 
 class LagomLaunchShortcut extends org.scalaide.lagom.LagomLaunchShortcut(LagomLaunchShortcut.launchLagom)
 
@@ -26,7 +28,8 @@ object LagomLaunchShortcut {
         wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName)
         wc.setAttribute(LagomPort, LagomPortDefault)
         wc.setAttribute(LagomGatewayPort, LagomGatewayPortDefault)
-        wc.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+        wc.setAttribute(LagomCassandraPort, LagomCassandraConfiguration.LagomPortDefault)
+        wc.setAttribute(LagomKafkaPort, LagomKafkaConfiguration.LagomPortDefault)
         wc.doSave
     }
     DebugUITools.launch(config, mode)

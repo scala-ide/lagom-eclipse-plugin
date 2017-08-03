@@ -14,11 +14,14 @@ import org.eclipse.swt.widgets.Text
 import org.eclipse.ui.PlatformUI
 import org.scalaide.lagom.AbstractMainTab
 import org.scalaide.lagom.LagomImages
+import org.scalaide.lagom.cassandra.LagomCassandraConfiguration
+import org.scalaide.lagom.kafka.LagomKafkaConfiguration
 
 class LocatorMainTab extends AbstractMainTab {
   private var fPortText: Text = null
   private var fGatewayPortText: Text = null
   private var fCassandraPortText: Text = null
+  private var fKafkaPortText: Text = null
 
   override def getId: String = "scalaide.lagom.locator.tabGroup"
   override def getName: String = "Lagom Service Locator"
@@ -61,6 +64,13 @@ class LocatorMainTab extends AbstractMainTab {
         scheduleUpdateJob()
       }
     })
+    SWTFactory.createLabel(parent, "Kafka Port", 1)
+    fKafkaPortText = SWTFactory.createSingleText(parent, 1)
+    fKafkaPortText.addModifyListener(new ModifyListener() {
+      override def modifyText(me: ModifyEvent): Unit = {
+        scheduleUpdateJob()
+      }
+    })
   }
 
   private val image = Option(LagomImages.LAGOM_LOCATOR_SERVER.createImage)
@@ -82,6 +92,9 @@ class LocatorMainTab extends AbstractMainTab {
     } else if (!fCassandraPortText.getText.trim.forall(Character.isDigit)) {
       setErrorMessage(s"Cassandra port must be a number.")
       false
+    } else if (!fKafkaPortText.getText.trim.forall(Character.isDigit)) {
+      setErrorMessage(s"Kafka port must be a number.")
+      false
     } else true
 
   override def isValid(config: ILaunchConfiguration): Boolean =
@@ -91,7 +104,8 @@ class LocatorMainTab extends AbstractMainTab {
     super.initializeFrom(configuration)
     fPortText.setText(configuration.getAttribute(LagomPort, LagomPortDefault))
     fGatewayPortText.setText(configuration.getAttribute(LagomGatewayPort, LagomGatewayPortDefault))
-    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraPortDefault))
+    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraConfiguration.LagomPortDefault))
+    fKafkaPortText.setText(configuration.getAttribute(LagomKafkaPort, LagomKafkaConfiguration.LagomPortDefault))
   }
 
   def performApply(config: ILaunchConfigurationWorkingCopy): Unit = {
@@ -101,6 +115,7 @@ class LocatorMainTab extends AbstractMainTab {
     configMap.put(LagomPort, fPortText.getText.trim)
     configMap.put(LagomGatewayPort, fGatewayPortText.getText.trim)
     configMap.put(LagomCassandraPort, fCassandraPortText.getText.trim)
+    configMap.put(LagomKafkaPort, fKafkaPortText.getText.trim)
     config.setAttributes(configMap)
     mapResources(config)
   }
@@ -110,6 +125,7 @@ class LocatorMainTab extends AbstractMainTab {
     config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomLocatorName)
     config.setAttribute(LagomPort, LagomPortDefault)
     config.setAttribute(LagomGatewayPort, LagomGatewayPortDefault)
-    config.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+    config.setAttribute(LagomCassandraPort, LagomCassandraConfiguration.LagomPortDefault)
+    config.setAttribute(LagomKafkaPort, LagomKafkaConfiguration.LagomPortDefault)
   }
 }
