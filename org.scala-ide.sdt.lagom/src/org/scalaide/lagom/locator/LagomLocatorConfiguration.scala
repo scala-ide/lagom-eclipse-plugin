@@ -1,4 +1,4 @@
-package org.scalaide.lagom.locator.launching
+package org.scalaide.lagom.locator
 
 object LagomLocatorConfiguration {
   // configuration keys

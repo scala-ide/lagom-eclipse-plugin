@@ -1,4 +1,4 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom.microservice
 
 object LagomServerConfiguration {
   // configuration keys

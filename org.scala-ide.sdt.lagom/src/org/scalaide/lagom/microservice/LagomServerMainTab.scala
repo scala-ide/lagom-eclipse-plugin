@@ -1,4 +1,4 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom.microservice
 
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy

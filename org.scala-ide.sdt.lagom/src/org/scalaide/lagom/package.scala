@@ -36,7 +36,7 @@ import com.typesafe.config.ConfigFactory
 
 package object lagom {
   object noLagomLoaderPath {
-    import org.scalaide.lagom.microservice.launching.LagomServerConfiguration._
+    import org.scalaide.lagom.microservice.LagomServerConfiguration._
     def apply(javaProject: IJavaProject): Boolean = try {
       val projectLocation = javaProject.getProject.getLocation
       val ProjectNameSegment = 1

@@ -1,4 +1,4 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom.locator
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup
 import org.eclipse.debug.ui.CommonTab
@@ -10,16 +10,15 @@ import org.eclipse.jdt.debug.ui.launchConfigurations.JavaArgumentsTab
 import org.eclipse.jdt.debug.ui.launchConfigurations.JavaClasspathTab
 import org.eclipse.jdt.debug.ui.launchConfigurations.JavaJRETab
 
-class LagomServerTabGroup extends AbstractLaunchConfigurationTabGroup {
-  override def createTabs(dialog : ILaunchConfigurationDialog, mode : String) = {
+class LocatorTabGroup extends AbstractLaunchConfigurationTabGroup {
+  override def createTabs(dialog: ILaunchConfigurationDialog, mode: String) = {
     setTabs(Array[ILaunchConfigurationTab](
-      new LagomServerMainTab(),
+      new LocatorMainTab(),
       new JavaArgumentsTab(),
       new JavaJRETab(),
       new JavaClasspathTab(),
       new SourceLookupTab(),
       new EnvironmentTab(),
-      new CommonTab()
-    ))
+      new CommonTab()))
   }
 }

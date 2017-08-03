@@ -1,6 +1,8 @@
-package org.scalaide.lagom.microservice.launching
+package org.scalaide.lagom.microservice
 
 import java.io.File
+
+import scala.collection.Seq
 
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch

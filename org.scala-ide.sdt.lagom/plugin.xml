@@ -18,7 +18,7 @@
   
     <launchConfigurationType
            id="scalaide.lagom.microservice"
-           delegate="org.scalaide.lagom.microservice.launching.LagomLaunchDelegate"
+           delegate="org.scalaide.lagom.microservice.LagomLaunchDelegate"
            delegateDescription="The Lagom Launcher supports running and debugging Lagom microservices."
            delegateName="Lagom Microservice Launcher"
            modes="run, debug"
@@ -44,7 +44,7 @@
     
     <launchConfigurationTabGroup
         type="scalaide.lagom.microservice"
-        class="org.scalaide.lagom.microservice.launching.LagomServerTabGroup"
+        class="org.scalaide.lagom.microservice.LagomServerTabGroup"
         id="scalaide.lagom.microservice.tabGroup">
     </launchConfigurationTabGroup>
     
@@ -53,7 +53,7 @@
   <extension point="org.eclipse.debug.ui.launchShortcuts">
     
     <shortcut
-        class="org.scalaide.lagom.microservice.launching.LagomLaunchShortcut"
+        class="org.scalaide.lagom.microservice.LagomLaunchShortcut"
         icon="icons/full/obj16/littlelagom.png"
         id="org.eclipse.shortcut.scalaide.lagom.microservice"
         label="%LagomLaunchShortcut.label"
@@ -79,7 +79,7 @@
   
     <launchConfigurationType
            id="scalaide.lagom.locator"
-           delegate="org.scalaide.lagom.locator.launching.LagomLaunchDelegate"
+           delegate="org.scalaide.lagom.locator.LagomLaunchDelegate"
            delegateDescription="The Lagom Launcher supports running and debugging Lagom Service Locator."
            delegateName="Lagom Service Locator Launcher"
            modes="run, debug"
@@ -105,7 +105,7 @@
     
     <launchConfigurationTabGroup
         type="scalaide.lagom.locator"
-        class="org.scalaide.lagom.locator.launching.LocatorTabGroup"
+        class="org.scalaide.lagom.locator.LocatorTabGroup"
         id="scalaide.lagom.locator.tabGroup">
     </launchConfigurationTabGroup>
     
@@ -114,7 +114,7 @@
   <extension point="org.eclipse.debug.ui.launchShortcuts">
     
     <shortcut
-        class="org.scalaide.lagom.locator.launching.LagomLaunchShortcut"
+        class="org.scalaide.lagom.locator.LagomLaunchShortcut"
         icon="icons/full/obj16/lagomlocator.png"
         id="org.eclipse.shortcut.scalaide.lagom.locator"
         label="%LagomLocatorShortcut.label"

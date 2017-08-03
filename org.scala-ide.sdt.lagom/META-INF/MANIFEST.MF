@@ -47,8 +47,8 @@ Import-Package:
  org.eclipse.m2e.core
 Export-Package: 
  org.scalaide.lagom,
- org.scalaide.lagom.microservice.launching,
- org.scalaide.lagom.locator.launching,
  org.scalaide.lagom.cassandra,
- org.scalaide.lagom.kafka
+ org.scalaide.lagom.kafka,
+ org.scalaide.lagom.locator,
+ org.scalaide.lagom.microservice
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -1,4 +1,4 @@
-package org.scalaide.lagom.locator.launching
+package org.scalaide.lagom.locator
 
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.debug.core.ILaunch
