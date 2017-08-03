@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.Text
 import org.eclipse.ui.PlatformUI
 import org.scalaide.lagom.AbstractMainTab
 import org.scalaide.lagom.LagomImages
+import org.scalaide.lagom.locator.LagomLocatorConfiguration
+import org.scalaide.lagom.cassandra.LagomCassandraConfiguration
 
 class LagomServerMainTab extends AbstractMainTab {
   private var fLagomPortText: Text = null
@@ -102,12 +104,12 @@ class LagomServerMainTab extends AbstractMainTab {
   override def initializeFrom(configuration: ILaunchConfiguration): Unit = {
     super.initializeFrom(configuration)
     fLagomPortText.setText(configuration.getAttribute(LagomServerPort, LagomServerPortDefault))
-    fLocatorPortText.setText(configuration.getAttribute(LagomLocatorPort, LagomLocatorPortDefault))
-    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraPortDefault))
+    fLocatorPortText.setText(configuration.getAttribute(LagomLocatorPort, LagomLocatorConfiguration.LagomPortDefault))
+    fCassandraPortText.setText(configuration.getAttribute(LagomCassandraPort, LagomCassandraConfiguration.LagomPortDefault))
     fWatchTimeoutText.setText(configuration.getAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault))
   }
 
-  private def setIfSet(key: String, value: String, configMap: scala.collection.mutable.Map[String, Any]): Unit =
+  private def putIfSet(key: String, value: String, configMap: scala.collection.mutable.Map[String, Any]): Unit =
     if (value.nonEmpty) configMap += (key -> value)
 
   def performApply(config: ILaunchConfigurationWorkingCopy): Unit = {
@@ -115,10 +117,10 @@ class LagomServerMainTab extends AbstractMainTab {
     val configMap = new java.util.HashMap[String, Any]()
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText.trim)
     configMap.put(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
-    configMap.put(LagomServerPort, fLagomPortText.getText.trim)
-    setIfSet(LagomLocatorPort, fLocatorPortText.getText.trim, configMap.asScala)
-    setIfSet(LagomCassandraPort, fCassandraPortText.getText.trim, configMap.asScala)
-    configMap.put(LagomWatchTimeout, fWatchTimeoutText.getText.trim)
+    putIfSet(LagomServerPort, fLagomPortText.getText.trim, configMap.asScala)
+    configMap.put(LagomLocatorPort, fLocatorPortText.getText.trim)
+    configMap.put(LagomCassandraPort, fCassandraPortText.getText.trim)
+    putIfSet(LagomWatchTimeout, fWatchTimeoutText.getText.trim, configMap.asScala)
     config.setAttributes(configMap)
     mapResources(config)
   }
@@ -127,8 +129,8 @@ class LagomServerMainTab extends AbstractMainTab {
     setProjectName(config)
     config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
     config.setAttribute(LagomServerPort, LagomServerPortDefault)
-    config.setAttribute(LagomLocatorPort, LagomLocatorPortDefault)
-    config.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+    config.setAttribute(LagomLocatorPort, LagomLocatorConfiguration.LagomPortDefault)
+    config.setAttribute(LagomCassandraPort, LagomCassandraConfiguration.LagomPortDefault)
     config.setAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
   }
 }

@@ -4,6 +4,8 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.debug.core.DebugPlugin
 import org.eclipse.debug.ui.DebugUITools
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants
+import org.scalaide.lagom.cassandra.LagomCassandraConfiguration
+import org.scalaide.lagom.locator.LagomLocatorConfiguration
 
 class LagomLaunchShortcut extends org.scalaide.lagom.LagomLaunchShortcut(LagomLaunchShortcut.launchLagom)
 
@@ -24,8 +26,8 @@ object LagomLaunchShortcut {
         wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, LagomServiceRunnerClass)
         wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName)
         wc.setAttribute(LagomServerPort, LagomServerPortDefault)
-        wc.setAttribute(LagomLocatorPort, LagomLocatorPortDefault)
-        wc.setAttribute(LagomCassandraPort, LagomCassandraPortDefault)
+        wc.setAttribute(LagomLocatorPort, LagomLocatorConfiguration.LagomPortDefault)
+        wc.setAttribute(LagomCassandraPort, LagomCassandraConfiguration.LagomPortDefault)
         wc.setAttribute(LagomWatchTimeout, LagomWatchTimeoutDefault)
         wc.doSave
     }

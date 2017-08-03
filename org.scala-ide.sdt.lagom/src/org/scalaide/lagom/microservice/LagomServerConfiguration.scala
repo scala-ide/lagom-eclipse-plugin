@@ -8,8 +8,6 @@ object LagomServerConfiguration {
   val LagomWatchTimeout = "LAGOM_WATCH_TIMEOUT"
   // defaults
   val LagomServerPortDefault = 9099.toString
-  val LagomLocatorPortDefault = 8000.toString
-  val LagomCassandraPortDefault = 4000.toString
   val LagomWatchTimeoutDefault = 200.toString
   val NotSet = ""
   // launch facilities
