@@ -69,7 +69,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val cassandraPort = launchConfig.getAttribute(LagomCassandraPort, NotSet)
     val (servicePath, dependenciesPath) = config.getClassPath.partition(_.startsWith(asProject(projectName).getLocationURI.getPath))
     import org.scalaide.lagom._
-    val reloadableServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-reloadable-server_2.11", "1.3.5")
+    val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
+    val reloadableServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-reloadable-server_$scalaVersion", lagomVersion)
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(
         dependenciesPath,

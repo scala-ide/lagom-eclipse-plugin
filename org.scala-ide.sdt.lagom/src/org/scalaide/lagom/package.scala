@@ -27,6 +27,7 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
+import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.IJavaProject
 import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.internal.debug.ui.launcher.LauncherMessages
@@ -143,5 +144,27 @@ package object lagom {
   object eclipseTools {
     def asProject(name: String): IProject =
       ResourcesPlugin.getWorkspace.getRoot.getProject(name)
+
+    type ScalaVersion = String
+    type LagomVersion = String
+    val DefaultVersions = ("2.11", "1.3.5")
+    def findLagomVersion(prj: IProject): (ScalaVersion, LagomVersion) =
+      Option { if (prj.hasNature(JavaCore.NATURE_ID)) prj else null }.flatMap { prj =>
+        val javaPrj = JavaCore.create(prj)
+        import scala.collection.JavaConverters._
+        javaPrj.getResolvedClasspath(true).collect {
+          case entry if entry.getEntryKind == IClasspathEntry.CPE_LIBRARY =>
+            entry.getPath.segments().last
+        }.collectFirst {
+          case lagomLib if isLagomLib(lagomLib) =>
+            val versions = """.+_(\d\.\d\d)-(\d\.\d+\.\d+)\.jar""".r
+            lagomLib match {
+              case versions(scalaVersion, lagomVersion) => (scalaVersion, lagomVersion)
+              case _ => DefaultVersions
+            }
+        }
+      }.getOrElse(DefaultVersions)
+
+    private def isLagomLib(potential: String) = potential.toLowerCase().contains("lagom")
   }
 }

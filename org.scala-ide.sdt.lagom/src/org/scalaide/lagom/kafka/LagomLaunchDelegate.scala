@@ -62,7 +62,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val zookeeper = launchConfig.getAttribute(LagomZookeeperPort, LagomZookeeperPortDefault)
     import org.scalaide.lagom._
     val / = File.separator
-    val kafkaServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-kafka-server_2.11", "1.3.5")
+    val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
+    val kafkaServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-kafka-server_$scalaVersion", lagomVersion)
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,

@@ -33,7 +33,8 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val timeout = launchConfig.getAttribute(LagomTimeout, LagomTimeoutDefault)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     import org.scalaide.lagom._
-    val cassandraServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", "lagom-cassandra-server_2.11", "1.3.5")
+    val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
+    val cassandraServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-cassandra-server_$scalaVersion", lagomVersion)
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath ++ cassandraServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
