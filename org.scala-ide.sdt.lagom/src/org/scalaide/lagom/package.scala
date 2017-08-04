@@ -157,12 +157,15 @@ package object lagom {
             entry.getPath.segments().last
         }.collectFirst {
           case lagomLib if isLagomLib(lagomLib) =>
-            val versions = """.+_(\d\.\d\d)-(\d\.\d+\.\d+)\.jar""".r
-            lagomLib match {
-              case versions(scalaVersion, lagomVersion) => (scalaVersion, lagomVersion)
-              case _ => DefaultVersions
+            val versions = """(_(\d\.\d\d))?-(\d\.\d+\.\d+)\.jar""".r("ignore", "scalaVersion", "lagomVersion")
+            versions.findAllMatchIn(lagomLib).toList.lastOption.map { m =>
+              (m.group("scalaVersion"), m.group("lagomVersion"))
+            }.collect {
+              case (s, l) =>
+                (Option(s).filter(_.nonEmpty).getOrElse(DefaultVersions._1),
+                  Option(l).filter(_.nonEmpty).getOrElse(DefaultVersions._2))
             }
-        }
+        }.flatten
       }.getOrElse(DefaultVersions)
 
     private def isLagomLib(potential: String) = potential.toLowerCase().contains("lagom")
