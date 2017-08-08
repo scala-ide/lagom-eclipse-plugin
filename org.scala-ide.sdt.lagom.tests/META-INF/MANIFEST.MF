@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Scala Plugin (Test)
+Bundle-Name: Lagom Plugin (Tests)
 Bundle-SymbolicName: org.scala-ide.sdt.lagom.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: scala-ide.org
@@ -8,8 +8,8 @@ Fragment-Host: org.scala-ide.sdt.lagom
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.scala-lang.scala-library,
  org.eclipse.equinox.weaving.aspectj,
- org.junit,
- org.scala-ide.sdt.core
+ org.scala-ide.sdt.core,
+ org.junit
 Import-Package: org.scalaide.core.testsetup,
  org.aspectj.weaver.loadtime.definition
 Bundle-ClassPath: .,
