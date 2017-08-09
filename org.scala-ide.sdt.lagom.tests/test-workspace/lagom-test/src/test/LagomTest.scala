@@ -10,7 +10,7 @@ object LagomTest {
 
 class LagomTest {
   def foo(): Unit = {
-    val writer = new FileWriter("launch-kafka.result")
+    val writer = new FileWriter("launch-cassandra.result")
     writer.write("success")
     writer.close
   }

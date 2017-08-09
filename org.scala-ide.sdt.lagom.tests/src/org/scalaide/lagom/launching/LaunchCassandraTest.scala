@@ -6,17 +6,15 @@ import org.junit.Before
 import org.junit.Test
 import org.scalaide.core.testsetup.IProjectHelpers
 import org.scalaide.core.testsetup.TestProjectSetup
-import org.scalaide.debug.internal.launching.LaunchUtils
 
-import LaunchKafkaTest.file
-import LaunchKafkaTest.project
+import LaunchCassandraTest.file
+import LaunchCassandraTest.project
 
-object LaunchKafkaTest extends TestProjectSetup("lagom-test", bundleName = "org.scala-ide.sdt.lagom.tests")
+object LaunchCassandraTest extends TestProjectSetup("lagom-test", bundleName = "org.scala-ide.sdt.lagom.tests")
 
-class LaunchKafkaTest extends LaunchUtils with IProjectHelpers {
-  override val launchConfigurationName = "launch-kafka"
-  private val fileWithLaunchEffectName = "launch-kafka.result"
-
+class LaunchCassandraTest extends LaunchUtils with IProjectHelpers {
+  override val launchConfigurationName = "launch-cassandra"
+  private val fileWithLaunchEffectName = "launch-cassandra.result"
   @Before def setup(): Unit = {
     cleanBuild(project)
   }

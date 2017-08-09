@@ -3,11 +3,11 @@
 <stringAttribute key="LAGOM_CASSANDRA_PORT" value="4000"/>
 <stringAttribute key="LAGOM_STARTUP_TIMEOUT" value="20000"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/lagom-test"/>
+<listEntry value="/lagom-test/src/test/LagomTest.scala"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-<listEntry value="4"/>
+<listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.scalaide.lagom.cassandra.LagomLauncher"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="test.LagomTest"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="lagom-test"/>
 </launchConfiguration>
