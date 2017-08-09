@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="scalaide.lagom.kafka">
+<stringAttribute key="LAGOM_KAFKA_PORT" value="9092"/>
+<stringAttribute key="LAGOM_ZOOKEEPER_PORT" value="2181"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/lagom-test/src/test/LagomTest.scala"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="test.LagomTest"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="lagom-test"/>
+</launchConfiguration>

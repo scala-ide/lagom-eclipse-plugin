@@ -20,13 +20,10 @@ import org.junit.Assert
 
 package object launching {
   trait LaunchUtils {
-    /** Points to launch configuration file. */
-    val launchConfigurationName: String
-
     private val DefaultMonitor = new NullProgressMonitor
 
     /** Create a launch listener for launchTerminated events on a launch of the given launchConfiguration. */
-    def onLaunchTerminates(f: () => Unit) = new ILaunchesListener2() {
+    def onLaunchTerminates(launchConfigurationName: String)(f: () => Unit) = new ILaunchesListener2() {
       override def launchesTerminated(launches: Array[ILaunch]): Unit = {
         if (launches.exists(_.getLaunchConfiguration.getName == launchConfigurationName)) {
           f()
@@ -43,13 +40,13 @@ package object launching {
       project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, DefaultMonitor)
     }
 
-    private def launchConfiguration(project: IProject): ILaunchConfiguration =
+    private def launchConfiguration(launchConfigurationName: String)(project: IProject): ILaunchConfiguration =
       DebugPlugin.getDefault.getLaunchManager.getLaunchConfiguration(project.getFile(launchConfigurationName + ".launch"))
 
-    def whenApplicationWasLaunchedFor(project: IProject, inMode: String)(inThatCase: => Unit): Unit = {
+    def whenApplicationWasLaunchedFor(launchConfigurationName: String)(project: IProject, inMode: String)(inThatCase: => Unit): Unit = {
       val latch = new CountDownLatch(1)
-      DebugPlugin.getDefault.getLaunchManager.addLaunchListener(onLaunchTerminates(() ⇒ latch.countDown))
-      val lc = launchConfiguration(project)
+      DebugPlugin.getDefault.getLaunchManager.addLaunchListener(onLaunchTerminates(launchConfigurationName)(() ⇒ latch.countDown))
+      val lc = launchConfiguration(launchConfigurationName)(project)
       val launch = lc.launch(inMode, DefaultMonitor)
       val timeout = if (launch.canTerminate) 10 else 60
       latch.await(timeout, TimeUnit.SECONDS)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="scalaide.lagom.locator">
+<stringAttribute key="LAGOM_CASSANDRA_PORT" value="4000"/>
+<stringAttribute key="LAGOM_GATEWAY_PORT" value="9000"/>
+<stringAttribute key="LAGOM_KAFKA_PORT" value=""/>
+<stringAttribute key="LAGOM_PORT" value="8000"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/lagom-test/src/test/LagomTest.scala"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="test.LagomTest"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="lagom-test"/>
+</launchConfiguration>
