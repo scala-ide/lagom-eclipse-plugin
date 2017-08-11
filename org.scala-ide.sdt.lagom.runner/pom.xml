@@ -8,8 +8,6 @@
 		<artifactId>org.scala-ide.lagom.build</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.scala-ide.sdt.lagom.runner</artifactId>
-	<packaging>jar</packaging>
 
 	<properties>
 		<scala.version>2.11.8</scala.version>
@@ -18,6 +16,9 @@
 		<version.suffix>2_11</version.suffix>
 		<scala.plugin.version>3.2.2</scala.plugin.version>
 	</properties>
+
+	<artifactId>org.scala-ide.sdt.lagom.runner_${scala.minor.version}</artifactId>
+	<packaging>jar</packaging>
 
 	<build>
 		<plugins>
@@ -65,37 +66,37 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-scaladsl-server_2.11</artifactId>
+			<artifactId>lagom-scaladsl-server_${scala.minor.version}</artifactId>
 			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-service-locator_2.11</artifactId>
+			<artifactId>lagom-service-locator_${scala.minor.version}</artifactId>
 			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-kafka-server_2.11</artifactId>
+			<artifactId>lagom-kafka-server_${scala.minor.version}</artifactId>
 			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-scaladsl-persistence-cassandra_2.11</artifactId>
+			<artifactId>lagom-scaladsl-persistence-cassandra_${scala.minor.version}</artifactId>
 			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-persistence-cassandra_2.11</artifactId>
+			<artifactId>akka-persistence-cassandra_${scala.minor.version}</artifactId>
 			<version>0.26</version>
 		</dependency>
 		<dependency>
 			<groupId>com.typesafe.play</groupId>
-			<artifactId>play_2.11</artifactId>
+			<artifactId>play_${scala.minor.version}</artifactId>
 			<version>2.5.10</version>
 		</dependency>
 		<dependency>
 			<groupId>com.typesafe.play</groupId>
-			<artifactId>play-server_2.11</artifactId>
+			<artifactId>play-server_${scala.minor.version}</artifactId>
 			<version>2.5.10</version>
 		</dependency>
 		<dependency>
@@ -116,7 +117,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.lightbend.lagom</groupId>
-			<artifactId>lagom-cassandra-server_2.11</artifactId>
+			<artifactId>lagom-cassandra-server_${scala.minor.version}</artifactId>
 			<version>1.3.5</version>
 		</dependency>
 		<dependency>

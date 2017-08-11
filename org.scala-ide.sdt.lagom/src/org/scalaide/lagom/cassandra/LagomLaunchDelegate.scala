@@ -36,7 +36,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
     val cassandraServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-cassandra-server_$scalaVersion", lagomVersion)
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
-      addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath ++ cassandraServerClasspath)
+      addRunnerToClasspath(config.getClassPath, scalaVersion) ++ config.getBootClassPath ++ cassandraServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
     lagomConfig.setProgramArguments(config.getProgramArguments ++

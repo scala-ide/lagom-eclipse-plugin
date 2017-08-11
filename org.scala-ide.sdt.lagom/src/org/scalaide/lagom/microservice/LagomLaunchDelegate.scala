@@ -76,9 +76,10 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(
         dependenciesPath,
+        scalaVersion,
         Seq("lagom-build-tool-support-1.3.5.jar",
-          "better-files_2.11-2.17.1.jar",
-          "play-file-watch_2.11-1.0.1.jar")
+          s"better-files_$scalaVersion-2.17.1.jar",
+          s"play-file-watch_$scalaVersion-1.0.1.jar")
       ) ++ config.getBootClassPath ++ reloadableServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)

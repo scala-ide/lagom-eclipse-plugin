@@ -67,7 +67,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
-      addRunnerToClasspath(config.getClassPath) ++ config.getBootClassPath ++ kafkaServerClasspath)
+      addRunnerToClasspath(config.getClassPath, scalaVersion) ++ config.getBootClassPath ++ kafkaServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)
     lagomConfig.setEnvironment(config.getEnvironment)
     lagomConfig.setProgramArguments(config.getProgramArguments ++

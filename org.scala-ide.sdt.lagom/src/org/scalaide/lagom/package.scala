@@ -128,7 +128,7 @@ package object lagom {
   }
 
   object addRunnerToClasspath {
-    def apply(classpath: Array[String], fromRunnerLib: Seq[String] = Nil): Array[String] = {
+    def apply(classpath: Array[String], scalaVersion: String, fromRunnerLib: Seq[String] = Nil): Array[String] = {
       val lagomBundle = Platform.getBundle("org.scala-ide.sdt.lagom")
       def findPath(lib: String) = {
         val libPath = new Path(s"runner-libs/$lib")
@@ -136,7 +136,7 @@ package object lagom {
         val libFile = FileLocator.toFileURL(libBundleLocation)
         libFile.getPath
       }
-      val paths = Seq("org.scala-ide.sdt.lagom.runner-1.0.0-SNAPSHOT.jar") ++ fromRunnerLib map (findPath)
+      val paths = Seq(s"org.scala-ide.sdt.lagom.runner_$scalaVersion-1.0.0-SNAPSHOT.jar") ++ fromRunnerLib map (findPath)
       classpath ++ paths
     }
   }
