@@ -20,7 +20,7 @@ You then clone and checkout master trunk:-
 
 Finally use the following commands to build for Scala IDE nightly: 
 
-    `$ mvn clean package`
+    `$ ./build.sh`
 
 The built update site will be available in org.scala-ide.sdt.scalatest.update-site/target.
 
@@ -43,9 +43,9 @@ Prerequisites
 
     Check the getting started page http://scala-ide.org/docs/user/gettingstarted.html page for instructions on how to install Scala IDE.
 
-*   Basic knowledge of the Eclipse user interface is required (in this guide).
+*   Basic knowledge of the Eclipse user interface is required.
 
-*   Basic knowledge of the Scala language is required (in this guide).
+*   Basic knowledge of the Scala language is required.
 
 Using Lagom in a Scala project
 ------------------------------
@@ -58,6 +58,16 @@ Lagom plugin allows for the following:-
 Run/Stop infrastructure services
 --------------------------------
 
+To run the selected user's microservice, click on the Lagom `Loader` element in the editor, right click and choose:-
+
+  Run As -> Lagom Locator or
+  Run As -> Lagom Cassandra or
+  Run As -> Lagom Kafka
+
+A Run Configuration with the service name will be created automatically.
+
+To stop given service just press `Terminate` button of service console.
+
 Run/Stop user's microservice 
 ----------------------------
 
@@ -67,6 +77,6 @@ To run the selected user's microservice, click on the Lagom `Loader` element in 
 
 A Run Configuration with the service name will be created automatically.
 
-Infrastructure Services Configuration
--------------------------------------
+To stop given service just press `Terminate` button of service console.
+
 
