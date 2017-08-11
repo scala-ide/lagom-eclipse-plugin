@@ -148,25 +148,33 @@ package object lagom {
     type ScalaVersion = String
     type LagomVersion = String
     val DefaultVersions = ("2.11", "1.3.5")
-    def findLagomVersion(prj: IProject): (ScalaVersion, LagomVersion) =
-      Option { if (prj.hasNature(JavaCore.NATURE_ID)) prj else null }.flatMap { prj =>
+
+    def projectLibs(prj: IProject): Seq[String] =
+      Option { if (prj.hasNature(JavaCore.NATURE_ID)) prj else null }.map { prj =>
         val javaPrj = JavaCore.create(prj)
         import scala.collection.JavaConverters._
         javaPrj.getResolvedClasspath(true).collect {
           case entry if entry.getEntryKind == IClasspathEntry.CPE_LIBRARY =>
             entry.getPath.segments().last
-        }.collectFirst {
-          case lagomLib if isLagomLib(lagomLib) =>
-            val versions = """(_(\d\.\d\d))?-(\d\.\d+\.\d+)\.jar""".r("ignore", "scalaVersion", "lagomVersion")
-            versions.findAllMatchIn(lagomLib).toList.lastOption.map { m =>
-              (m.group("scalaVersion"), m.group("lagomVersion"))
-            }.collect {
-              case (s, l) =>
-                (Option(s).filter(_.nonEmpty).getOrElse(DefaultVersions._1),
-                  Option(l).filter(_.nonEmpty).getOrElse(DefaultVersions._2))
-            }
-        }.flatten
-      }.getOrElse(DefaultVersions)
+        }.toSeq
+      }.toSeq.flatten
+
+    val findScalaLagomVersion: PartialFunction[String, Option[(ScalaVersion, LagomVersion)]] = {
+      case lagomLib if isLagomLib(lagomLib) =>
+        val versions = """(_(\d\.\d\d))?-(\d\.\d+\.\d+)\.jar""".r("ignore", "scalaVersion", "lagomVersion")
+        versions.findAllMatchIn(lagomLib).toList.lastOption.map { m =>
+          (m.group("scalaVersion"), m.group("lagomVersion"))
+        }.collect {
+          case (s, l) =>
+            (Option(s).filter(_.nonEmpty).getOrElse(DefaultVersions._1),
+              Option(l).filter(_.nonEmpty).getOrElse(DefaultVersions._2))
+        }
+    }
+
+    def findLagomVersion(prj: IProject): (ScalaVersion, LagomVersion) =
+      (projectLibs _).andThen { libs =>
+        libs.collectFirst(findScalaLagomVersion).flatten.getOrElse(DefaultVersions)
+      }(prj)
 
     private def isLagomLib(potential: String) = potential.toLowerCase().contains("lagom")
   }
