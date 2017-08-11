@@ -2,14 +2,13 @@ package org.scalaide.lagom.launching
 
 import org.eclipse.debug.core.ILaunchManager
 import org.junit.After
-import org.junit.Before
+import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 import org.scalaide.core.testsetup.IProjectHelpers
 import org.scalaide.core.testsetup.TestProjectSetup
 
 import LaunchLagomComponentsTest.project
-import org.junit.BeforeClass
-import org.junit.Ignore
 
 object LaunchLagomComponentsTest extends TestProjectSetup("lagom-test", bundleName = "org.scala-ide.sdt.lagom.tests")
     with LaunchUtils with IProjectHelpers {
