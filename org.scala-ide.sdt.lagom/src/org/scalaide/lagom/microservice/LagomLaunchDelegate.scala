@@ -72,7 +72,9 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val (servicePath, dependenciesPath) = config.getClassPath.partition(_.startsWith(asProject(projectName).getLocationURI.getPath))
     import org.scalaide.lagom._
     val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
-    val reloadableServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-reloadable-server_$scalaVersion", lagomVersion)
+    val reloadableServerClasspath = eclipseTools.monitorLaunching(monitor, "Fetching Maven dependencies for Lagom Server. It can take a while...") {
+      mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-reloadable-server_$scalaVersion", lagomVersion)
+    }
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(
         dependenciesPath,

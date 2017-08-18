@@ -36,7 +36,9 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     val projectName = launchConfig.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, "")
     import org.scalaide.lagom._
     val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
-    val locatorServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-service-locator_$scalaVersion", lagomVersion)
+    val locatorServerClasspath = eclipseTools.monitorLaunching(monitor, "Fetching Maven dependencies for Service Locator. It can take a while...") { 
+      mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-service-locator_$scalaVersion", lagomVersion)
+    }
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,
       addRunnerToClasspath(config.getClassPath, scalaVersion) ++ config.getBootClassPath ++ locatorServerClasspath)
     lagomConfig.setBootClassPath(config.getBootClassPath)

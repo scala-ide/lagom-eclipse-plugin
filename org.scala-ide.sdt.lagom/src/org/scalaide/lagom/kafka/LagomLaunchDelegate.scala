@@ -63,7 +63,9 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     import org.scalaide.lagom._
     val / = File.separator
     val (scalaVersion, lagomVersion) = eclipseTools.findLagomVersion(eclipseTools.asProject(projectName))
-    val kafkaServerClasspath = mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-kafka-server_$scalaVersion", lagomVersion)
+    val kafkaServerClasspath = eclipseTools.monitorLaunching(monitor, "Fetching Maven dependencies for Kafka Server. It can take a while...") {
+      mavenDeps(mavenDeps.defaultLocalRepoLocation(projectName))("com.lightbend.lagom", s"lagom-kafka-server_$scalaVersion", lagomVersion)
+    }
     val target = new File(targetDir(projectName) + / + "lagom-dynamic-projects" + / +
       "lagom-internal-meta-project-kafka" + / + "target").toURI.toURL.getPath
     val lagomConfig = new VMRunnerConfiguration(config.getClassToLaunch,

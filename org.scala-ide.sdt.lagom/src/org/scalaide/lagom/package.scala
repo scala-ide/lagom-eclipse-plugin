@@ -25,8 +25,10 @@ import org.eclipse.aether.util.filter.DependencyFilterUtils
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.FileLocator
+import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
+import org.eclipse.core.runtime.SubMonitor
 import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.IJavaProject
 import org.eclipse.jdt.core.JavaCore
@@ -177,5 +179,13 @@ package object lagom {
       }(prj)
 
     private def isLagomLib(potential: String) = potential.toLowerCase().contains("lagom")
+
+    def monitorLaunching[T](monitor: IProgressMonitor, taskName: String)(body: => T): T = {
+      val subMonitor = SubMonitor.convert(monitor)
+      try {
+        subMonitor.subTask(taskName)
+        body
+      } finally subMonitor.done()
+    }
   }
 }
