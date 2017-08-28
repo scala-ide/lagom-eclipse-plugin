@@ -12,7 +12,7 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<properties>
-		<scala.version>2.12.2</scala.version>
+		<scala.version>2.12.3</scala.version>
 	</properties>
 
 	<dependencies>

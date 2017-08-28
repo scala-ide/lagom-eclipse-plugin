@@ -10,7 +10,7 @@
 	<packaging>eclipse-test-plugin</packaging>
 
 	<properties>
-		<scala.version>2.12.2</scala.version>
+		<scala.version>2.12.3</scala.version>
 		<scala.short.version>212</scala.short.version>
 		<scala.minor.version>2.12</scala.minor.version>
 		<version.suffix>2_12</version.suffix>
