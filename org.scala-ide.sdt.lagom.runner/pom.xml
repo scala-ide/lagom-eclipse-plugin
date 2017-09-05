@@ -10,7 +10,7 @@
 	</parent>
 
 	<properties>
-		<scala.version>2.11.8</scala.version>
+		<scala.version>2.11.11</scala.version>
 		<scala.short.version>211</scala.short.version>
 		<scala.minor.version>2.11</scala.minor.version>
 		<version.suffix>2_11</version.suffix>
