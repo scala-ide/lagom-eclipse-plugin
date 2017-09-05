@@ -58,6 +58,7 @@
 						<arg>-Ywarn-unused-import</arg>
 						<arg>-Ywarn-unused</arg>
 					</args>
+					<scalaVersion>${scala.version}</scalaVersion>
 				</configuration>
 			</plugin>
 		</plugins>
