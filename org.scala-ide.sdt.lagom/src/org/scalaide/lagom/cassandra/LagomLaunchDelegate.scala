@@ -50,7 +50,7 @@ class LagomVMDebuggingRunner(vm: IVMInstall) extends StandardVMScalaDebugger(vm)
     lagomConfig.setVMArguments(config.getVMArguments ++ cassandraJVMOptions)
     lagomConfig.setVMSpecificAttributesMap(config.getVMSpecificAttributesMap)
     lagomConfig.setWorkingDirectory(config.getWorkingDirectory)
-    logger.error("########### Real classpath ${lagomConfig.getClassPath.toList.mkString(";")}")
+    logger.error(s"########### Real classpath ${lagomConfig.getClassPath.toList.mkString(";")}")
     super.run(lagomConfig, launch, monitor)
   }
 }
