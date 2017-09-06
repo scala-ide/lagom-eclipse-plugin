@@ -8,18 +8,18 @@ import com.lightbend.lagom.internal.cassandra.CassandraLauncher
 
 import play.Logger
 
-object LagomLauncher extends App {
+object LagomLauncher {
   /**
    * Program attributes.
    * Keep in sync with [[org.scalaide.lagom.cassandra.LagomCassandraConfiguration]]
    */
   val LagomPortProgArgName = "port"
   val LagomTimeoutProgArgName = "timeout"
-
+def main(args: Array[String]): Unit = {
   val port = args.find(_.startsWith(LagomPortProgArgName)).map(_.drop(LagomPortProgArgName.length)).get.toInt
   val timeout = args.find(_.startsWith(LagomTimeoutProgArgName)).map(_.drop(LagomTimeoutProgArgName.length)).get.toInt
 
-  private def waitForRunningCassandra(maxWaiting: FiniteDuration): Unit = {
+  /*private*/ def waitForRunningCassandra(maxWaiting: FiniteDuration): Unit = {
     import scala.collection.JavaConverters._
     val hostname = "127.0.0.1"
     val contactPoint = Seq(new java.net.InetSocketAddress(hostname, port)).asJava
@@ -62,4 +62,4 @@ object LagomLauncher extends App {
   }.start()
   args.foreach(Logger.debug)
   CassandraLauncher.main(Array(port.toString))
-}
+}}
