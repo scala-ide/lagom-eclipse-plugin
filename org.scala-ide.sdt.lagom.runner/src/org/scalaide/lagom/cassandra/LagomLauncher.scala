@@ -15,7 +15,6 @@ object LagomLauncher extends App {
    */
   val LagomPortProgArgName = "port"
   val LagomTimeoutProgArgName = "timeout"
-
   val port = args.find(_.startsWith(LagomPortProgArgName)).map(_.drop(LagomPortProgArgName.length)).get.toInt
   val timeout = args.find(_.startsWith(LagomTimeoutProgArgName)).map(_.drop(LagomTimeoutProgArgName.length)).get.toInt
 
